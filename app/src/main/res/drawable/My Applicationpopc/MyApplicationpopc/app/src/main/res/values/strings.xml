@@ -1,0 +1,271 @@
+<resources>
+
+    <!-- Content descriptions for accessibility -->
+    <string name="app_logo_desc">App logo showing doctor</string>
+    <string name="login_button_desc">Login button</string>
+    <string name="signin_button_desc">Sign in button</string>
+
+    <!-- App name -->
+    <string name="app_name">POPC App</string>
+
+    <!-- Titles -->
+    <string name="title_popc">POPC</string>
+    <string name="description_popc">Post Operative\nPulmonary\nComplications</string>
+
+    <!-- Buttons -->
+    <string name="start_button">Start</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="add_patient">Add patient</string>
+    <string name="next">Next</string>
+
+    <!-- Second activity (Login) -->
+    <string name="welcome_message">Welcome to POPC App!</string>
+    <string name="click_here_to">Click here to</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="show_password">Show password</string>
+
+    <!-- Third activity (Register form) -->
+
+    <string name="enter_id">Enter Id</string>
+    <string name="name">Name :</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="phone">Phn.no :</string>
+    <string name="enter_phone">Enter Phn.no</string>
+    <string name="email">E-mail :</string>
+    <string name="enter_email">Enter E-mail</string>
+    <string name="age">Age</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="gender">Gender :</string>
+    <string name="specialization">Specialization :</string>
+    <string name="enter_specialization">Enter Specialization</string>
+    <string name="user_name">User name</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="please_fill_all">Please fill all fields</string>
+    <string name="data_saved">Data Saved Successfully</string>
+
+    <!-- Home screen -->
+    <string name="home">Home</string>
+    <string name="menu">Menu</string>
+    <string name="list_of_patient">List of Patient</string>
+    <string name="id">Id :</string>
+
+    <!-- Profile screen -->
+    <string name="profile">Profile</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="label_id">Id : %1$s</string>
+    <string name="label_name">Name : %1$s</string>
+    <string name="label_phone">Phn.no : %1$s</string>
+    <string name="label_email">E-mail : %1$s</string>
+    <string name="label_specialization">Specialization : %1$s</string>
+    <string name="label_gender">Gender : %1$s</string>
+    <string name="label_age">Age: %1$s</string>
+
+    <!-- Toolbar menu -->
+    <string name="logout">Logout</string>
+
+    <!-- Search -->
+    <string name="search_by_id_name">Search by Id or Name</string>
+
+    <!-- Common -->
+    <string name="change_photo">Change Photo</string>
+    <string name="photo_changed">Photo Changed</string>
+
+    <!-- Add patient -->
+    <string name="add_patient_photo">Add patient Photo</string>
+    <string name="patient_id">Patient Id :</string>
+    <string name="weight">Weight :</string>
+    <string name="height">Height :</string>
+
+    <!-- Survey Screen -->
+    <string name="welcome_survey">Welcome to Survey</string>
+    <string name="patient_demographics">Patient Demographics</string>
+    <string name="select_age">Select Age ?</string>
+    <string name="age_5">&lt;=5</string>
+    <string name="age_51_80">51–80</string>
+    <string name="age_80">&gt;80</string>
+    <string name="sex">Sex:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="bmi">BMI :</string>
+    <string name="bmi_low">&lt;30</string>
+    <string name="bmi_high">≥30</string>
+    <string name="smoking_status">Smoking status :</string>
+    <string name="never">Never</string>
+    <string name="current_smoker">Current smoker</string>
+    <string name="ex_smoker">Ex-smoker</string>
+    <string name="alcohol_consumption">Alcohol consumption:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
+    <!-- medical history -->
+    <string name="medical_history">Medical History</string>
+    <string name="copd">Chronic Obstructive Pulmonary Disease (COPD):</string>
+    <string name="asthma">Asthma:</string>
+    <string name="sleep_apnea">Obstructive Sleep Apnea:</string>
+    <string name="interstitial_lung">Interstitial Lung Disease:</string>
+    <string name="heart_failure">Heart Failure:</string>
+    <string name="cad">Coronary artery disease / recent MI:</string>
+    <string name="hypertension">Hypertension:</string>
+    <string name="diabetes"> Durai Diabetes Mellitus :</string>
+    <string name="ckd">Chronic Kidney Disease:</string>
+
+    <style name="ConditionLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+    <style name="YesNoGroup">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+
+    <!-- Preoperative Functional Status  -->
+
+        <string name="preoperative_title">Preoperative Functional Status</string>
+
+        <string name="asa_status">ASA Physical Status:</string>
+        <string name="asa_i">I</string>
+        <string name="asa_ii">II</string>
+        <string name="asa_iii">III</string>
+        <string name="asa_iv">IV</string>
+        <string name="asa_v">V</string>
+        <string name="exercise_tolerance">Exercise tolerance (METs):</string>
+        <string name="less_than_4">&lt;4</string>
+        <string name="greater_equal_4">≥4</string>
+        <string name="dyspnea_rest">Dyspnea at rest:</string>
+        <string name="respiratory_infection">Recent respiratory infection (&lt;1 month):</string>
+        <string name="spo2">SpO₂ on room air :</string>
+        <string name="spo2_low">≤90%</string>
+        <string name="spo2_mid">91–95%</string>
+        <string name="spo2_high">≥96%</string>
+
+    <!-- Surgery-Related Factors -->
+    <string name="surgery_related_factors">Surgery-Related Factors</string>
+    <string name="type_of_surgery">Type of surgery:</string>
+    <string name="thoracic">Thoracic</string>
+    <string name="upper_abdominal">Upper abdominal</string>
+    <string name="lower_abdominal">Lower abdominal</string>
+    <string name="neurosurgery">Neurosurgery</string>
+    <string name="orthopedic">Orthopedic</string>
+    <string name="ent_head_neck">Ent / Head &amp; neck</string>
+    <string name="vascular_cardiac">Vascular / Cardiac</string>
+    <string name="others">Others:</string>
+
+    <string name="urgency">Urgency:</string>
+    <string name="elective">Elective</string>
+    <string name="emergency">Emergency</string>
+
+    <string name="surgical_duration">Surgical duration (expected):</string>
+    <string name="lt2h">&lt;2h</string>
+    <string name="btw2_4h">2–4h</string>
+    <string name="gt4h">&gt;4h</string>
+
+    <string name="estimated_blood_loss">Estimated blood loss (expected):</string>
+    <string name="lt500ml">&lt;500 ml</string>
+    <string name="btw500_1000ml">500–1000 ml</string>
+    <string name="gt1000ml">&gt;1000 ml</string>
+
+    <!-- Planned anesthesia:-->
+
+        <string name="planned_anesthesia">Planned anesthesia</string>
+        <string name="ariscat_score">ARISCAT Score:</string>
+        <string name="ga_ett">General anesthesia with ETT</string>
+        <string name="ga_lma">General anesthesia with LMA</string>
+        <string name="regional_anesthesia">Regional anesthesia (Spinal / Epidural / Nerve block)</string>
+        <string name="combined_anesthesia">Combined (GA + Regional)</string>
+
+        <string name="ppc_score">PPC Score:</string>
+        <string name="intraop_ventilation">Intraoperative ventilation strategy (if GA planned):</string>
+        <string name="high_tidal">High tidal volume (&gt;8 ml/kg IBW)</string>
+        <string name="low_tidal">Low tidal volume (&lt;8 ml/kg IBW)</string>
+        <string name="peep_used">PEEP used</string>
+        <string name="not_used">Not used</string>
+
+        <string name="muscle_relaxants">Use of muscle relaxants:</string>
+        <string name="if_yes">If yes:</string>
+        <string name="reversal_neostigmine">Reversal with Neostigmine</string>
+        <string name="reversal_sugammadex">Reversal with Sugammadex</string>
+        <string name="no_reversal">No reversal</string>
+
+        <string name="planned_analgesia">Planned analgesia:</string>
+        <string name="iv_opioids">IV opioids</string>
+        <string name="epidural">Epidural analgesia</string>
+        <string name="nerve_blocks">Nerve blocks</string>
+        <string name="multimodal">Multimodal non-opioid</string>
+
+
+    <!--Postoperative Considerations:-->
+
+        <string name="postoperative_considerations">Postoperative Considerations</string>
+        <string name="planned_icu">Planned postoperative ICU / HDU admission :</string>
+        <string name="analgesia_plan">Post-op analgesia plan :</string>
+        <string name="opioid_heavy">Opioid heavy</string>
+
+        <string name="regional">Regional</string>
+        <string name="ventilation_need">Anticipated need for mechanical Ventilation &gt; 24h :</string>
+        <string name="early_mobilization">Planned early mobilization within 24h :</string>
+
+    <!--HomeAdmin:-->
+
+        <string name="search_doctors">Search Doctors</string>
+        <string name="add_doctors">Add Doctors</string>
+
+    <!--list of doctors:-->
+
+         <string name="doctor_phone">Doctor image</string>
+        <string name="doctor_image">Doctor image</string>
+        <string name="doctor_name">Name : %1$s</string>
+        <string name="doctor_gender">Gender : %1$s</string>
+        <string name="doctor_speciality">Speciality : %1$s</string>
+
+    <!--patient2:-->
+    <string name="id_label">ID :</string>
+    <string name="name_label">Name :</string>
+    <string name="gender_label">Gender :</string>
+    <string name="speciality_label">Speciality :</string>
+
+    <!--edit doctor:-->
+
+    <string name="label_speciality">Speciality :</string>
+    <string name="speciality">Enter Speciality</string>
+    <string name="label_username">Username :</string>
+    <string name="label_password">Password :</string>
+    <string name="doctor_id_placeholder">Doctor Id: ---</string>
+    <string name="doctor_id">Doctor Id: %s</string>
+
+
+    <!-- ScoreActivity -->
+    <string name="total_score">Total Score</string>
+    <string name="demographic_score">Demographic Score</string>
+    <string name="medical_score">Medical Score</string>
+    <string name="preop_score">Pre-op Score</string>
+    <string name="surgery_score">Surgery Score</string>
+    <string name="anesthetic_score">Anesthetic Score</string>
+    <string name="postop_score">Post-op Score</string>
+    <string name="management_advice">Management Advice</string>
+    <string name="done">Done</string>
+
+
+
+    <!-- edit doctor -->
+
+
+    <string name="hint_doctor_id">Enter Doctor Id</string>
+    <string name="hint_name">Enter Name</string>
+    <string name="hint_phone">Enter Phone No</string>
+    <string name="hint_speciality">Enter Speciality</string>
+    <string name="hint_gender">Enter Gender</string>
+</resources>

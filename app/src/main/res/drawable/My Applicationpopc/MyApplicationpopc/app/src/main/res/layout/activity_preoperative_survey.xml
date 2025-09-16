@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_medical_history"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Back & Title Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="24dp">
+
+            <ImageButton
+                android:id="@+id/ivBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/circle_dark_bg"
+                android:contentDescription="@string/back"
+                android:padding="16dp"
+                android:src="@drawable/ic_arrow_back"
+                />
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="24dp">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
+            android:text="@string/preoperative_title"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:gravity="center" />
+    </LinearLayout>
+
+        <!-- ASA -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asa_status"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/rgASA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/rbASA1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/asa_i"/>
+            <RadioButton android:id="@+id/rbASA2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/asa_ii"/>
+            <RadioButton android:id="@+id/rbASA3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/asa_iii"/>
+            <RadioButton android:id="@+id/rbASA4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/asa_iv"/>
+            <RadioButton android:id="@+id/rbASA5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/asa_v"/>
+        </RadioGroup>
+
+        <!-- Exercise -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exercise_tolerance"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/rgExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/rbMetLow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/less_than_4"/>
+            <RadioButton android:id="@+id/rbMetHigh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/greater_equal_4"/>
+        </RadioGroup>
+
+        <!-- Dyspnea -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dyspnea_rest"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/rgDyspnea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/rbDyspneaYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
+            <RadioButton android:id="@+id/rbDyspneaNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no"/>
+        </RadioGroup>
+
+        <!-- Respiratory -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/respiratory_infection"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/rgRespiratory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/rbRespYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
+            <RadioButton android:id="@+id/rbRespNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no"/>
+        </RadioGroup>
+
+        <!-- SpO₂ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spo2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/rgSpo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/rbSpo2Low" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/spo2_low"/>
+            <RadioButton android:id="@+id/rbSpo2Mid" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/spo2_mid"/>
+            <RadioButton android:id="@+id/rbSpo2High" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/spo2_high"/>
+        </RadioGroup>
+
+        <!-- Next Button -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/next"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+</ScrollView>

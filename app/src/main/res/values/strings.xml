@@ -1,0 +1,81 @@
+<resources>
+    <!-- main activity -->
+        <!-- App name -->
+        <string name="app_name">POPC App</string>
+
+        <!-- Content descriptions -->
+        <string name="app_logo_desc">Doctor logo</string>
+        <string name="login_button_desc">Tap to login</string>
+        <string name="signin_button_desc">Tap to register</string>
+
+        <!-- Titles -->
+        <string name="title_popc">POPC</string>
+        <string name="description_popc">Post Pulmonary Complications Survey</string>
+
+        <!-- Buttons -->
+        <string name="login">Login</string>
+
+
+
+    <!-- register Doctor Section -->
+
+        <!-- Toolbar -->
+        <string name="back">Back</string>
+        <string name="register">Register</string>
+        <!-- Labels -->
+        <string name="Doctor_id">Doctor ID</string>
+        <string name="doctor_id"> ID </string>
+
+        <string name="Doctor_name">Name</string>
+         <string name="doctor_name">Name</string>
+
+        <string name="Doctor_phone">Phone</string>
+        <string name="doctor_phone">Phone</string>
+
+        <string name="Doctor_email">Email</string>
+        <string name="doctor_email"> Email </string>
+
+       <string name="Doctor_age">Age</string>
+       <string name="doctor_age">Age</string>
+
+        <string name="Doctor_gender">Gender</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+        <string name="Doctor_specialization">Specialization</string>
+         <string name="doctor_specialization">Specialization</string>
+
+        <string name="Doctor_username">Username</string>
+         <string name="doctor_username">Username</string>
+
+        <string name="Doctor_password">Password</string>
+        <string name="doctor_password">Password</string>
+
+       <string name="Doctor_confirm_password">confirm Password</string>
+       <string name="doctor_confirm_password">confirm Password</string>
+        <string name="colon"> : </string>
+
+        <!-- Hints -->
+        <string name="enter_name">Enter name</string>
+        <string name="enter_phone">Enter phone</string>
+        <string name="enter_email">Enter email</string>
+        <string name="enter_age">Enter age</string>
+        <string name="enter_specialization">Enter specialization</string>
+        <string name="enter_username">Enter username</string>
+        <string name="enter_password">Enter password</string>
+        <!-- Buttons -->
+        <string name="save">Save</string>
+        <string name="show_password">Show Password</string>
+
+
+    <!-- login activity -->
+
+        <!-- Add missing strings -->
+        <string name="username">Username</string>
+        <string name="password">Password</string>
+
+
+</resources>
