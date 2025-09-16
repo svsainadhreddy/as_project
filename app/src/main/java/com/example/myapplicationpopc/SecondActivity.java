@@ -3,6 +3,7 @@ package com.example.myapplicationpopc;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +40,20 @@ public class SecondActivity extends AppCompatActivity {
 
             loginButton.setOnClickListener(v -> loginDoctor());
             registerButton.setOnClickListener(v -> startActivity(new Intent(SecondActivity.this, RegisterActivity.class)));
+            ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
+
+            ivTogglePassword.setOnClickListener(v -> {
+                if (etPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                    // Show password
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    ivTogglePassword.setImageResource(R.drawable.ic_eye_open);
+                } else {
+                    // Hide password
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
+                }
+                etPassword.setSelection(etPassword.getText().length()); // move cursor to end
+            });
         }
 
         private void loginDoctor() {

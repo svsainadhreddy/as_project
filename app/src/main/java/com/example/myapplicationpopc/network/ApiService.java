@@ -30,7 +30,6 @@ public interface ApiService {
     @PUT("accounts/profile/update/")
     Call<DoctorResponse> updateDoctorProfile(
             @Header("Authorization") String token,
-            @Part("doctorId") RequestBody doctor_id,
             @Part("name") RequestBody name,
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
@@ -39,5 +38,6 @@ public interface ApiService {
             @Part("specialization") RequestBody specialization,
             @Part MultipartBody.Part profile_image
     );
+
 
 }

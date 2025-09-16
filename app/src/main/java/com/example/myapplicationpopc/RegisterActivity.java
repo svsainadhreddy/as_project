@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGender.setAdapter(genderAdapter);
         ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
+        ImageView ivTogglePassword2 = findViewById(R.id.ivTogglePasswords);
 
         ivTogglePassword.setOnClickListener(v -> {
             if (etPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
@@ -63,6 +64,18 @@ public class RegisterActivity extends AppCompatActivity {
                 ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
             }
             etPassword.setSelection(etPassword.getText().length()); // move cursor to end
+        });
+        ivTogglePassword2.setOnClickListener(v -> {
+            if (etConfirmPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                // Show password
+                etConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                ivTogglePassword2.setImageResource(R.drawable.ic_eye_open);
+            } else {
+                // Hide password
+                etConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ivTogglePassword2.setImageResource(R.drawable.ic_eye_closed);
+            }
+            etConfirmPassword.setSelection(etConfirmPassword.getText().length()); // move cursor to end
         });
 
     }
