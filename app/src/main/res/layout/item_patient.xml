@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#D9D9D9"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="4dp">
+
+    <!-- Patient Image -->
+    <ImageView
+        android:id="@+id/imgPatient"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/ic_img"
+        android:background="#FFFFFF"
+        android:scaleType="centerCrop" />
+
+    <!-- Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="12dp"
+        android:paddingStart="12dp">
+
+        <!-- ID Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginStart="4dp"/>
+
+            <EditText
+                android:id="@+id/etId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="123"
+                android:background="@android:color/transparent"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!-- Name Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginStart="4dp"/>
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="John"
+                android:background="@android:color/transparent"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Arrow -->
+    <ImageView
+        android:id="@+id/btnNext"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:src="@drawable/img_right_arrow"
+        android:contentDescription="Next" />
+
+</LinearLayout>
