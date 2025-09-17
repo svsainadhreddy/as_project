@@ -1,16 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#CB000000">
 
     <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="64dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:layout_marginTop="8dp"> <!-- moved little below -->
 
         <!-- Back -->
         <ImageView
@@ -24,15 +25,19 @@
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="44dp"
             android:layout_weight="1"
             android:hint="search"
             android:background="@drawable/rounded_card"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:drawableStart="@drawable/ic_search"
-            android:padding="0dp"
+            android:drawablePadding="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:textColor="#000"
-            android:textColorHint="#555" />
+            android:textColorHint="#555"
+            android:gravity="center_vertical" />
 
         <!-- Profile -->
         <ImageView
@@ -42,6 +47,7 @@
             android:src="@drawable/ic_user"
             android:contentDescription="Profile" />
     </LinearLayout>
+
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView

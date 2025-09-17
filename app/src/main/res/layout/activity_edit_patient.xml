@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A600897B">
+    android:background="#00FF8282">
 
     <!-- Back Button -->
 
@@ -32,13 +32,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical"
             android:layout_marginStart="24dp"
-            android:fadingEdgeLength="10dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:outlineSpotShadowColor="@color/black"
-            android:background="@android:drawable/bottom_bar"
+            android:background="@android:drawable/dialog_holo_light_frame"
             android:padding="20dp"
             android:elevation="6dp">
 
@@ -323,64 +322,17 @@
                     android:padding="10dp"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="214dp"
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <!-- Save Button -->
-                <Button
-                    android:id="@+id/btnSave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="17dp"
-                    android:background="@drawable/rounded_button"
-                    android:padding="10dp"
-                    android:text="Save" />
-
-                <!-- Row with Text + Next Button -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <!-- Empty space to align with Save button -->
-
-                    <TextView
-                        android:id="@+id/tvAssessment"
-                        android:layout_width="95dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="0dp"
-                        android:text="Assessment Page -----> "
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <!-- Text -->
-
-                    <!-- Next Button -->
-                    <Button
-                        android:id="@+id/btnNext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_button"
-                        android:padding="10dp"
-                        android:text="Next" />
-                </LinearLayout>
-
-            </LinearLayout>
+                android:background="@drawable/rounded_button"
+                android:padding="10dp"
+                android:text="Save" />
 
 
-            \
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
