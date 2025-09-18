@@ -9,6 +9,7 @@ public class SharedPrefManager {
         private static final String KEY_DOCTOR_ID = "key_doctor_id";
         private static final String KEY_USERNAME = "key_username";
 
+
         private static SharedPrefManager mInstance;
         private static Context mCtx;
 

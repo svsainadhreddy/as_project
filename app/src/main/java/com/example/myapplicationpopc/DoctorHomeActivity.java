@@ -39,12 +39,19 @@ public class DoctorHomeActivity extends AppCompatActivity {
             token = "Token " + SharedPrefManager.getInstance(this).getToken();
             apiService = ApiClient.getClient().create(ApiService.class);
             ImageView btn1 = findViewById(R.id.imgDoctor);
+            Button btnPatientManagement = findViewById(R.id.btnPatientManagement);
 
             // Use lambda for click listeners
             btn1.setOnClickListener(view -> {
                 Intent intent = new Intent(DoctorHomeActivity.this, ProfileActivity.class);
                 startActivity(intent);
             });
+
+            btnPatientManagement.setOnClickListener(view -> {
+                Intent intent = new Intent(DoctorHomeActivity.this, EditPatientListActivity.class);
+                startActivity(intent);
+            });
+
             loadDoctorProfile();
 
         }

@@ -5,8 +5,8 @@
     android:orientation="horizontal"
     android:background="#FFFFFF"
     android:padding="12dp"
-    android:layout_marginBottom="12dp"
-    android:elevation="4dp">
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
 
     <!-- Patient Image -->
     <ImageView
@@ -14,19 +14,19 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:src="@drawable/ic_img"
-        android:background="#FFFFFF"
+        android:background="@drawable/circle_bg"
         android:scaleType="centerCrop" />
 
-    <!-- Details -->
+    <!-- Details Section -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginTop="12dp"
-        android:paddingStart="12dp">
+        android:paddingStart="12dp"
+        android:gravity="center_vertical">
 
-        <!-- ID Row -->
+        <!-- Patient ID -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,30 +37,28 @@
                 android:layout_height="wrap_content"
                 android:text="Id"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="#000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:layout_marginStart="4dp"/>
 
-            <EditText
-                android:id="@+id/etId"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="123"
-                android:background="@android:color/transparent"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:text="123"
+                android:textColor="#444"
+                android:textSize="16sp"/>
         </LinearLayout>
 
-        <!-- Name Row -->
+        <!-- Patient Name -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,27 +70,25 @@
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="#000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:layout_marginStart="4dp"/>
 
-            <EditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="John"
-                android:background="@android:color/transparent"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:text="John"
+                android:textColor="#444"
+                android:textSize="16sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -100,9 +96,10 @@
     <!-- Arrow -->
     <ImageView
         android:id="@+id/btnNext"
-        android:layout_width="50dp"
-        android:layout_height="70dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/img_right_arrow"
-        android:contentDescription="Next" />
+        android:contentDescription="Next"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>
