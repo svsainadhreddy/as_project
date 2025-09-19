@@ -12,7 +12,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         // Local button variables
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnregister = findViewById(R.id.btnSignin);

@@ -45,6 +45,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.tvId.setText(patient.getPatientId());
         holder.tvName.setText(patient.getName());
 
+
         if (patient.getPhotoUrl() != null && !patient.getPhotoUrl().isEmpty()) {
             Glide.with(context)
                     .load(patient.getPhotoUrl())
@@ -57,6 +58,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.btnNext.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(patient);
         });
+
     }
 
     @Override

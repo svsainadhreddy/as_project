@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai2">
+    android:background="@drawable/sai0">
 
     <!-- Back + POPC Title Row -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -183,7 +183,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_button"
+        android:background="@android:drawable/title_bar"
         android:text="@string/register"
         android:textColor="@android:color/black"
         android:textStyle="bold"

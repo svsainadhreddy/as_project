@@ -29,7 +29,7 @@ public class EditPatientListActivity extends AppCompatActivity {
 
     RecyclerView recyclerPatients;
     EditText etSearch;
-    ImageView btnBack, btnProfile;
+    ImageView btnBack, btnProfile,btn1, btn2;;
 
     PatientAdapter adapter;
     List<PatientResponse> patientList = new ArrayList<>();
@@ -37,10 +37,16 @@ public class EditPatientListActivity extends AppCompatActivity {
     ApiService apiService;
     String token;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient_list);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         recyclerPatients = findViewById(R.id.recyclerPatients);
         etSearch = findViewById(R.id.etSearch);
@@ -75,6 +81,21 @@ public class EditPatientListActivity extends AppCompatActivity {
         });
 
         loadPatients();
+
+
+        // ✅ open PatientManagementActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, PatientManagementActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
+        // ✅ back to ProfileActivity
+        btn2.setOnClickListener(v -> {
+            Intent i = new Intent(this, ProfileActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
     }
 
     private void loadPatients() {

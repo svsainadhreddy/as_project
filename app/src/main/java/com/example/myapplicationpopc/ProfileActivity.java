@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     EditText etName, etPhone, etEmail, etSpecialization, etAge, etDoctor_gender;
     TextView etDoctorId;
-    ImageView ivProfile;
+    ImageView ivProfile,btn1;
     Button btnUpdate;
 
     ApiService apiService;
@@ -54,6 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        //HideToolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
@@ -64,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
         etDoctor_gender = findViewById(R.id.etDoctor_gender);
         ivProfile = findViewById(R.id.ivProfile);
         btnUpdate = findViewById(R.id.btnUpdate);
+        btn1 = findViewById(R.id.btnBack);
+
 
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -83,6 +89,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         ivProfile.setOnClickListener(v -> showImagePickerDialog());
         btnUpdate.setOnClickListener(v -> updateProfile());
+        // back to DoctorHomeActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, DoctorHomeActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
     }
 
     // Let user choose Gallery

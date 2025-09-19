@@ -16,8 +16,8 @@
         <!-- Back -->
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="90dp"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="Back" />
 
@@ -27,11 +27,10 @@
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:hint="search"
+            android:hint="search name or Id"
             android:background="@drawable/rounded_card"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"

@@ -317,6 +317,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textColorHint="@color/black"
+                    android:textStyle="bold"
                     android:hint=" Body Mass Index"
                     android:background="@drawable/rounded_card"
                     android:padding="10dp"/>
@@ -330,6 +331,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_button"
                 android:padding="10dp"
+                android:textStyle="bold"
                 android:text="Save" />
 
 

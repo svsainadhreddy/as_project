@@ -33,7 +33,7 @@ public class AddPatientActivity extends AppCompatActivity {
 
     EditText etPatientId, etName, etAge, etPhone, etWeight, etGender, etHeight;
     TextView etBMI;
-    ImageView imgPatient;
+    ImageView imgPatient,btn1;
     Button btnSave, btnNext;
     Uri selectedImage;
     ActivityResultLauncher<Intent> galleryLauncher;
@@ -44,6 +44,10 @@ public class AddPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         // Initialize views
         etPatientId = findViewById(R.id.etPatientId);
@@ -57,6 +61,9 @@ public class AddPatientActivity extends AppCompatActivity {
         imgPatient = findViewById(R.id.imgPatient);
         btnSave = findViewById(R.id.btnSave);
         btnNext = findViewById(R.id.btnNext);
+        // button
+        btn1 = findViewById(R.id.btnBack);
+
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
@@ -80,6 +87,14 @@ public class AddPatientActivity extends AppCompatActivity {
         btnNext.setOnClickListener(v ->
                 Toast.makeText(this, "Next clicked (implement assessment flow)", Toast.LENGTH_SHORT).show()
         );
+
+        // back to PatientManagementActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, PatientManagementActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
     }
 
     private void openGallery() {

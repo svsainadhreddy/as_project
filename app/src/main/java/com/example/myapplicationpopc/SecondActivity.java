@@ -30,6 +30,10 @@ public class SecondActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_second);
+            // Hide toolbar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
 
             etUsername = findViewById(R.id.username);
             etPassword = findViewById(R.id.password);

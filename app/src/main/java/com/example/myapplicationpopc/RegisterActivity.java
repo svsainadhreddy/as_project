@@ -27,6 +27,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+          // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);

@@ -9,7 +9,7 @@
         android:id="@+id/topSection"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="#FFA500" />
+        android:background="#00897B" />
 
     <!-- Back Button -->
     <ImageButton
@@ -307,6 +307,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_button"
                 android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:padding="12dp"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>

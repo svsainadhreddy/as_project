@@ -1,5 +1,6 @@
 package com.example.myapplicationpopc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,15 +21,20 @@ import retrofit2.Response;
 public class ViewPatientActivity extends AppCompatActivity {
 
     TextView tvPatientId, tvName, tvAge, tvPhone, tvWeight, tvGender, tvHeight, tvBMI;
-    ImageView ivPhoto;
+    ImageView ivPhoto,btn1;
     ApiService apiService;
     String token;
     int patientId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         tvPatientId = findViewById(R.id.etPatientId);
         tvName = findViewById(R.id.etName);
@@ -39,6 +45,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvHeight = findViewById(R.id.etHeight);
         tvBMI = findViewById(R.id.etBMI);
         ivPhoto = findViewById(R.id.imgPatient);
+        btn1 = findViewById(R.id.btnBack);
+
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
@@ -46,6 +54,13 @@ public class ViewPatientActivity extends AppCompatActivity {
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId != -1) loadPatient(patientId);
         else Toast.makeText(this, "No patient id", Toast.LENGTH_SHORT).show();
+        // back to ViewPatientListActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, ViewPatientListActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
     }
 
     private void loadPatient(int id) {

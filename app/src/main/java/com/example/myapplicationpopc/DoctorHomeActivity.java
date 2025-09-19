@@ -32,6 +32,10 @@ public class DoctorHomeActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_doctor_home);
+            // Hide toolbar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
 
             etDoctorId = findViewById(R.id.etDoctorId);
             etName = findViewById(R.id.etName);
@@ -48,7 +52,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
             });
 
             btnPatientManagement.setOnClickListener(view -> {
-                Intent intent = new Intent(DoctorHomeActivity.this, EditPatientListActivity.class);
+                Intent intent = new Intent(DoctorHomeActivity.this, PatientManagementActivity.class);
                 startActivity(intent);
             });
 

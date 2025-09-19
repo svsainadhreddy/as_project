@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,14 +35,23 @@ public class ViewPatientListActivity extends AppCompatActivity {
     PatientAdapter adapter;
     List<PatientResponse> patients = new ArrayList<>();
     String mode = "view";
+    ImageView btn1, btn2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient_list);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         recycler = findViewById(R.id.recyclerPatients);
         etSearch = findViewById(R.id.etSearch);
+        btn1 = findViewById(R.id.btnBack);
+        btn2 = findViewById(R.id.btnProfile);
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
@@ -50,16 +61,16 @@ public class ViewPatientListActivity extends AppCompatActivity {
         }
 
         adapter = new PatientAdapter(this, patients, patient -> {
+            Intent i;
             if ("edit".equals(mode)) {
-                Intent i = new Intent(ViewPatientListActivity.this, EditPatientActivity.class);
-                i.putExtra("patient_id", patient.getId());
-                startActivity(i);
+                i = new Intent(ViewPatientListActivity.this, EditPatientActivity.class);
             } else {
-                Intent i = new Intent(ViewPatientListActivity.this, ViewPatientActivity.class);
-                i.putExtra("patient_id", patient.getId());
-                startActivity(i);
+                i = new Intent(ViewPatientListActivity.this, ViewPatientActivity.class);
             }
+            i.putExtra("patient_id", patient.getId());
+            startActivity(i);
         });
+
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
@@ -73,6 +84,21 @@ public class ViewPatientListActivity extends AppCompatActivity {
                 loadPatients(s.toString().trim());
             }
         });
+
+        // ✅ open PatientManagementActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, PatientManagementActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
+        // ✅ back to ProfileActivity
+        btn2.setOnClickListener(v -> {
+            Intent i = new Intent(this, ProfileActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+
     }
 
     private void loadPatients(String query) {

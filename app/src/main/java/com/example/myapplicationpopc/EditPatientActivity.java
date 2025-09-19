@@ -34,7 +34,7 @@ public class EditPatientActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 100;
 
-    ImageView imgPatient;
+    ImageView imgPatient,btn1;
     EditText etPatientId, etName, etAge, etPhone, etWeight, etGender, etHeight;
     TextView etBMI;
     Button btnSave;
@@ -48,6 +48,10 @@ public class EditPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         imgPatient = findViewById(R.id.imgPatient);
         etPatientId = findViewById(R.id.etPatientId);
@@ -59,6 +63,8 @@ public class EditPatientActivity extends AppCompatActivity {
         etHeight = findViewById(R.id.etHeight);
         etBMI = findViewById(R.id.etBMI);
         btnSave = findViewById(R.id.btnSave);
+        btn1 = findViewById(R.id.btnBack);
+
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
@@ -86,6 +92,13 @@ public class EditPatientActivity extends AppCompatActivity {
         etHeight.addTextChangedListener(bmiWatcher);
 
         btnSave.setOnClickListener(v -> savePatient());
+
+        //back to EditPatientListActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, EditPatientListActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
     }
 
     private void calculateBMI() {

@@ -78,4 +78,10 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Query("q") String query // optional search query
     );
+        // @DELETE("patients/{id}/delete/")
+        // Call<Void> deletePatient(@Path("id") String patientId);
+    @DELETE("patients/{id}/delete/")
+    Call<Void> deletePatient(@Header("Authorization") String token, @Path("id") String patientId);
+
+
 }

@@ -14,20 +14,27 @@ import android.widget.ImageButton;
 
 public class PatientManagementActivity extends AppCompatActivity {
 
-    Button btnAddPatient, btnViewPatient, btnEditPatient;
-    ImageButton btnBack;
+    Button btnAddPatient, btnViewPatient, btnEditPatient,btnDeletePatient;
+    ImageButton btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_management); // your xml name
+        setContentView(R.layout.activity_patient_management);
+        // Hide toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
-        btnBack = findViewById(R.id.btnBack);
+
         btnAddPatient = findViewById(R.id.btnAddPatient);
         btnViewPatient = findViewById(R.id.btnViewPatient);
         btnEditPatient = findViewById(R.id.btnEditPatient);
+        btnDeletePatient = findViewById(R.id. btnDeletePatient);
+        btn1 = findViewById(R.id.btnBack);
 
-        btnBack.setOnClickListener(v -> finish());
+
+
 
         btnAddPatient.setOnClickListener(v -> startActivity(new Intent(this, AddPatientActivity.class)));
 
@@ -39,6 +46,17 @@ public class PatientManagementActivity extends AppCompatActivity {
 
         btnEditPatient.setOnClickListener(v -> {
             Intent i = new Intent(this, ViewPatientListActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
+        btnDeletePatient.setOnClickListener(v -> {
+            Intent i = new Intent(this, DeletePatientActivity.class);
+            i.putExtra("mode", "Delete");
+            startActivity(i);
+        });
+        //back to DoctorHomeActivity
+        btn1.setOnClickListener(v -> {
+            Intent i = new Intent(this, DoctorHomeActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
