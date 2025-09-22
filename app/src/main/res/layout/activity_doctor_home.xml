@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EB000000"
+    android:padding="8dp">
+
+    <!-- Top Bar -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#405DDD"
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="popc"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <!-- Doctor Info Card -->
+    <LinearLayout
+        android:id="@+id/doctorInfoCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHeader"
+        android:layout_marginTop="10dp"
+        android:background="#9D64DD17"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:elevation="4dp">
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/imgDoctor"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/img_profile"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:contentDescription="doctor_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:clipToOutline="true" />
+
+        <!-- Doctor Info (Dynamic) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvDoctorId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOCTOR ID : "
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/etDoctorId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/doctor_id"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textStyle="bold" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDoctorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME : "
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/doctor_name"
+                android:background="@android:color/transparent"
+                android:padding="4dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Dashboard Buttons Grid -->
+    <!-- Dashboard Buttons Grid -->
+    <GridLayout
+        android:id="@+id/gridButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/doctorInfoCard"
+        android:layout_marginTop="20dp"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignBounds">
+
+        <Button
+            android:id="@+id/btnDashboard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="DASHBOARD"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+        <Button
+            android:id="@+id/btnPatientManagement"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="Patient Management"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+        <Button
+            android:id="@+id/btnSurveyEntry"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="Survey Entry"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+        <Button
+            android:id="@+id/btnSurveyRecords"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="Survey Records"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+        <Button
+            android:id="@+id/btnAnalytics"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="Analytics And Reports"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:text="Settings"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_button" />
+
+    </GridLayout>
+
+
+</RelativeLayout>

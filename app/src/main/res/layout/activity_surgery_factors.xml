@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sai1"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ===== Header ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_dark_bg"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@string/back"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/surgery_related_factors"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:background="@drawable/rounded_card"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- ===== Type of surgery ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/type_of_surgery"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgSurgeryType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/thoracic"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/upper_abdominal"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lower_abdominal"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/neurosurgery"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/orthopedic"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ent_head_neck"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/vascular_cardiac"/>
+            <!-- New Others option -->
+            <RadioButton
+                android:id="@+id/rbOthers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/others"/>
+        </RadioGroup>
+
+        <!-- Text field hidden until Others is checked -->
+        <EditText
+            android:id="@+id/etOtherSurgery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/please_specify"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"/>
+
+        <!-- ===== Urgency ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/urgency"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgUrgency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/elective"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emergency"/>
+        </RadioGroup>
+
+        <!-- ===== Surgical Duration ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/surgical_duration"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lt_2h"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/hr_2_4"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gt_4h"/>
+        </RadioGroup>
+
+        <!-- ===== Estimated blood loss ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/estimated_blood_loss"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgBloodLoss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lt_500"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/range_500_1000"/>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gt_1000"/>
+        </RadioGroup>
+
+        <!-- ===== Next Button ===== -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#D9D9D9"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"/>
+    </LinearLayout>
+</ScrollView>

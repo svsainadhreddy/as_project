@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C4C4C4">
+
+    <!-- Top orange header -->
+    <View
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:background="#FFA500" />
+
+    <!-- Back button -->
+    <ImageButton
+        android:id="@+id/ivBack"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/circle_dark_bg"
+        android:contentDescription="@string/back"
+        android:padding="16dp"
+        android:src="@drawable/ic_arrow_back"
+        />
+
+
+    <!-- Profile title -->
+    <TextView
+        android:id="@+id/profileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp" />
+
+    <!-- Profile image container -->
+    <FrameLayout
+        android:id="@+id/profileImageContainer"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="310dp"
+        android:background="#D9D9D9"
+        android:elevation="6dp"
+        android:padding="5dp"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_img"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/profile_image" />
+    </FrameLayout>
+
+    <!-- Bottom container -->
+    <LinearLayout
+        android:id="@+id/bottomContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:background="#D9D9D9"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Edit Button -->
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:background="#AAAAAA"
+            android:elevation="6dp"
+            android:text="Edit"
+            android:textColor="#000" />
+
+        <!-- ID -->
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Id : 101"
+            android:textSize="20sp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/etId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Id"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:background="@android:color/transparent" />
+
+        <!-- Name -->
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name : John Doe"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:background="@android:color/transparent" />
+
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phn.no : 9876543210"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Phone"
+            android:visibility="gone"
+            android:inputType="phone"
+            android:textSize="20sp"
+            android:background="@android:color/transparent" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-mail : doctor@gmail.com"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Email"
+            android:visibility="gone"
+            android:inputType="textEmailAddress"
+            android:textSize="20sp"
+            android:background="@android:color/transparent" />
+
+        <!-- Specialization -->
+        <TextView
+            android:id="@+id/tvSpec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specialization : Cardiologist"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/etSpec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Specialization"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+</RelativeLayout>

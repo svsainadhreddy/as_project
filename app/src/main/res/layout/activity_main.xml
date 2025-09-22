@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sai12"
+    android:padding="16dp">
+
+    <!-- Top Icon -->
+
+    <!-- White Card Background -->
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="210dp"
+        android:layout_height="152dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="122dp"
+        android:gravity="center"
+        android:shadowColor="#55000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="@string/title_popc"
+        android:textColor="#1C4969"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="395dp"
+        android:layout_height="621dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="127dp"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Subtitle inside card -->
+        <TextView
+            android:id="@+id/tvSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/description_popc"
+            android:textColor="#3F51B5"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:textStyle="bold"
+            android:contentDescription="@string/login_button_desc"
+            android:fontFamily="cursive"
+            android:text="@string/login"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/btnSignin"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="@string/signin_button_desc"
+            android:fontFamily="cursive"
+            android:text="@string/register"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplicationpopc">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- For older devices (API 29–32) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplicationPOPC">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+        <!-- Main Activity (Launcher) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Second Activity (Login) -->
+        <activity
+            android:name=".SecondActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <!-- Register Activity -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <!-- Home Activity -->
+        <activity
+            android:name=".DoctorHomeActivity"
+            android:exported="false"
+            android:parentActivityName=".SecondActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SecondActivity" />
+        </activity>
+
+        <!-- Profile Activity -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorHomeActivity" />
+        </activity>
+
+        <!-- patient management Activity -->
+        <activity
+            android:name=".PatientManagementActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorHomeActivity" />
+        </activity>
+        <!--  EditPatientListActivity  -->
+        <activity
+            android:name=".EditPatientListActivity"
+            android:exported="false"
+            android:parentActivityName=".PatientManagementActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PatientManagementActivity" />
+        </activity>
+        <!-- EditPatientActivity -->
+        <activity
+            android:name=".EditPatientActivity"
+            android:exported="false"
+            android:parentActivityName=".EditPatientListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EditPatientListActivity" />
+        </activity>
+        <!-- AddPatientActivity -->
+        <activity
+            android:name=".AddPatientActivity"
+            android:exported="false"
+            android:parentActivityName=".PatientManagementActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PatientManagementActivity" />
+        </activity>
+            <!--  viewPatientListActivity  -->
+            <activity
+                android:name=".ViewPatientListActivity"
+                android:exported="false"
+                android:parentActivityName=".PatientManagementActivity">
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".PatientManagementActivity" />
+
+        </activity>
+        <!-- ViewPatientActivity -->
+        <activity
+            android:name=".ViewPatientActivity"
+            android:exported="false"
+            android:parentActivityName=".PatientManagementActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PatientManagementActivity" />
+        </activity>
+        <!-- DeletePatientActivity -->
+        <activity
+            android:name=".DeletePatientActivity"
+            android:exported="false"
+            android:parentActivityName=".PatientManagementActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PatientManagementActivity" />
+        </activity>
+        <!-- Question Activity -->
+        <activity
+            android:name=".AddQuestionsActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorHomeActivity" />
+        </activity>
+
+
+
+
+    </application>
+</manifest>

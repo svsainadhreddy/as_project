@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplicationpopc">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplicationPOPC">
+
+        <!-- 🔹 MainActivity (Launcher) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 🔹 Login Page -->
+        <activity
+            android:name=".SecondActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <!-- 🔹 Register Page -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:parentActivityName=".SecondActivity" />
+
+        <!-- 🔹 Home Admin -->
+        <activity
+            android:name=".HomeAdminActivity"
+            android:exported="false"
+            android:parentActivityName=".SecondActivity" />
+
+        <!-- 🔹 Home Doctor -->
+        <activity
+            android:name=".DoctorHomeActivity"
+            android:exported="false"
+            android:parentActivityName=".SecondActivity" />
+
+        <!-- 🔹 Doctor Profile -->
+        <activity
+            android:name=".DoctorProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity" />
+
+        <!-- 🔹 Doctor Management -->
+        <activity android:name=".ListDoctorActivity" android:exported="false" />
+        <activity android:name=".AddDoctorActivity" android:exported="false" />
+
+        <!-- 🔹 Patient Management -->
+        <activity android:name=".ListPatientActivity" android:exported="false" />
+        <activity android:name=".AddPatientActivity" android:exported="false" />
+        <activity android:name=".PatientDemographicActivity" android:exported="false" />
+        <activity android:name=".MedicalHistoryActivity" android:exported="false" />
+        <activity android:name=".PreoperativeSurvey" android:exported="false" />
+        <activity android:name=".SurgeryRelatedActivity" android:exported="false" />
+        <activity android:name=".PlannedAnesthesiaActivity" android:exported="false" />
+
+        <!-- 🔹 Considerations → next is Score -->
+        <activity
+            android:name=".ConsiderationsActivity"
+            android:exported="false"
+            android:parentActivityName=".PlannedAnesthesiaActivity" />
+
+        <!-- 🔹 ScoreActivity → final, then DoctorHome -->
+        <activity
+            android:name=".ScoreActivity"
+            android:exported="false"
+            android:parentActivityName=".ConsiderationsActivity" />
+
+    </application>
+</manifest>
