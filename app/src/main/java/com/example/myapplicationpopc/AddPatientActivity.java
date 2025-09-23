@@ -94,6 +94,12 @@ public class AddPatientActivity extends AppCompatActivity {
             i.putExtra("mode", "edit");
             startActivity(i);
         });
+        // Move to PatientDemographicsActivity
+        btnNext.setOnClickListener(v -> {
+            Intent i = new Intent(this, PatientDemographicsActivity.class);
+            i.putExtra("mode", "edit");
+            startActivity(i);
+        });
 
     }
 

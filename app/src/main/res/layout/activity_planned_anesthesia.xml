@@ -36,14 +36,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:elevation="4dp"
-                android:padding="12dp"
-                android:backgroundTint="@android:color/darker_gray"
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="12dp"
                     android:text="@string/planned_anesthesia"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -52,101 +51,179 @@
         </LinearLayout>
 
         <!-- ===== ARISCAT Score ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ariscat_score"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp" />
-
-        <RadioGroup
-            android:id="@+id/radioAriscat"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ga_ett"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ga_lma"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/regional"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/combined"/>
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ariscat_score"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioAriscat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ga_ett"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ga_lma"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/regional"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/combined"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- ===== PPC Score ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ppc_score"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/intraoperative_strategy"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
-
-        <RadioGroup
-            android:id="@+id/radioVentilation"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/high_tidal"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/low_tidal"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/peep_used"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/not_used"/>
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ppc_score"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/intraoperative_strategy"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioVentilation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/high_tidal"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/low_tidal"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/peep_used"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/not_used"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- ===== Muscle Relaxants ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/muscle_relaxants"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <RadioGroup
-            android:id="@+id/radioMuscle"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no"/>
-        </RadioGroup>
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/muscle_relaxants"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioMuscle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- ===== Reversal ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/if_yes"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
-
-        <RadioGroup
-            android:id="@+id/radioReversal"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/neostigmine"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sugammadex"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no_reversal"/>
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/if_yes"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioReversal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/neostigmine"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sugammadex"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no_reversal"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- ===== Analgesia ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/planned_analgesia"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <RadioGroup
-            android:id="@+id/radioAnalgesia"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/iv_opioids"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/epidural"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nerve_blocks"/>
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/multimodal"/>
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/planned_analgesia"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/radioAnalgesia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/iv_opioids"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/epidural"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/nerve_blocks"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/multimodal"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Next Button -->
         <Button

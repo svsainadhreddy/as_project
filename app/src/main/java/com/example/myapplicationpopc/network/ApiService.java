@@ -2,6 +2,7 @@ package com.example.myapplicationpopc.network;
 
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
+import com.example.myapplicationpopc.model.SurveyRequest;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -81,5 +82,10 @@ public interface ApiService {
 
     @DELETE("patients/{id}/delete/")
     Call<Void> deletePatient(@Header("Authorization") String token, @Path("id") String patientId);
+
+
+        @POST("api/surveys/")
+        Call<Void> submitSurvey(@Body SurveyRequest request);
+
 
 }

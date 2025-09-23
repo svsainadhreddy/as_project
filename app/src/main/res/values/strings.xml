@@ -84,42 +84,27 @@
 
     <!-- questions  -->
 
-
-        <string name="app_name">Patient Survey</string>
-        <!-- Titles -->
-        <string name="welcome_survey">Welcome to the Health Survey</string>
-        <string name="patient_demographics">Patient Demographics</string>
-
-        <!-- Questions -->
-        <string name="select_age">Select Age Group</string>
-        <string name="sex">Sex</string>
-        <string name="bmi">BMI Category</string>
-        <string name="smoking_status">Smoking Status</string>
-        <string name="alcohol_consumption">Alcohol Consumption</string>
-
-        <!-- Age Options -->
-        <string name="age_5">0 – 50 years</string>
-        <string name="age_51_80">51 – 80 years</string>
-        <string name="age_80">Above 80 years</string>
-
-        <!-- BMI Options -->
-        <string name="bmi_low">BMI ≤ 25</string>
-        <string name="bmi_high">BMI &gt; 25</string>
-
-        <!-- Smoking Options -->
-        <string name="never">Never Smoked</string>
-        <string name="current_smoker">Current Smoker</string>
-        <string name="ex_smoker">Ex-Smoker</string>
-
-        <!-- Alcohol Options -->
-        <string name="yes">Yes</string>
-        <string name="no">No</string>
+    <!-- Patient Demographics -->
+    <string name="patient_demographics">Patient Demographics</string>
+    <string name="select_age">Select Age</string>
+    <string name="age_5">&lt;50 years</string>
+    <string name="age_51_80">50–69 years</string>
+    <string name="age_80">≥70 years</string>
+    <string name="sex">Sex</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-        <!-- Button -->
-        <string name="next">Next</string>
-
-
+    <string name="others">Others</string>
+    <string name="bmi">BMI</string>
+    <string name="bmi_low">&lt;30</string>
+    <string name="bmi_high">≥30</string>
+    <string name="smoking_status">Smoking Status</string>
+    <string name="never">Never</string>
+    <string name="current_smoker">Current smoker</string>
+    <string name="ex_smoker">Ex-smoker</string>
+    <string name="alcohol_consumption">Alcohol Use</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="next">Next</string>
 
     <!-- medical_history -->
         <string name="medical_history">Medical History</string>
@@ -159,7 +144,6 @@
     <string name="orthopedic">Orthopedic</string>
     <string name="ent_head_neck">Ent / Head &amp; neck</string>
     <string name="vascular_cardiac">Vascular / Cardiac</string>
-    <string name="others">Others…</string>
     <string name="urgency">Urgency:</string>
     <string name="elective">Elective</string>
     <string name="emergency">Emergency</string>
@@ -173,7 +157,7 @@
     <string name="gt_1000">&gt;1000 ml</string>
     <string name="please_specify">Please specify...</string>
 
-    <!-- surgery_related_factors -->
+    <!-- planned_anesthesia -->
     <string name="planned_anesthesia">Planned anesthesia:</string>
     <string name="ariscat_score">ARISCAT Score :</string>
     <string name="ga_ett">General anesthesia with ETT</string>
@@ -204,6 +188,26 @@
     <string name="opioid_heavy">Opioid heavy</string>
     <string name="mechanical_ventilation">Anticipated need for mechanical Ventilation &gt; 24h :</string>
     <string name="early_mobilization">Planned early mobilization within 24h :</string>
+
+
+
+
+    <!-- score -->
+        <string name="score_title">Score</string>
+        <string name="patient_demo">Patient Demographics Score</string>
+        <string name="preop_function">Preoperative Functional Status Score</string>
+        <string name="surgery_factors">Surgery-Related Factors Score</string>
+        <string name="anesthetic_factors">Anesthetic Factors</string>
+        <string name="postop_considerations">Postoperative Considerations</string>
+        <string name="total_score">Total Score</string>
+        <string name="how_to_manage">How to Manage?</string>
+        <string name="done">Done</string>
+        <!-- Management messages by risk level -->
+        <string name="risk_low">Low risk: Proceed with routine care.</string>
+        <string name="risk_moderate">Moderate risk: Optimize comorbidities and plan post-op monitoring.</string>
+        <string name="risk_high">High risk: Consider ICU planning and close peri-operative management.</string>
+        <string name="risk_very_high">Very high risk: Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.</string>
+
 
 
 </resources>
