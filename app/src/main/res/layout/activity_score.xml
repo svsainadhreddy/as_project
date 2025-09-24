@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sai1"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:spacing="12dp">
+
+        <!-- Top bar -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:padding="8dp"/>
+
+        <!-- Category Scores -->
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemPatientDemo"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"/>
+
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemMedicalHistory"/>
+
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemPreop"/>
+
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemSurgery"/>
+
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemAnesthetic"/>
+
+        <include layout="@layout/item_score_box"
+            android:id="@+id/itemPostOp"/>
+
+        <!-- Total -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/score_box_bg"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Score"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tvTotalScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:padding="6dp"
+                android:background="@drawable/rounded_card"/>
+        </LinearLayout>
+
+        <!-- Management text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/score_box_bg"
+            android:layout_marginTop="16dp"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvManagement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Done Button -->
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"/>
+
+    </LinearLayout>
+</ScrollView>

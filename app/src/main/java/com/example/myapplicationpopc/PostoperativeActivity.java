@@ -1,9 +1,7 @@
 package com.example.myapplicationpopc;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -22,24 +20,52 @@ public class PostoperativeActivity extends AppCompatActivity {
 
     private RadioGroup groupIcu, groupAnalgesia, groupVentilation, groupMobilization;
 
+    // ✅ values passed from PlannedAnesthesiaActivity
+    private int patientScore;
+    private int medicalScore;
+    private int preopScore;
+    private int surgeryScore;
+    private int plannedAnesthesiaScore;
+    private int patientId = -1;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_postoperative);   // XML you posted
+        setContentView(R.layout.activity_postoperative);
 
-        btnBack       = findViewById(R.id.btnBack);
-        btnNext       = findViewById(R.id.btnNext);
-        groupIcu      = findViewById(R.id.groupIcu);
-        groupAnalgesia= findViewById(R.id.groupAnalgesia);
+        btnBack          = findViewById(R.id.btnBack);
+        btnNext          = findViewById(R.id.btnNext);
+        groupIcu         = findViewById(R.id.groupIcu);
+        groupAnalgesia   = findViewById(R.id.groupAnalgesia);
         groupVentilation = findViewById(R.id.groupVentilation);
-        groupMobilization = findViewById(R.id.groupMobilization);
+        groupMobilization= findViewById(R.id.groupMobilization);
+
+        // ✅ retrieve all previous scores
+        Intent in = getIntent();
+        patientScore         = in.getIntExtra("patient_score", 0);
+        medicalScore         = in.getIntExtra("medical_score", 0);
+        preopScore           = in.getIntExtra("preop_score", 0);
+        surgeryScore         = in.getIntExtra("surgery_score", 0);
+        plannedAnesthesiaScore = in.getIntExtra("anesthetic_score", 0);
+        // ✅ retrieve patient_id safely
+        patientId = getIntent().getIntExtra("patient_id", -1);
+        if (patientId <= 0) {
+            Toast.makeText(this,
+                    "⚠️ Invalid patient ID. Please create a patient first.",
+                    Toast.LENGTH_LONG).show();
+            // Optional: finish() if you don't want to allow proceeding
+        }
+
+
 
         btnBack.setOnClickListener(v -> finish());
         btnNext.setOnClickListener(v -> calculateScore());
     }
 
     private void calculateScore() {
-        int totalScore = 0;
+        int postoperativeScore = 0;
         JSONObject answers = new JSONObject();
 
         // --- ICU/HDU admission ---
@@ -49,7 +75,7 @@ public class PostoperativeActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             try { answers.put("Planned ICU/HDU admission", choice); } catch (JSONException ignored) {}
             if (choice.equalsIgnoreCase(getString(R.string.yes))) {
-                totalScore += 2;     // Yes = 2
+                postoperativeScore += 2;
             }
         }
 
@@ -60,7 +86,7 @@ public class PostoperativeActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             try { answers.put("Anticipated >24h ventilation", choice); } catch (JSONException ignored) {}
             if (choice.equalsIgnoreCase(getString(R.string.yes))) {
-                totalScore += 4;     // Yes = 4
+                postoperativeScore += 4;
             }
         }
 
@@ -70,12 +96,8 @@ public class PostoperativeActivity extends AppCompatActivity {
             RadioButton rb = findViewById(idAnal);
             String choice = rb.getText().toString();
             try { answers.put("Post-op analgesia", choice); } catch (JSONException ignored) {}
-
-            // Regional/multimodal = 0, Opioid heavy = 2
             if (choice.equalsIgnoreCase(getString(R.string.opioid_heavy))) {
-                totalScore += 2;
-            } else {
-                totalScore += 0;
+                postoperativeScore += 2;
             }
         }
 
@@ -86,18 +108,25 @@ public class PostoperativeActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             try { answers.put("Early mobilization within 24h", choice); } catch (JSONException ignored) {}
             if (choice.equalsIgnoreCase(getString(R.string.no))) {
-                totalScore += 2;     // No = 2
+                postoperativeScore += 2;
             }
         }
 
         Toast.makeText(this,
-                "Postoperative Score : " + totalScore,
+                "Postoperative Score: " + postoperativeScore,
                 Toast.LENGTH_LONG).show();
 
-        // ➡️ Pass to next screen or summary
-        Intent intent = new Intent(this, DoctorHomeActivity.class); // replace with your next activity
-        intent.putExtra("postoperative_score", totalScore);
-        intent.putExtra("postoperative_answers", answers.toString());
+        // ✅ send ALL category scores to ScoreActivity
+        Intent intent = new Intent(PostoperativeActivity.this, ScoreActivity.class);
+        intent.putExtra("patient_id", patientId);
+        intent.putExtra("patient_score",            patientScore);
+        intent.putExtra("medical_score",            medicalScore);
+        intent.putExtra("preop_score",              preopScore);
+        intent.putExtra("surgery_score",            surgeryScore);
+        intent.putExtra("anesthetic_score",plannedAnesthesiaScore);
+        intent.putExtra("postop_score",             postoperativeScore);
+        intent.putExtra("postoperative_answers",    answers.toString());
+
         startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.example.myapplicationpopc.network;
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.model.SurveyRequest;
+import com.example.myapplicationpopc.model.SurveyResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -84,8 +85,11 @@ public interface ApiService {
     Call<Void> deletePatient(@Header("Authorization") String token, @Path("id") String patientId);
 
 
-        @POST("api/surveys/")
-        Call<Void> submitSurvey(@Body SurveyRequest request);
+    // POST /api/surveys/   (adjust endpoint to match your Django backend)
+    @Headers("Content-Type: application/json")
+    @POST("surveys/")  // your Django url path
+    Call<ResponseBody> submitSurvey(@Body SurveyRequest survey);
+
 
 
 }

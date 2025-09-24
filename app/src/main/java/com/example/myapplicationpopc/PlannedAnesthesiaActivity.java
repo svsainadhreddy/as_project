@@ -20,28 +20,55 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
+    // 👉 Previous scores
+    private int patientScore = 0;
+    private int medicalScore = 0;
+    private int preopScore   = 0;
+    private int surgeryScore = 0;
+    private int patientId = -1;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_anesthesia);  // your XML filename
 
-        radioAriscat   = findViewById(R.id.radioAriscat);
+        // ✅ Receive scores from SurgeryFactorsActivity
+        Intent fromPrev = getIntent();
+        patientScore = fromPrev.getIntExtra("patient_score", 0);
+        medicalScore = fromPrev.getIntExtra("medical_score", 0);
+        preopScore   = fromPrev.getIntExtra("preop_score", 0);
+        surgeryScore = fromPrev.getIntExtra("surgery_score", 0);
+        // ✅ retrieve patient_id safely
+        patientId = getIntent().getIntExtra("patient_id", -1);
+        if (patientId <= 0) {
+            Toast.makeText(this,
+                    "⚠️ Invalid patient ID. Please create a patient first.",
+                    Toast.LENGTH_LONG).show();
+            // Optional: finish() if you don't want to allow proceeding
+        }
+
+
+
+        // --- Bind Views ---
+        radioAriscat     = findViewById(R.id.radioAriscat);
         radioVentilation = findViewById(R.id.radioVentilation);
-        radioMuscle    = findViewById(R.id.radioMuscle);
-        radioReversal  = findViewById(R.id.radioReversal);
-        radioAnalgesia = findViewById(R.id.radioAnalgesia);
-        btnNext        = findViewById(R.id.btnNext);
-        btnBack        = findViewById(R.id.btnBack);
+        radioMuscle      = findViewById(R.id.radioMuscle);
+        radioReversal    = findViewById(R.id.radioReversal);
+        radioAnalgesia   = findViewById(R.id.radioAnalgesia);
+        btnNext          = findViewById(R.id.btnNext);
+        btnBack          = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> finish());
         btnNext.setOnClickListener(v -> calculateScores());
     }
 
     private void calculateScores() {
-        int totalScore = 0;
+        int plannedAnesthesiaScore = 0;
         JSONObject answers = new JSONObject();
 
-        // ===== ARISCAT Score =====
+        // ===== ARISCAT Choice =====
         int idAriscat = radioAriscat.getCheckedRadioButtonId();
         if (idAriscat != -1) {
             RadioButton rb = findViewById(idAriscat);
@@ -50,13 +77,13 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
 
             switch (choice) {
                 case "Regional anesthesia (Spinal / Epidural / Nerve block)":
-                    totalScore += 0; break;
+                    plannedAnesthesiaScore += 0; break;
                 case "General anesthesia with LMA":
-                    totalScore += 2; break;
+                    plannedAnesthesiaScore += 2; break;
                 case "General anesthesia with ETT":
-                    totalScore += 4; break;
+                    plannedAnesthesiaScore += 4; break;
                 case "Combined (GA + Regional)":
-                    totalScore += 3; break;
+                    plannedAnesthesiaScore += 3; break;
             }
         }
 
@@ -67,11 +94,10 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             try { answers.put("Ventilation Strategy", choice); } catch (JSONException ignored) {}
 
-            // Low tidal + PEEP = 0, High tidal or no PEEP = 3
             if (choice.contains("Low tidal") || choice.contains("PEEP used")) {
-                totalScore += 0;
+                plannedAnesthesiaScore += 0;
             } else if (choice.contains("High tidal") || choice.contains("Not used")) {
-                totalScore += 3;
+                plannedAnesthesiaScore += 3;
             }
         }
 
@@ -83,7 +109,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             try { answers.put("Muscle relaxant use", choice); } catch (JSONException ignored) {}
 
             if (choice.equalsIgnoreCase("No")) {
-                totalScore += 0;
+                plannedAnesthesiaScore += 0;
             } else {
                 // If yes, add reversal choice separately
                 int idRev = radioReversal.getCheckedRadioButtonId();
@@ -92,8 +118,8 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
                     String rev = rbRev.getText().toString();
                     try { answers.put("Reversal", rev); } catch (JSONException ignored) {}
 
-                    if (rev.contains("Neostigmine"))      totalScore += 2;
-                    else if (rev.contains("Sugammadex"))  totalScore += 1;
+                    if (rev.contains("Neostigmine"))      plannedAnesthesiaScore += 2;
+                    else if (rev.contains("Sugammadex"))  plannedAnesthesiaScore += 1;
                 }
             }
         }
@@ -106,20 +132,23 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             try { answers.put("Planned Analgesia", choice); } catch (JSONException ignored) {}
 
             if (choice.contains("IV opioids")) {
-                totalScore += 3;
-            } else {
-                // Regional / multimodal non-opioid = 0
-                totalScore += 0;
+                plannedAnesthesiaScore += 3;
             }
         }
 
-        Toast.makeText(this, "Planned Anesthesia Score: " + totalScore, Toast.LENGTH_LONG).show();
+        Toast.makeText(this,
+                "Planned Anesthesia Score: " + plannedAnesthesiaScore,
+                Toast.LENGTH_LONG).show();
 
-        // === Pass to next activity if needed ===
-        Intent intent = new Intent(this,PostoperativeActivity.class); // replace with your next screen
-        intent.putExtra("planned_anesthesia_score", totalScore);
+        // ✅ Pass all scores to PostoperativeActivity
+        Intent intent = new Intent(this, PostoperativeActivity.class);
+        intent.putExtra("patient_id", patientId);
+        intent.putExtra("patient_score", patientScore);
+        intent.putExtra("medical_score", medicalScore);
+        intent.putExtra("preop_score", preopScore);
+        intent.putExtra("surgery_score", surgeryScore);
+        intent.putExtra("anesthetic_score", plannedAnesthesiaScore);
         intent.putExtra("planned_anesthesia_answers", answers.toString());
         startActivity(intent);
     }
 }
-

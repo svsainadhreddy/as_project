@@ -1,6 +1,5 @@
 package com.example.myapplicationpopc;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -20,10 +19,30 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
+    // 👉 scores received from previous activities
+    private int patientScore = 0;
+    private int medicalScore = 0;
+    private int patientId = -1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preoperative_functional_status);
+
+        // --- receive previous scores ---
+        Intent fromPrev = getIntent();
+        patientScore = fromPrev.getIntExtra("patient_score", 0);
+        medicalScore = fromPrev.getIntExtra("medical_score", 0);
+        // ✅ retrieve patient_id safely
+        patientId = getIntent().getIntExtra("patient_id", -1);
+        if (patientId <= 0) {
+            Toast.makeText(this,
+                    "⚠️ Invalid patient ID. Please create a patient first.",
+                    Toast.LENGTH_LONG).show();
+            // Optional: finish() if you don't want to allow proceeding
+        }
+
 
         // --- Bind Views ---
         btnBack = findViewById(R.id.btnBack);
@@ -35,36 +54,38 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
         rgSpO2 = findViewById(R.id.rgSpO2);
 
         btnBack.setOnClickListener(v -> finish());
-
         btnNext.setOnClickListener(v -> calculateScore());
     }
 
     private void calculateScore() {
-        int totalScore = 0;
+        int preopScore = 0;
         JSONObject answers = new JSONObject();
 
         // ASA Physical Status
-        totalScore += addAsaScore(rgAsa, answers);
+        preopScore += addAsaScore(rgAsa, answers);
 
         // Exercise tolerance
-        totalScore += addExerciseScore(rgExercise, answers);
+        preopScore += addExerciseScore(rgExercise, answers);
 
         // Dyspnea at rest
-        totalScore += addYesNoScore(rgDyspnea, "Dyspnea at rest", 4, answers);
+        preopScore += addYesNoScore(rgDyspnea, "Dyspnea at rest", 4, answers);
 
         // Recent respiratory infection
-        totalScore += addYesNoScore(rgInfection, "Recent respiratory infection", 3, answers);
+        preopScore += addYesNoScore(rgInfection, "Recent respiratory infection", 3, answers);
 
         // SpO2 on room air
-        totalScore += addSpO2Score(rgSpO2, answers);
+        preopScore += addSpO2Score(rgSpO2, answers);
 
         Toast.makeText(this,
-                "Preoperative Functional Status Score: " + totalScore,
+                "Preoperative Functional Status Score: " + preopScore,
                 Toast.LENGTH_SHORT).show();
 
-        // Pass result to next activity
-        Intent intent = new Intent(this,SurgeryFactorsActivity .class); // TODO: replace NextActivity
-        intent.putExtra("preop_score", totalScore);
+        // 👉 Pass all accumulated scores to SurgeryFactorsActivity
+        Intent intent = new Intent(this, SurgeryFactorsActivity.class);
+        intent.putExtra("patient_id", patientId);
+        intent.putExtra("patient_score", patientScore);
+        intent.putExtra("medical_score", medicalScore);
+        intent.putExtra("preop_score", preopScore);
         intent.putExtra("preop_answers", answers.toString());
         startActivity(intent);
     }

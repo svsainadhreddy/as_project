@@ -181,13 +181,28 @@ public class AddPatientActivity extends AppCompatActivity {
                 .enqueue(new Callback<PatientResponse>() {
                     @Override
                     public void onResponse(Call<PatientResponse> call, Response<PatientResponse> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(AddPatientActivity.this, "Patient saved successfully", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful() && response.body() != null) {
+                            PatientResponse patient = response.body();
+
+                            // <-- store real patient DB id
+                            int createdPatientId = patient.getId();
+
+                            Toast.makeText(AddPatientActivity.this,
+                                    "Patient saved successfully (ID " + createdPatientId + ")",
+                                    Toast.LENGTH_SHORT).show();
+
+                            // Pass this id to next activity
+                            Intent i = new Intent(AddPatientActivity.this, PatientDemographicsActivity.class);
+                            i.putExtra("patient_id", createdPatientId);
+                            startActivity(i);
                             finish();
                         } else {
-                            Toast.makeText(AddPatientActivity.this, "Failed: " + response.code(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPatientActivity.this,
+                                    "Failed: " + response.code(),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
+
 
                     @Override
                     public void onFailure(Call<PatientResponse> call, Throwable t) {

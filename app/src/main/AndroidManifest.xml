@@ -203,6 +203,14 @@
                 android:value=".PlannedAnesthesiaActivity" />
         </activity>
 
+        <activity
+            android:name=".ScoreActivity"
+            android:exported="false"
+            android:parentActivityName=".PostoperativeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PostoperativeActivity" />
+        </activity>
 
 
     </application>
