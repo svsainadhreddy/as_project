@@ -1,33 +1,33 @@
+// SurveyResponse.java
 package com.example.myapplicationpopc.model;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.Map;
+import java.util.List;
 
-/**  Model for posting survey results to Django API */
+
+// SurveyResponse.java
 public class SurveyResponse {
+    private int id;
+    private int total_score;
+    private List<SectionScore> section_scores;
+    private List<Answer> answers;
 
-    @SerializedName("patient_id")
-    private int patientId;
+    public int getId(){ return id; }
+    public int getTotal_score(){ return total_score; }
+    public List<SectionScore> getSection_scores(){ return section_scores; }
+    public List<Answer> getAnswers(){ return answers; }
 
-    @SerializedName("total_score")
-    private int totalScore;
-
-    @SerializedName("recommendation")
-    private String recommendation;
-
-    @SerializedName("section_scores")
-    private Map<String,Integer> sectionScores;
-
-    // --- getters & setters ----
-    public int getPatientId() { return patientId; }
-    public void setPatientId(int patientId) { this.patientId = patientId; }
-
-    public int getTotalScore() { return totalScore; }
-    public void setTotalScore(int totalScore) { this.totalScore = totalScore; }
-
-    public String getRecommendation() { return recommendation; }
-    public void setRecommendation(String recommendation) { this.recommendation = recommendation; }
-
-    public Map<String,Integer> getSectionScores() { return sectionScores; }
-    public void setSectionScores(Map<String,Integer> sectionScores) { this.sectionScores = sectionScores; }
+    public static class SectionScore {
+        private int id;
+        private String section_name;
+        public String getSection_name(){ return section_name; }
+    }
+    public static class Answer {
+        private String question_text;
+        private String selected_option;
+        private int option_score;
+        public String getQuestion_text(){ return question_text; }
+        public String getSelected_option(){ return selected_option; }
+        public int getOption_score(){ return option_score; }
+    }
 }
+

@@ -158,60 +158,60 @@
                 android:value=".DoctorHomeActivity" />
         </activity>
 
-        <activity
-            android:name=".MedicalHistoryActivity"
-            android:exported="false"
-            android:parentActivityName=".PatientDemographicsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PatientDemographicsActivity" />
-        </activity>
+          <activity
+                 android:name=".MedicalHistoryActivity"
+                 android:exported="false"
+                 android:parentActivityName=".PatientDemographicsActivity">
+                 <meta-data
+                     android:name="android.support.PARENT_ACTIVITY"
+                     android:value=".PatientDemographicsActivity" />
+             </activity>
 
-        <activity
-            android:name=".PreoperativeConsiderationsActivity"
-            android:exported="false"
-            android:parentActivityName=".MedicalHistoryActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MedicalHistoryActivity" />
-        </activity>
+            <activity
+              android:name=".PreoperativeConsiderationsActivity"
+              android:exported="false"
+              android:parentActivityName=".MedicalHistoryActivity">
+          <meta-data
+              android:name="android.support.PARENT_ACTIVITY"
+              android:value=".MedicalHistoryActivity" />
+          </activity>
 
-        <activity
-            android:name=".SurgeryFactorsActivity"
-            android:exported="false"
-            android:parentActivityName=".PreoperativeConsiderationsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PreoperativeConsiderationsActivity" />
-        </activity>
+               <activity
+                   android:name=".SurgeryFactorsActivity"
+                   android:exported="false"
+                   android:parentActivityName=".PreoperativeConsiderationsActivity">
+                   <meta-data
+                       android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".PreoperativeConsiderationsActivity" />
+               </activity>
 
-        <activity
-            android:name=".PlannedAnesthesiaActivity"
-            android:exported="false"
-            android:parentActivityName=".SurgeryFactorsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SurgeryFactorsActivity" />
-        </activity>
+               <activity
+                   android:name=".PlannedAnesthesiaActivity"
+                   android:exported="false"
+                   android:parentActivityName=".SurgeryFactorsActivity">
+                   <meta-data
+                       android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".SurgeryFactorsActivity" />
+               </activity>
 
-        <activity
-            android:name=".PostoperativeActivity"
-            android:exported="false"
-            android:parentActivityName=".PlannedAnesthesiaActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PlannedAnesthesiaActivity" />
-        </activity>
+               <activity
+                   android:name=".PostoperativeActivity"
+                   android:exported="false"
+                   android:parentActivityName=".PlannedAnesthesiaActivity">
+                   <meta-data
+                       android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".PlannedAnesthesiaActivity" />
+               </activity>
 
-        <activity
-            android:name=".ScoreActivity"
-            android:exported="false"
-            android:parentActivityName=".PostoperativeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PostoperativeActivity" />
-        </activity>
+           <activity
+              android:name=".ScoreActivity"
+              android:exported="false"
+              android:parentActivityName=".PostoperativeActivity">
+              <meta-data
+                  android:name="android.support.PARENT_ACTIVITY"
+                  android:value=".PostoperativeActivity" />
+          </activity>
 
 
-    </application>
-</manifest>
+         </application>
+     </manifest>

@@ -4,6 +4,9 @@ import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.model.SurveyRequest;
 import com.example.myapplicationpopc.model.SurveyResponse;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -85,11 +88,14 @@ public interface ApiService {
     Call<Void> deletePatient(@Header("Authorization") String token, @Path("id") String patientId);
 
 
-    // POST /api/surveys/   (adjust endpoint to match your Django backend)
-    @Headers("Content-Type: application/json")
-    @POST("surveys/")  // your Django url path
-    Call<ResponseBody> submitSurvey(@Body SurveyRequest survey);
-
-
-
+    @POST("api/surveys/")
+    Call<SurveyResponse> createSurvey(
+            @Header("Authorization") String authHeader,
+            @Body SurveyRequest request
+    );
+    @GET("surveys/")
+    Call<SurveyResponse> getSurveyForPatient(
+            @Header("Authorization") String token,
+            @Query("patient_id") int patientId
+    );
 }

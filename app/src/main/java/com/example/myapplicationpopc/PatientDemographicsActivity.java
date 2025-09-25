@@ -2,7 +2,6 @@ package com.example.myapplicationpopc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -11,8 +10,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.myapplicationpopc.model.SurveyRequest;
+import com.example.myapplicationpopc.model.SurveyRequest.Answer;
+import com.example.myapplicationpopc.model.SurveyRequest.SectionScore;
+import com.example.myapplicationpopc.model.SurveyResponse;
+import com.example.myapplicationpopc.network.ApiClient;
+import com.example.myapplicationpopc.network.ApiService;
+import com.example.myapplicationpopc.utils.SharedPrefManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PatientDemographicsActivity extends AppCompatActivity {
 
@@ -20,36 +31,38 @@ public class PatientDemographicsActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    // ✅ Keep patientId as a field
     private int patientId = -1;
+    private ApiService apiService;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_demographics);
 
-        rgAge = findViewById(R.id.rgAge);
-        rgSex = findViewById(R.id.rgSex);
-        rgBmi = findViewById(R.id.rgBmi);
+        rgAge     = findViewById(R.id.rgAge);
+        rgSex     = findViewById(R.id.rgSex);
+        rgBmi     = findViewById(R.id.rgBmi);
         rgSmoking = findViewById(R.id.rgSmoking);
         rgAlcohol = findViewById(R.id.rgAlcohol);
-        btnNext = findViewById(R.id.btnNext);
-        btnBack = findViewById(R.id.btnBack);
+        btnNext   = findViewById(R.id.btnNext);
+        btnBack   = findViewById(R.id.btnBack);
 
-        // ✅ retrieve patient_id safely
+        apiService = ApiClient.getClient().create(ApiService.class);
+        token = "Token " + SharedPrefManager.getInstance(this).getToken();
+
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {
             Toast.makeText(this,
                     "⚠️ Invalid patient ID. Please create a patient first.",
                     Toast.LENGTH_LONG).show();
-            // Optional: finish() if you don't want to allow proceeding
         }
 
         btnBack.setOnClickListener(v -> finish());
-        btnNext.setOnClickListener(view -> calculateScoreAndNext());
+        btnNext.setOnClickListener(v -> calculateScoreAndSend());
     }
 
-    private void calculateScoreAndNext() {
+    private void calculateScoreAndSend() {
         if (patientId <= 0) {
             Toast.makeText(this,
                     "Cannot proceed without a valid patient ID.",
@@ -57,72 +70,127 @@ public class PatientDemographicsActivity extends AppCompatActivity {
             return;
         }
 
-        int score = 0;
-        JSONObject answers = new JSONObject(); // store question + selected text
+        int demoScore = 0;
+        List<Answer> answers = new ArrayList<>();
 
         // ---- Age ----
-        int ageId = rgAge.getCheckedRadioButtonId();
-        if (ageId != -1) {
-            RadioButton ageBtn = findViewById(ageId);
-            String ageText = ageBtn.getText().toString();
-            try { answers.put("Age", ageText); } catch (JSONException ignored) {}
-            if (ageText.contains("<50")) score += 0;
-            else if (ageText.contains("50")) score += 2;
-            else if (ageText.contains("70") || ageText.contains("≥70")) score += 3;
-        }
+        demoScore += addAgeScore(answers);
 
         // ---- Sex ----
-        int sexId = rgSex.getCheckedRadioButtonId();
-        if (sexId != -1) {
-            RadioButton sexBtn = findViewById(sexId);
-            try { answers.put("Sex", sexBtn.getText().toString()); } catch (JSONException ignored) {}
-        }
+        addSimpleAnswer(rgSex, "Sex", 0, answers);
 
         // ---- BMI ----
-        int bmiId = rgBmi.getCheckedRadioButtonId();
-        if (bmiId != -1) {
-            RadioButton bmiBtn = findViewById(bmiId);
-            String bmiText = bmiBtn.getText().toString();
-            try { answers.put("BMI", bmiText); } catch (JSONException ignored) {}
-            if (bmiText.contains("<30")) score += 0;
-            else if (bmiText.contains("≥30") || bmiText.contains("30")) score += 2;
-        }
+        demoScore += addBmiScore(answers);
 
         // ---- Smoking ----
-        int smokeId = rgSmoking.getCheckedRadioButtonId();
-        if (smokeId != -1) {
-            RadioButton smokeBtn = findViewById(smokeId);
-            String smokeText = smokeBtn.getText().toString();
-            try { answers.put("Smoking", smokeText); } catch (JSONException ignored) {}
-            if (smokeText.toLowerCase().contains("never")) score += 0;
-            else if (smokeText.toLowerCase().contains("ex")) score += 1;
-            else if (smokeText.toLowerCase().contains("current")) score += 2;
-        }
+        demoScore += addSmokingScore(answers);
 
         // ---- Alcohol ----
-        int alcoholId = rgAlcohol.getCheckedRadioButtonId();
-        if (alcoholId != -1) {
-            RadioButton alcoholBtn = findViewById(alcoholId);
-            String alcoholText = alcoholBtn.getText().toString();
-            try { answers.put("Alcohol", alcoholText); } catch (JSONException ignored) {}
-            if (alcoholText.toLowerCase().contains("no")) score += 0;
-            else if (alcoholText.toLowerCase().contains("yes")) score += 1;
-        }
+        demoScore += addAlcoholScore(answers);
 
-        if (answers.length() == 0) {
+        if (answers.isEmpty()) {
             Toast.makeText(this,
                     "Please select at least one option",
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(this, "Section Score: " + score, Toast.LENGTH_SHORT).show();
+        final int sectionScore = demoScore; // score for this section
 
-        // ✅ Always forward the valid patientId
-        Intent intent = new Intent(this, MedicalHistoryActivity.class);
-        intent.putExtra("patient_score", score);
-        intent.putExtra("patient_id", patientId);
-        intent.putExtra("patient_demographics_answers", answers.toString());
-        startActivity(intent);
+        // Build survey request
+        SurveyRequest request = new SurveyRequest();
+        request.setPatient_id(patientId);
+        request.setTotal_score(sectionScore);  // just this section
+
+        List<SectionScore> sections = new ArrayList<>();
+        sections.add(new SectionScore("Patient Demographics", sectionScore));
+        request.setSection_scores(sections);
+        request.setAnswers(answers);
+
+        // POST to Django
+        apiService.createSurvey(token, request).enqueue(new Callback<SurveyResponse>() {
+            @Override
+            public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(PatientDemographicsActivity.this,
+                            "Demographics saved. Score: " + sectionScore,
+                            Toast.LENGTH_SHORT).show();
+
+                    // 👉 Go to MedicalHistoryActivity
+                    Intent intent = new Intent(PatientDemographicsActivity.this,
+                            MedicalHistoryActivity.class);
+                    intent.putExtra("patient_id", patientId);
+                    intent.putExtra("patient_score", sectionScore); // pass forward
+                    intent.putExtra("survey_id", response.body().getId());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(PatientDemographicsActivity.this,
+                            "Save failed: " + response.code(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SurveyResponse> call, Throwable t) {
+                Toast.makeText(PatientDemographicsActivity.this,
+                        "Network error: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    // ---- Helper scoring methods ----
+    private int addAgeScore(List<Answer> answers) {
+        int id = rgAge.getCheckedRadioButtonId();
+        if (id == -1) return 0;
+        RadioButton btn = findViewById(id);
+        String text = btn.getText().toString();
+        int score = (text.contains("<50")) ? 0 :
+                (text.contains("50")) ? 2 :
+                        (text.contains("70") || text.contains("≥70")) ? 3 : 0;
+        answers.add(new Answer("Age", text, score));
+        return score;
+    }
+
+    private int addBmiScore(List<Answer> answers) {
+        int id = rgBmi.getCheckedRadioButtonId();
+        if (id == -1) return 0;
+        RadioButton btn = findViewById(id);
+        String text = btn.getText().toString();
+        int score = (text.contains("<30")) ? 0 :
+                (text.contains("≥30") || text.contains("30")) ? 2 : 0;
+        answers.add(new Answer("BMI", text, score));
+        return score;
+    }
+
+    private int addSmokingScore(List<Answer> answers) {
+        int id = rgSmoking.getCheckedRadioButtonId();
+        if (id == -1) return 0;
+        RadioButton btn = findViewById(id);
+        String text = btn.getText().toString();
+        int score = (text.toLowerCase().contains("never")) ? 0 :
+                (text.toLowerCase().contains("ex")) ? 1 :
+                        (text.toLowerCase().contains("current")) ? 2 : 0;
+        answers.add(new Answer("Smoking status", text, score));
+        return score;
+    }
+
+    private int addAlcoholScore(List<Answer> answers) {
+        int id = rgAlcohol.getCheckedRadioButtonId();
+        if (id == -1) return 0;
+        RadioButton btn = findViewById(id);
+        String text = btn.getText().toString();
+        int score = (text.toLowerCase().contains("yes")) ? 1 : 0;
+        answers.add(new Answer("Alcohol consumption", text, score));
+        return score;
+    }
+
+    private void addSimpleAnswer(RadioGroup group, String label, int defaultScore,
+                                 List<Answer> answers) {
+        int id = group.getCheckedRadioButtonId();
+        if (id == -1) return;
+        RadioButton btn = findViewById(id);
+        answers.add(new Answer(label, btn.getText().toString(), defaultScore));
     }
 }
