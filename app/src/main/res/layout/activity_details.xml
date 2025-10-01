@@ -1,0 +1,173 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/android_com"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+
+
+    <!-- Dashboard Title -->
+
+    <!-- Total Patients Surveyed Card -->
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/circle_dark_bg"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/tvDashboardTitle"
+        android:layout_width="225dp"
+        android:layout_height="66dp"
+        android:gravity="center"
+        android:layout_marginStart="52dp"
+        android:layout_toEndOf="@id/btnBack"
+        android:text="DASHBOARD"
+        android:textColor="#000000"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/cardTotalPatients"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#D9D9D9"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:clipToOutline="true"
+        android:radius="30dp">
+
+        <TextView
+            android:id="@+id/tvTotalPatientsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total patients surveyed"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvTotalPatientsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:hint="Score"
+            android:textColor="#000000"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <!-- Pending Survey Patients Card -->
+    <LinearLayout
+        android:id="@+id/cardPendingPatients"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/btnBack"
+        android:layout_toEndOf="@id/cardTotalPatients"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#D9D9D9"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:clipToOutline="true"
+        android:radius="30dp">
+
+        <TextView
+            android:id="@+id/tvPendingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending survey patients"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvPendingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Score"
+            android:textSize="28sp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Add other cards similarly -->
+
+    <LinearLayout
+        android:id="@+id/carHighrisk"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="350dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#D9D9D9"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:clipToOutline="true"
+        android:radius="30dp">
+
+        <TextView
+            android:id="@+id/tvHighrisklabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="High-risk complications flagged PATIENTS"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvHighriskvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Score"
+            android:textSize="28sp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cardrecent"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/btnBack"
+        android:layout_toEndOf="@id/cardTotalPatients"
+        android:layout_marginTop="350dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#D9D9D9"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:clipToOutline="true"
+        android:radius="30dp">
+
+        <TextView
+            android:id="@+id/tvrecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent surveys completed"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

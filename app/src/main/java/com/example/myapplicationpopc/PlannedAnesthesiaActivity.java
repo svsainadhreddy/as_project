@@ -1,10 +1,7 @@
 package com.example.myapplicationpopc;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -34,7 +31,6 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    // 👉 Previous scores
     private int patientScore = 0;
     private int medicalScore = 0;
     private int preopScore   = 0;
@@ -49,7 +45,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_anesthesia);
 
-        // ✅ Receive scores
+        // ---- Receive previous scores ----
         Intent fromPrev = getIntent();
         patientScore = fromPrev.getIntExtra("patient_score", 0);
         medicalScore = fromPrev.getIntExtra("medical_score", 0);
@@ -66,7 +62,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        // --- Bind Views ---
+        // ---- Bind Views ----
         radioAriscat     = findViewById(R.id.radioAriscat);
         radioVentilation = findViewById(R.id.radioVentilation);
         radioMuscle      = findViewById(R.id.radioMuscle);
@@ -75,7 +71,11 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         btnNext          = findViewById(R.id.btnNext);
         btnBack          = findViewById(R.id.btnBack);
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SurgeryFactorsActivity.class);
+            startActivity(intent);
+        });
+
         btnNext.setOnClickListener(v -> calculateAndSend());
     }
 
@@ -83,23 +83,27 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         int tmpScore = 0;
         List<Answer> answers = new ArrayList<>();
 
-        // ===== ARISCAT Choice =====
+        // --- ARISCAT Choice ---
         int idAriscat = radioAriscat.getCheckedRadioButtonId();
         if (idAriscat != -1) {
             RadioButton rb = findViewById(idAriscat);
             String choice = rb.getText().toString();
             int s = 0;
-            switch (choice) {
-                case "Regional anesthesia (Spinal / Epidural / Nerve block)": s = 0; break;
-                case "General anesthesia with LMA":                            s = 2; break;
-                case "General anesthesia with ETT":                            s = 4; break;
-                case "Combined (GA + Regional)":                               s = 3; break;
+            // ✅ Classic switch for Java-8
+            if ("Regional anesthesia (Spinal / Epidural / Nerve block)".equals(choice)) {
+                s = 0;
+            } else if ("General anesthesia with LMA".equals(choice)) {
+                s = 2;
+            } else if ("General anesthesia with ETT".equals(choice)) {
+                s = 4;
+            } else if ("Combined (GA + Regional)".equals(choice)) {
+                s = 3;
             }
             tmpScore += s;
             answers.add(new Answer("ARISCAT Choice", choice, s));
         }
 
-        // ===== Ventilation strategy (if GA) =====
+        // --- Ventilation strategy ---
         int idVent = radioVentilation.getCheckedRadioButtonId();
         if (idVent != -1) {
             RadioButton rb = findViewById(idVent);
@@ -109,28 +113,31 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             answers.add(new Answer("Ventilation Strategy", choice, s));
         }
 
-        // ===== Muscle relaxant use =====
+        // --- Muscle relaxant use ---
         int idMuscle = radioMuscle.getCheckedRadioButtonId();
         if (idMuscle != -1) {
             RadioButton rb = findViewById(idMuscle);
             String choice = rb.getText().toString();
             int s = 0;
             if (!choice.equalsIgnoreCase("No")) {
-                // If yes, add reversal choice separately
+                // add reversal
                 int idRev = radioReversal.getCheckedRadioButtonId();
                 if (idRev != -1) {
                     RadioButton rbRev = findViewById(idRev);
                     String rev = rbRev.getText().toString();
-                    if (rev.contains("Neostigmine")) s = 2;
-                    else if (rev.contains("Sugammadex")) s = 1;
+                    if (rev.contains("Neostigmine")) {
+                        s = 2;
+                    } else if (rev.contains("Sugammadex")) {
+                        s = 1;
+                    }
                     answers.add(new Answer("Reversal", rev, s));
                 }
             }
             tmpScore += s;
-            answers.add(new Answer("Muscle relaxant use", choice, s == 0 ? 0 : s));
+            answers.add(new Answer("Muscle relaxant use", choice, (s == 0 ? 0 : s)));
         }
 
-        // ===== Planned analgesia =====
+        // --- Planned analgesia ---
         int idAnal = radioAnalgesia.getCheckedRadioButtonId();
         if (idAnal != -1) {
             RadioButton rb = findViewById(idAnal);
@@ -146,20 +153,20 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
         final int plannedAnesthesiaScore = tmpScore;
         final int combinedTotal = patientScore + medicalScore + preopScore + surgeryScore + plannedAnesthesiaScore;
 
-        // --- Build SurveyRequest ---
+        // ---- Build request ----
         SurveyRequest request = new SurveyRequest();
         request.setPatient_id(patientId);
         request.setTotal_score(plannedAnesthesiaScore);
-
         List<SectionScore> sections = new ArrayList<>();
         sections.add(new SectionScore("Planned Anesthesia", plannedAnesthesiaScore));
         request.setSection_scores(sections);
         request.setAnswers(answers);
 
-        // --- POST to Django ---
+        // ---- POST to backend ----
         apiService.createSurvey(token, request).enqueue(new Callback<SurveyResponse>() {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
@@ -168,7 +175,6 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
                             "Planned Anesthesia saved. Score: " + plannedAnesthesiaScore,
                             Toast.LENGTH_SHORT).show();
 
-                    // ✅ Next screen
                     Intent intent = new Intent(PlannedAnesthesiaActivity.this,
                             PostoperativeActivity.class);
                     intent.putExtra("patient_id", patientId);
@@ -197,4 +203,3 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         });
     }
 }
-

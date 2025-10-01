@@ -212,6 +212,31 @@
                   android:value=".PostoperativeActivity" />
           </activity>
 
+        <activity
+            android:name=".DetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorHomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".SurveyListActivity"
+            android:exported="false"
+            android:parentActivityName=".DoctorHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorHomeActivity" />
+        </activity>
+        <activity
+            android:name=".SurveyDisplayActivity"
+            android:exported="false"
+            android:parentActivityName=".SurveyListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SurveyListActivity" />
+        </activity>
 
          </application>
      </manifest>

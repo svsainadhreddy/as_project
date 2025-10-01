@@ -45,6 +45,10 @@ public class DoctorHomeActivity extends AppCompatActivity {
             ImageView btn1 = findViewById(R.id.imgDoctor);
             Button btnPatientManagement = findViewById(R.id.btnPatientManagement);
             Button btnSurveyRecords = findViewById(R.id.btnSurveyRecords);
+            Button btnSurveyEntry = findViewById(R.id.btnSurveyEntry);
+            Button btnDashboard = findViewById(R.id.btnDashboard);
+
+
             // Use lambda for click listeners
             btn1.setOnClickListener(view -> {
                 Intent intent = new Intent(DoctorHomeActivity.this, ProfileActivity.class);
@@ -57,6 +61,14 @@ public class DoctorHomeActivity extends AppCompatActivity {
             });
            btnSurveyRecords.setOnClickListener(view -> {
                Intent intent = new Intent(DoctorHomeActivity.this, PatientDemographicsActivity.class);
+                startActivity(intent);
+            });
+            btnSurveyEntry.setOnClickListener(view -> {
+                Intent intent = new Intent(DoctorHomeActivity.this,SurveyListActivity.class);
+                startActivity(intent);
+            });
+            btnDashboard.setOnClickListener(view -> {
+                Intent intent = new Intent(DoctorHomeActivity.this,DetailsActivity.class);
                 startActivity(intent);
             });
 

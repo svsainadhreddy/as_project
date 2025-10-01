@@ -10,18 +10,29 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ScoreActivity extends AppCompatActivity {
 
     private int patientId;
-    private int patientScore, medicalScore, preopScore,
-            surgeryScore, anestheticScore, postopScore, totalScore;
+    private int patientScore;
+    private int medicalScore;
+    private int preopScore;
+    private int surgeryScore;
+    private int anestheticScore;
+    private int postopScore;
+    private int totalScore;
 
-    private TextView tvPatientDemo, tvMedicalHistory, tvPreop,
-            tvSurgery, tvAnesthetic, tvPostOp, tvTotalScore, tvManagement;
+    private TextView tvPatientDemo;
+    private TextView tvMedicalHistory;
+    private TextView tvPreop;
+    private TextView tvSurgery;
+    private TextView tvAnesthetic;
+    private TextView tvPostOp;
+    private TextView tvTotalScore;
+    private TextView tvManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        // Receive scores from Intent
+        // ✅ Receive scores from Intent
         patientId       = getIntent().getIntExtra("patient_id", -1);
         patientScore    = getIntent().getIntExtra("patient_score", 0);
         medicalScore    = getIntent().getIntExtra("medical_score", 0);
@@ -31,7 +42,7 @@ public class ScoreActivity extends AppCompatActivity {
         postopScore     = getIntent().getIntExtra("postop_score", 0);
         totalScore      = getIntent().getIntExtra("total_score", 0);
 
-        // Bind views
+        // ✅ Bind views (each item layout contains tvCategoryScore)
         tvPatientDemo    = findViewById(R.id.itemPatientDemo).findViewById(R.id.tvCategoryScore);
         tvMedicalHistory = findViewById(R.id.itemMedicalHistory).findViewById(R.id.tvCategoryScore);
         tvPreop          = findViewById(R.id.itemPreop).findViewById(R.id.tvCategoryScore);
@@ -45,7 +56,7 @@ public class ScoreActivity extends AppCompatActivity {
         btnDone.setOnClickListener(v -> finish());
 
         if (patientId <= 0) {
-            Toast.makeText(this, "Invalid patient ID", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "⚠️ Invalid patient ID", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -53,6 +64,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void showScores() {
+        // Display each section’s score
         tvPatientDemo.setText(String.valueOf(patientScore));
         tvMedicalHistory.setText(String.valueOf(medicalScore));
         tvPreop.setText(String.valueOf(preopScore));
@@ -61,6 +73,7 @@ public class ScoreActivity extends AppCompatActivity {
         tvPostOp.setText(String.valueOf(postopScore));
         tvTotalScore.setText(String.valueOf(totalScore));
 
+        // ✅ Risk stratification
         if (totalScore >= 15) {
             tvManagement.setText("High risk: Needs ICU monitoring");
         } else if (totalScore >= 8) {

@@ -1,6 +1,5 @@
 package com.example.myapplicationpopc;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +27,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Collects surgery-related factors, posts them to Django backend,
+ * and keeps selections when user navigates back.
+ */
 public class SurgeryFactorsActivity extends AppCompatActivity {
 
     private RadioGroup rgSurgeryType, rgUrgency, rgDuration, rgBloodLoss;
@@ -35,21 +38,25 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    // 👉 Scores from previous screens
-    private int patientScore = 0;
-    private int medicalScore = 0;
-    private int preopScore   = 0;
-    private int patientId    = -1;
+    private int patientScore;
+    private int medicalScore;
+    private int preopScore;
+    private int patientId;
 
     private ApiService apiService;
     private String token;
+
+    // Persist selections across Activity recreation
+    private static int checkedType = -1, checkedUrg = -1, checkedDur = -1, checkedLoss = -1;
+    private static String otherText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surgery_factors);
 
-        // ✅ Receive previous scores
+        initViews();
+
         Intent fromPrev = getIntent();
         patientScore = fromPrev.getIntExtra("patient_score", 0);
         medicalScore = fromPrev.getIntExtra("medical_score", 0);
@@ -63,9 +70,45 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
         }
 
         apiService = ApiClient.getClient().create(ApiService.class);
-        token = "Token " + SharedPrefManager.getInstance(this).getToken();
+        String savedToken = SharedPrefManager.getInstance(this).getToken();
+        if (savedToken != null && !savedToken.trim().isEmpty()) {
+            token = "Token " + savedToken.trim();
+        }
 
-        // --- Bind Views ---
+        // Restore selections
+        rgSurgeryType.check(checkedType);
+        rgUrgency.check(checkedUrg);
+        rgDuration.check(checkedDur);
+        rgBloodLoss.check(checkedLoss);
+        etOtherSurgery.setText(otherText);
+        toggleOtherVisibility(checkedType);
+
+        rgSurgeryType.setOnCheckedChangeListener((group, id) -> {
+            checkedType = id;
+            toggleOtherVisibility(id);
+        });
+        rgUrgency.setOnCheckedChangeListener((g,i)-> checkedUrg=i);
+        rgDuration.setOnCheckedChangeListener((g,i)-> checkedDur=i);
+        rgBloodLoss.setOnCheckedChangeListener((g,i)-> checkedLoss=i);
+
+        btnBack.setOnClickListener(v -> {
+            otherText = etOtherSurgery.getText().toString();
+            Intent intent = new Intent(this, PreoperativeConsiderationsActivity.class);
+            intent.putExtra("patient_id", patientId);
+            intent.putExtra("patient_score", patientScore);
+            intent.putExtra("medical_score", medicalScore);
+            intent.putExtra("preop_score", preopScore);
+            startActivity(intent);
+            finish();
+        });
+
+        btnNext.setOnClickListener(v -> {
+            otherText = etOtherSurgery.getText().toString();
+            sendSurvey();
+        });
+    }
+
+    private void initViews() {
         rgSurgeryType = findViewById(R.id.rgSurgeryType);
         rgUrgency     = findViewById(R.id.rgUrgency);
         rgDuration    = findViewById(R.id.rgDuration);
@@ -73,22 +116,20 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
         etOtherSurgery= findViewById(R.id.etOtherSurgery);
         btnNext       = findViewById(R.id.btnNext);
         btnBack       = findViewById(R.id.btnBack);
-
-        // Show textbox if "Others" is chosen
-        rgSurgeryType.setOnCheckedChangeListener((group, checkedId) -> {
-            RadioButton rb = findViewById(checkedId);
-            if (rb != null && rb.getText().toString().equalsIgnoreCase("Others")) {
-                etOtherSurgery.setVisibility(View.VISIBLE);
-            } else {
-                etOtherSurgery.setVisibility(View.GONE);
-            }
-        });
-
-        btnBack.setOnClickListener(v -> finish());
-        btnNext.setOnClickListener(v -> calculateScoreAndSend());
     }
 
-    private void calculateScoreAndSend() {
+    private void toggleOtherVisibility(int id) {
+        if (id != -1) {
+            RadioButton rb = findViewById(id);
+            if (rb != null && rb.getText().toString().equalsIgnoreCase("Others")) {
+                etOtherSurgery.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+        etOtherSurgery.setVisibility(View.GONE);
+    }
+
+    private void sendSurvey() {
         int tmpScore = 0;
         List<Answer> answers = new ArrayList<>();
 
@@ -149,26 +190,25 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
         }
 
         if (answers.isEmpty()) {
-            Toast.makeText(this,
-                    "Please answer at least one question",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please answer at least one question", Toast.LENGTH_SHORT).show();
             return;
         }
+
         final int surgeryScore = tmpScore;
         final int combinedTotal = patientScore + medicalScore + preopScore + surgeryScore;
 
-        // --- Build SurveyRequest ---
-        SurveyRequest request = new SurveyRequest();
-        request.setPatient_id(patientId);
-        request.setTotal_score(surgeryScore);
+        SurveyRequest req = new SurveyRequest();
+        req.setPatient_id(patientId);
+        req.setTotal_score(surgeryScore);
+        req.setStatus("surgery_Factors");  // ✅ match section
+        req.setRisk_level(getRiskLevel(surgeryScore));
 
         List<SectionScore> sections = new ArrayList<>();
         sections.add(new SectionScore("Surgery Factors", surgeryScore));
-        request.setSection_scores(sections);
-        request.setAnswers(answers);
+        req.setSection_scores(sections);
+        req.setAnswers(answers);
 
-        // --- POST to Django ---
-        apiService.createSurvey(token, request).enqueue(new Callback<SurveyResponse>() {
+        apiService.createSurvey(token, req).enqueue(new Callback<SurveyResponse>() {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -176,7 +216,6 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
                             "Surgery data saved. Score: " + surgeryScore,
                             Toast.LENGTH_SHORT).show();
 
-                    // ✅ Pass all accumulated scores to PlannedAnesthesiaActivity
                     Intent intent = new Intent(SurgeryFactorsActivity.this,
                             PlannedAnesthesiaActivity.class);
                     intent.putExtra("patient_id", patientId);
@@ -202,5 +241,12 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // ---------- Risk level calculator ----------
+    private String getRiskLevel(int score) {
+        if (score <= 2) return "Low";
+        else if (score <= 5) return "Moderate";
+        else return "High";
     }
 }

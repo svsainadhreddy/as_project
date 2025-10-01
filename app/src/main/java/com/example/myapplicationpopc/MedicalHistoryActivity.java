@@ -1,6 +1,5 @@
 package com.example.myapplicationpopc;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -26,6 +25,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Collects medical history survey answers and posts them to backend.
+ * Does NOT persist selections across different patients.
+ */
 public class MedicalHistoryActivity extends AppCompatActivity {
 
     private RadioGroup rgCOPD, rgAsthma, rgOSA, rgILD, rgHeartFailure,
@@ -33,8 +36,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    private int patientId = -1;
-    private int patientScore = 0;   // total from previous screen
+    private int patientId, prevScore;
     private ApiService apiService;
     private String token;
 
@@ -43,18 +45,32 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
-        // --- Retrieve extras ---
-        Intent fromPrev = getIntent();
-        patientId = fromPrev.getIntExtra("patient_id", -1);
-        patientScore = fromPrev.getIntExtra("patient_score", 0);
+        initViews();
+
+        patientId  = getIntent().getIntExtra("patient_id", -1);
+        prevScore  = getIntent().getIntExtra("patient_score", 0);
 
         if (patientId <= 0) {
-            Toast.makeText(this,
-                    "⚠️ Invalid patient ID. Please create a patient first.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "⚠️ Invalid patient ID.", Toast.LENGTH_LONG).show();
         }
 
-        // --- Find views ---
+        apiService = ApiClient.getClient().create(ApiService.class);
+        String savedToken = SharedPrefManager.getInstance(this).getToken();
+        if (savedToken != null && !savedToken.trim().isEmpty()) {
+            token = "Token " + savedToken.trim();
+        }
+
+        btnBack.setOnClickListener(v -> {
+            Intent i = new Intent(this, PatientDemographicsActivity.class);
+            i.putExtra("patient_id", patientId);
+            startActivity(i);
+            finish();
+        });
+
+        btnNext.setOnClickListener(v -> sendSurvey());
+    }
+
+    private void initViews() {
         btnNext = findViewById(R.id.btnNext);
         btnBack = findViewById(R.id.btnBack);
 
@@ -67,76 +83,48 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         rgHypertension = findViewById(R.id.rgHypertension);
         rgDiabetes     = findViewById(R.id.rgDiabetes);
         rgCKD          = findViewById(R.id.rgCKD);
-
-        apiService = ApiClient.getClient().create(ApiService.class);
-        token = "Token " + SharedPrefManager.getInstance(this).getToken();
-
-        btnBack.setOnClickListener(v -> finish());
-        btnNext.setOnClickListener(v -> calculateScoreAndSend());
     }
 
-    private void calculateScoreAndSend() {
-        if (patientId <= 0) {
+    private void sendSurvey() {
+        if (patientId <= 0 || token == null) {
             Toast.makeText(this,
-                    "Cannot proceed without a valid patient ID.",
+                    "Cannot proceed without patient ID or token.",
                     Toast.LENGTH_LONG).show();
             return;
         }
 
-        int medicalScore = 0;
+        int sectionScore = 0;
         List<Answer> answers = new ArrayList<>();
 
-        // Helper call for each disease
-        medicalScore += addDiseaseScore(rgCOPD,         "COPD", 3, answers);
-        medicalScore += addDiseaseScore(rgAsthma,       "Asthma", 2, answers);
-        medicalScore += addDiseaseScore(rgOSA,          "Obstructive Sleep Apnea", 2, answers);
-        medicalScore += addDiseaseScore(rgILD,          "Interstitial Lung Disease", 3, answers);
-        medicalScore += addDiseaseScore(rgHeartFailure, "Heart Failure", 2, answers);
-        medicalScore += addDiseaseScore(rgCAD,          "CAD / Recent MI", 2, answers);
-        medicalScore += addDiseaseScore(rgHypertension, "Hypertension", 1, answers);
-        medicalScore += addDiseaseScore(rgDiabetes,     "Diabetes", 1, answers);
-        medicalScore += addDiseaseScore(rgCKD,          "Chronic Kidney Disease", 2, answers);
+        sectionScore += addDiseaseScore(rgCOPD, "COPD", 3, answers);
+        sectionScore += addDiseaseScore(rgAsthma, "Asthma", 2, answers);
+        sectionScore += addDiseaseScore(rgOSA, "OSA", 2, answers);
+        sectionScore += addDiseaseScore(rgILD, "ILD", 3, answers);
+        sectionScore += addDiseaseScore(rgHeartFailure, "Heart Failure", 2, answers);
+        sectionScore += addDiseaseScore(rgCAD, "CAD", 2, answers);
+        sectionScore += addDiseaseScore(rgHypertension, "Hypertension", 1, answers);
+        sectionScore += addDiseaseScore(rgDiabetes, "Diabetes", 1, answers);
+        sectionScore += addDiseaseScore(rgCKD, "CKD", 2, answers);
 
-        if (medicalScore > 15) medicalScore = 15;
+        int cappedSection = Math.min(sectionScore, 15);
+        int combinedScore = prevScore + cappedSection;
 
-        if (answers.isEmpty()) {
-            Toast.makeText(this,
-                    "Please select at least one option",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        final int sectionScore = medicalScore;
-        final int combinedTotal = patientScore + sectionScore; // running total if needed
-
-        // --- Build SurveyRequest ---
-        SurveyRequest request = new SurveyRequest();
-        request.setPatient_id(patientId);
-        request.setTotal_score(sectionScore); // or combinedTotal if you want cumulative
+        SurveyRequest req = new SurveyRequest();
+        req.setPatient_id(patientId);
+        req.setTotal_score(cappedSection);
+        req.setStatus("medical_history");
+        req.setRisk_level(getRiskLevel(combinedScore));
 
         List<SectionScore> sections = new ArrayList<>();
-        sections.add(new SectionScore("Medical History", sectionScore));
-        request.setSection_scores(sections);
-        request.setAnswers(answers);
+        sections.add(new SectionScore("Medical History", cappedSection));
+        req.setSection_scores(sections);
+        req.setAnswers(answers);
 
-        // --- POST to Django ---
-        apiService.createSurvey(token, request).enqueue(new Callback<SurveyResponse>() {
+        apiService.createSurvey(token, req).enqueue(new Callback<SurveyResponse>() {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(MedicalHistoryActivity.this,
-                            "Medical history saved. Score: " + sectionScore,
-                            Toast.LENGTH_SHORT).show();
-
-                    // 👉 Move to next activity
-                    Intent intent = new Intent(MedicalHistoryActivity.this,
-                            PreoperativeConsiderationsActivity.class);
-                    intent.putExtra("patient_id", patientId);
-                    intent.putExtra("patient_score", combinedTotal);
-                    intent.putExtra("medical_score", sectionScore);
-                    intent.putExtra("survey_id", response.body().getId());
-                    startActivity(intent);
-                    finish();
+                    goToNext(combinedScore);
                 } else {
                     Toast.makeText(MedicalHistoryActivity.this,
                             "Save failed: " + response.code(),
@@ -147,21 +135,35 @@ public class MedicalHistoryActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SurveyResponse> call, Throwable t) {
                 Toast.makeText(MedicalHistoryActivity.this,
-                        "Network error: " + t.getMessage(),
+                        "Network error: " + t.getLocalizedMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private int addDiseaseScore(RadioGroup group, String key, int weight, List<Answer> answers) {
-        int checkedId = group.getCheckedRadioButtonId();
-        if (checkedId == -1) return 0;
+    private void goToNext(int combinedScore) {
+        Intent i = new Intent(MedicalHistoryActivity.this,
+                PreoperativeConsiderationsActivity.class);
+        i.putExtra("patient_id", patientId);
+        i.putExtra("patient_score", combinedScore);
+        startActivity(i);
+        finish();
+    }
 
-        RadioButton rb = findViewById(checkedId);
-        String ans = rb.getText().toString();
+    private int addDiseaseScore(RadioGroup group, String label, int weight, List<Answer> answers) {
+        int id = group.getCheckedRadioButtonId();
+        if (id == -1) return 0;
+
+        RadioButton btn = findViewById(id);
+        String ans = btn.getText().toString();
         int score = ans.equalsIgnoreCase("Yes") ? weight : 0;
-        answers.add(new Answer(key, ans, score));
+        answers.add(new Answer(label, ans, score));
         return score;
     }
-}
 
+    private String getRiskLevel(int score) {
+        if (score <= 5) return "Low";
+        else if (score <= 10) return "Moderate";
+        else return "High";
+    }
+}

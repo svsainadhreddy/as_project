@@ -1,7 +1,9 @@
 package com.example.myapplicationpopc.network;
 
+import com.example.myapplicationpopc.model.DashboardResponse;
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
+import com.example.myapplicationpopc.model.SurveyDisplayResponse;
 import com.example.myapplicationpopc.model.SurveyRequest;
 import com.example.myapplicationpopc.model.SurveyResponse;
 import com.google.gson.JsonObject;
@@ -88,14 +90,23 @@ public interface ApiService {
     Call<Void> deletePatient(@Header("Authorization") String token, @Path("id") String patientId);
 
 
+    // POST create survey
+// POST create survey
     @POST("api/surveys/")
     Call<SurveyResponse> createSurvey(
-            @Header("Authorization") String authHeader,
-            @Body SurveyRequest request
-    );
-    @GET("surveys/")
-    Call<SurveyResponse> getSurveyForPatient(
             @Header("Authorization") String token,
-            @Query("patient_id") int patientId
+            @Body SurveyRequest surveyRequest
     );
+
+    // GET survey by patient
+    @GET("api/surveys/patient/{patient_id}/")
+    Call<SurveyDisplayResponse> getSurveyByPatient(
+            @Header("Authorization") String token,   // ✅ add token
+            @Path("patient_id") int patientId
+    );
+
+    @GET("api/dashboard/")
+    Call<DashboardResponse> getDashboard(@Header("Authorization") String token);
+
+
 }

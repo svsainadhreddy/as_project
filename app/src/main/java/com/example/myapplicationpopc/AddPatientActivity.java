@@ -33,43 +33,43 @@ public class AddPatientActivity extends AppCompatActivity {
 
     EditText etPatientId, etName, etAge, etPhone, etWeight, etGender, etHeight;
     TextView etBMI;
-    ImageView imgPatient,btn1;
+    ImageView imgPatient, btn1;
     Button btnSave, btnNext;
     Uri selectedImage;
     ActivityResultLauncher<Intent> galleryLauncher;
     ApiService apiService;
     String token;
 
+    // ✅ to know where to go after saving
+    enum NextAction { MANAGEMENT, DEMOGRAPHICS }
+    private NextAction nextAction = NextAction.MANAGEMENT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
-        // Hide toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
 
-        // Initialize views
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+
         etPatientId = findViewById(R.id.etPatientId);
-        etName = findViewById(R.id.etName);
-        etAge = findViewById(R.id.etAge);
-        etPhone = findViewById(R.id.etPhone);
-        etWeight = findViewById(R.id.etWeight);
-        etGender = findViewById(R.id.etGender);
-        etHeight = findViewById(R.id.etHeight);
-        etBMI = findViewById(R.id.etBMI);
-        imgPatient = findViewById(R.id.imgPatient);
-        btnSave = findViewById(R.id.btnSave);
-        btnNext = findViewById(R.id.btnNext);
-        // button
-        btn1 = findViewById(R.id.btnBack);
-
+        etName      = findViewById(R.id.etName);
+        etAge       = findViewById(R.id.etAge);
+        etPhone     = findViewById(R.id.etPhone);
+        etWeight    = findViewById(R.id.etWeight);
+        etGender    = findViewById(R.id.etGender);
+        etHeight    = findViewById(R.id.etHeight);
+        etBMI       = findViewById(R.id.etBMI);
+        imgPatient  = findViewById(R.id.imgPatient);
+        btnSave     = findViewById(R.id.btnSave);
+        btnNext     = findViewById(R.id.btnNext);
+        btn1        = findViewById(R.id.btnBack);
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        // Image picker setup
-        galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        // ✅ modern picker works on all Android versions
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         selectedImage = result.getData().getData();
@@ -79,33 +79,31 @@ public class AddPatientActivity extends AppCompatActivity {
 
         imgPatient.setOnClickListener(v -> openGallery());
 
-        // Live BMI calculation
         etWeight.addTextChangedListener(bmiTextWatcher);
         etHeight.addTextChangedListener(bmiTextWatcher);
 
-        btnSave.setOnClickListener(v -> savePatient());
-        btnNext.setOnClickListener(v ->
-                Toast.makeText(this, "Next clicked (implement assessment flow)", Toast.LENGTH_SHORT).show()
-        );
-
-        // back to PatientManagementActivity
-        btn1.setOnClickListener(v -> {
-            Intent i = new Intent(this, PatientManagementActivity.class);
-            i.putExtra("mode", "edit");
-            startActivity(i);
+        btnSave.setOnClickListener(v -> {
+            nextAction = NextAction.MANAGEMENT;
+            savePatient();
         });
-        // Move to PatientDemographicsActivity
+
         btnNext.setOnClickListener(v -> {
-            Intent i = new Intent(this, PatientDemographicsActivity.class);
-            i.putExtra("mode", "edit");
-            startActivity(i);
+            nextAction = NextAction.DEMOGRAPHICS;
+            savePatient();
         });
 
+        btn1.setOnClickListener(v -> {
+            startActivity(new Intent(this, PatientManagementActivity.class));
+            finish();
+        });
     }
 
     private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryLauncher.launch(intent);
+        // ✅ safer universal photo picker
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        galleryLauncher.launch(Intent.createChooser(intent, "Select Photo"));
     }
 
     private File uriToFile(Uri uri) {
@@ -126,26 +124,18 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     private final TextWatcher bmiTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            calculateAndSetBMI();
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void afterTextChanged(Editable s) { calculateAndSetBMI(); }
     };
 
     private void calculateAndSetBMI() {
-        String weightStr = etWeight.getText().toString();
-        String heightStr = etHeight.getText().toString();
-
-        if (!weightStr.isEmpty() && !heightStr.isEmpty()) {
+        String w = etWeight.getText().toString();
+        String h = etHeight.getText().toString();
+        if (!w.isEmpty() && !h.isEmpty()) {
             try {
-                float weight = Float.parseFloat(weightStr);
-                float height = Float.parseFloat(heightStr);
+                float weight = Float.parseFloat(w);
+                float height = Float.parseFloat(h);
                 if (height > 0) {
                     float bmiValue = weight / ((height / 100) * (height / 100));
                     etBMI.setText(String.format("%.2f", bmiValue));
@@ -159,14 +149,21 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     private void savePatient() {
-        RequestBody patientId = RequestBody.create(etPatientId.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody name = RequestBody.create(etName.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody age = RequestBody.create(etAge.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody weight = RequestBody.create(etWeight.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody gender = RequestBody.create(etGender.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody height = RequestBody.create(etHeight.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody bmi = RequestBody.create(etBMI.getText().toString(), MediaType.parse("text/plain"));
+        // basic validation
+        if (etPatientId.getText().toString().trim().isEmpty() ||
+                etName.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Patient ID and Name are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestBody patientId = textPart(etPatientId.getText().toString());
+        RequestBody name      = textPart(etName.getText().toString());
+        RequestBody age       = textPartOrEmpty(etAge.getText().toString());
+        RequestBody phone     = textPartOrEmpty(etPhone.getText().toString());
+        RequestBody weight    = textPartOrEmpty(etWeight.getText().toString());
+        RequestBody gender    = textPartOrEmpty(etGender.getText().toString());
+        RequestBody height    = textPartOrEmpty(etHeight.getText().toString());
+        RequestBody bmi       = textPartOrEmpty(etBMI.getText().toString());
 
         MultipartBody.Part photoPart = null;
         if (selectedImage != null) {
@@ -177,24 +174,27 @@ public class AddPatientActivity extends AppCompatActivity {
             }
         }
 
-        apiService.createPatient(token, patientId, name, age, phone, weight, gender, height, bmi, photoPart)
+        apiService.createPatient(token, patientId, name, age, phone,
+                        weight, gender, height, bmi, photoPart)
                 .enqueue(new Callback<PatientResponse>() {
                     @Override
-                    public void onResponse(Call<PatientResponse> call, Response<PatientResponse> response) {
+                    public void onResponse(Call<PatientResponse> call,
+                                           Response<PatientResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            PatientResponse patient = response.body();
-
-                            // <-- store real patient DB id
-                            int createdPatientId = patient.getId();
-
+                            int createdId = response.body().getId();
                             Toast.makeText(AddPatientActivity.this,
-                                    "Patient saved successfully (ID " + createdPatientId + ")",
+                                    "Patient saved successfully",
                                     Toast.LENGTH_SHORT).show();
 
-                            // Pass this id to next activity
-                            Intent i = new Intent(AddPatientActivity.this, PatientDemographicsActivity.class);
-                            i.putExtra("patient_id", createdPatientId);
-                            startActivity(i);
+                            if (nextAction == NextAction.MANAGEMENT) {
+                                startActivity(new Intent(AddPatientActivity.this,
+                                        PatientManagementActivity.class));
+                            } else {
+                                Intent i = new Intent(AddPatientActivity.this,
+                                        PatientDemographicsActivity.class);
+                                i.putExtra("patient_id", createdId);
+                                startActivity(i);
+                            }
                             finish();
                         } else {
                             Toast.makeText(AddPatientActivity.this,
@@ -203,11 +203,25 @@ public class AddPatientActivity extends AppCompatActivity {
                         }
                     }
 
-
                     @Override
                     public void onFailure(Call<PatientResponse> call, Throwable t) {
-                        Toast.makeText(AddPatientActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPatientActivity.this,
+                                "Error: " + t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    // ---------- helpers ----------
+    private RequestBody textPart(String value) {
+        return RequestBody.create(value.trim(), MediaType.parse("text/plain"));
+    }
+
+    // ✅ always send empty string if no value (prevents 400 Bad Request)
+    private RequestBody textPartOrEmpty(String value) {
+        return RequestBody.create(
+                value == null ? "" : value.trim(),
+                MediaType.parse("text/plain")
+        );
     }
 }
