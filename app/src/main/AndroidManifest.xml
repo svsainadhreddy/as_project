@@ -238,5 +238,14 @@
                 android:value=".SurveyListActivity" />
         </activity>
 
+        <activity
+            android:name=".PendingSurveysActivity"
+            android:exported="false"
+            android:parentActivityName=".DetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DetailsActivity" />
+        </activity>
+
          </application>
      </manifest>

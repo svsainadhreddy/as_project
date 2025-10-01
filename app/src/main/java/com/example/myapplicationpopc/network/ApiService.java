@@ -3,9 +3,11 @@ package com.example.myapplicationpopc.network;
 import com.example.myapplicationpopc.model.DashboardResponse;
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
+import com.example.myapplicationpopc.model.PendingPatient;
 import com.example.myapplicationpopc.model.SurveyDisplayResponse;
 import com.example.myapplicationpopc.model.SurveyRequest;
 import com.example.myapplicationpopc.model.SurveyResponse;
+import com.example.myapplicationpopc.model.SurveySectionRisk;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -108,5 +110,14 @@ public interface ApiService {
     @GET("api/dashboard/")
     Call<DashboardResponse> getDashboard(@Header("Authorization") String token);
 
+
+    @GET("api/surveys/patient-risk/{patient_id}/")
+    Call<List<SurveySectionRisk>> getPatientSurveyRisk(
+            @Header("Authorization") String token,
+            @Path("patient_id") int patientId
+    );
+
+    @GET("api/surveys/not-completed/")
+    Call<List<PendingPatient>> getPendingSurveys(@Header("Authorization") String token);
 
 }

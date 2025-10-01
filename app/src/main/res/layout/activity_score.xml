@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,26 +22,17 @@
             android:padding="8dp"/>
 
         <!-- Category Scores -->
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemPatientDemo"
-            android:layout_width="400dp"
+
+        <!-- Dynamically added section scores -->
+        <LinearLayout
+            android:id="@+id/llSections"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"/>
-
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemMedicalHistory"/>
-
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemPreop"/>
-
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemSurgery"/>
-
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemAnesthetic"/>
-
-        <include layout="@layout/item_score_box"
-            android:id="@+id/itemPostOp"/>
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:padding="8dp">
+            <!-- Section TextViews will be added here by ScoreActivity -->
+        </LinearLayout>
 
         <!-- Total -->
         <LinearLayout

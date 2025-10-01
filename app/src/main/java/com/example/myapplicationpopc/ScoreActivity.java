@@ -1,85 +1,131 @@
 package com.example.myapplicationpopc;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplicationpopc.model.SurveySectionRisk;
+import com.example.myapplicationpopc.network.ApiClient;
+import com.example.myapplicationpopc.network.ApiService;
+import com.example.myapplicationpopc.utils.SharedPrefManager;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ScoreActivity extends AppCompatActivity {
 
     private int patientId;
-    private int patientScore;
-    private int medicalScore;
-    private int preopScore;
-    private int surgeryScore;
-    private int anestheticScore;
-    private int postopScore;
-    private int totalScore;
-
-    private TextView tvPatientDemo;
-    private TextView tvMedicalHistory;
-    private TextView tvPreop;
-    private TextView tvSurgery;
-    private TextView tvAnesthetic;
-    private TextView tvPostOp;
-    private TextView tvTotalScore;
-    private TextView tvManagement;
+    private LinearLayout llSections;
+    private TextView tvTotalScore, tvManagement;
+    private Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        // ✅ Receive scores from Intent
-        patientId       = getIntent().getIntExtra("patient_id", -1);
-        patientScore    = getIntent().getIntExtra("patient_score", 0);
-        medicalScore    = getIntent().getIntExtra("medical_score", 0);
-        preopScore      = getIntent().getIntExtra("preop_score", 0);
-        surgeryScore    = getIntent().getIntExtra("surgery_score", 0);
-        anestheticScore = getIntent().getIntExtra("anesthetic_score", 0);
-        postopScore     = getIntent().getIntExtra("postop_score", 0);
-        totalScore      = getIntent().getIntExtra("total_score", 0);
+        llSections = findViewById(R.id.llSections);
+        tvTotalScore = findViewById(R.id.tvTotalScore);
+        tvManagement = findViewById(R.id.tvManagement);
+        btnDone = findViewById(R.id.btnDone);
 
-        // ✅ Bind views (each item layout contains tvCategoryScore)
-        tvPatientDemo    = findViewById(R.id.itemPatientDemo).findViewById(R.id.tvCategoryScore);
-        tvMedicalHistory = findViewById(R.id.itemMedicalHistory).findViewById(R.id.tvCategoryScore);
-        tvPreop          = findViewById(R.id.itemPreop).findViewById(R.id.tvCategoryScore);
-        tvSurgery        = findViewById(R.id.itemSurgery).findViewById(R.id.tvCategoryScore);
-        tvAnesthetic     = findViewById(R.id.itemAnesthetic).findViewById(R.id.tvCategoryScore);
-        tvPostOp         = findViewById(R.id.itemPostOp).findViewById(R.id.tvCategoryScore);
-        tvTotalScore     = findViewById(R.id.tvTotalScore);
-        tvManagement     = findViewById(R.id.tvManagement);
-
-        Button btnDone = findViewById(R.id.btnDone);
-        btnDone.setOnClickListener(v -> finish());
-
+        patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {
             Toast.makeText(this, "⚠️ Invalid patient ID", Toast.LENGTH_LONG).show();
             return;
         }
 
-        showScores();
+        fetchSurveySections();
+
+        btnDone.setOnClickListener(v -> finish());
     }
 
-    private void showScores() {
-        // Display each section’s score
-        tvPatientDemo.setText(String.valueOf(patientScore));
-        tvMedicalHistory.setText(String.valueOf(medicalScore));
-        tvPreop.setText(String.valueOf(preopScore));
-        tvSurgery.setText(String.valueOf(surgeryScore));
-        tvAnesthetic.setText(String.valueOf(anestheticScore));
-        tvPostOp.setText(String.valueOf(postopScore));
+    private void fetchSurveySections() {
+        String token = SharedPrefManager.getInstance(this).getToken();
+        if (token == null) {
+            Toast.makeText(this, "Please login again", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.getPatientSurveyRisk("Token " + token, patientId)
+                .enqueue(new Callback<List<SurveySectionRisk>>() {
+                    @Override
+                    public void onResponse(Call<List<SurveySectionRisk>> call, Response<List<SurveySectionRisk>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            displaySections(response.body());
+                        } else {
+                            Toast.makeText(ScoreActivity.this, "Failed to fetch sections", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<SurveySectionRisk>> call, Throwable t) {
+                        Toast.makeText(ScoreActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void displaySections(List<SurveySectionRisk> sections) {
+        llSections.removeAllViews();
+        int totalScore = 0;
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        for (SurveySectionRisk s : sections) {
+            totalScore += s.getScore();
+
+            // Inflate item_score_box layout
+            LinearLayout itemView = (LinearLayout) inflater.inflate(R.layout.item_score_box, llSections, false);
+            TextView tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
+            TextView tvCategoryScore = itemView.findViewById(R.id.tvCategoryScore);
+
+            tvCategoryName.setText(s.getSection_name() + " Score");
+            tvCategoryScore.setText(String.valueOf(s.getScore()));
+
+            llSections.addView(itemView);
+        }
+
+        // Set total score
         tvTotalScore.setText(String.valueOf(totalScore));
 
-        // ✅ Risk stratification
-        if (totalScore >= 15) {
-            tvManagement.setText("High risk: Needs ICU monitoring");
-        } else if (totalScore >= 8) {
-            tvManagement.setText("Moderate risk: Close observation");
+        // Set management advice based on risk level (highest risk among sections)
+        String advice = calculateManagementAdvice(sections);
+        tvManagement.setText(advice);
+    }
+
+    private String calculateManagementAdvice(List<SurveySectionRisk> sections) {
+        int totalScore = 0;
+        for (SurveySectionRisk s : sections) {
+            totalScore += s.getScore();
+        }
+
+        if (totalScore <= 20) {
+            return "How to Manage? \n  \n " +
+                    "low : \n" +
+                    "Standard anesthesia; routine monitoring.";
+        } else if (totalScore <= 40) {
+            return "How to Manage? \n \n  " +
+                    "moderate :\n" +
+                    "Lung-protective ventilation, multimodal analgesia, encourage early mobilization.";
+        } else if (totalScore <= 60) {
+            return "How to Manage? \n \n  " +
+                    "high : \n" +
+                    "Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.";
+
         } else {
-            tvManagement.setText("Low risk: Standard care");
+            return "How to Manage? \n \n " +
+                    " very high : \n " +
+                    "Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.";
         }
     }
+
 }

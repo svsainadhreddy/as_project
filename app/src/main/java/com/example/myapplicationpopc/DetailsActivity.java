@@ -1,10 +1,14 @@
 package com.example.myapplicationpopc;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ButtonBarLayout;
+
 import com.example.myapplicationpopc.model.DashboardResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
@@ -27,9 +31,16 @@ public class DetailsActivity extends AppCompatActivity {
         tvTotalPatientsValue = findViewById(R.id.tvTotalPatientsValue);
         tvPendingValue = findViewById(R.id.tvPendingValue);
         tvHighriskvalue = findViewById(R.id.tvHighriskvalue);
+        TextView cardPendingPatients = findViewById(R.id.tvPendingLabel);
+
 
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
+
+        cardPendingPatients.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailsActivity.this, PendingSurveysActivity.class);
+            startActivity(intent);
+        });
 
         loadDashboard();
     }

@@ -1,5 +1,7 @@
 package com.example.myapplicationpopc.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class SurveyDisplayResponse {
@@ -17,6 +19,7 @@ public class SurveyDisplayResponse {
 
     // ---------- Inner Classes ---------- //
     public static class SectionScore {
+        @SerializedName("section_name")
         private String section;
         private int score;
 

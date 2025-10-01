@@ -31,14 +31,9 @@ public class PostoperativeActivity extends AppCompatActivity {
     private Button btnNext;
     private RadioGroup groupIcu, groupAnalgesia, groupVentilation, groupMobilization;
 
-    private int patientScore;
-    private int medicalScore;
-    private int preopScore;
-    private int surgeryScore;
-    private int plannedAnesthesiaScore;
+    private int patientScore, medicalScore, preopScore, surgeryScore, plannedAnesthesiaScore;
     private int patientId = -1;
-
-    private int postopScore;  // ✅ make field so inner class can access
+    private int postopScore;
 
     private String token;
     private ApiService apiService;
@@ -50,13 +45,12 @@ public class PostoperativeActivity extends AppCompatActivity {
 
         initViews();
 
-        Intent in = getIntent();
-        patientScore           = in.getIntExtra("patient_score", 0);
-        medicalScore           = in.getIntExtra("medical_score", 0);
-        preopScore             = in.getIntExtra("preop_score", 0);
-        surgeryScore           = in.getIntExtra("surgery_score", 0);
-        plannedAnesthesiaScore = in.getIntExtra("anesthetic_score", 0);
-        patientId              = in.getIntExtra("patient_id", -1);
+        patientScore           = getIntent().getIntExtra("patient_score", 0);
+        medicalScore           = getIntent().getIntExtra("medical_score", 0);
+        preopScore             = getIntent().getIntExtra("preop_score", 0);
+        surgeryScore           = getIntent().getIntExtra("surgery_score", 0);
+        plannedAnesthesiaScore = getIntent().getIntExtra("anesthetic_score", 0);
+        patientId              = getIntent().getIntExtra("patient_id", -1);
 
         if (patientId <= 0) {
             Toast.makeText(this,
@@ -70,10 +64,7 @@ public class PostoperativeActivity extends AppCompatActivity {
             token = "Token " + savedToken.trim();
         }
 
-        btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(PostoperativeActivity.this, PlannedAnesthesiaActivity.class);
-            startActivity(intent);
-        });
+        btnBack.setOnClickListener(v -> finish()); // just go back
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
@@ -95,7 +86,7 @@ public class PostoperativeActivity extends AppCompatActivity {
             return;
         }
 
-        postopScore = 0; // reset field
+        postopScore = 0;
         List<Answer> answers = new ArrayList<>();
 
         postopScore += addIcuAnswer(answers);
@@ -121,7 +112,11 @@ public class PostoperativeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    goToNext(totalScore);
+                    // ✅ Move to ScoreActivity after successful save
+                    Intent intent = new Intent(PostoperativeActivity.this, ScoreActivity.class);
+                    intent.putExtra("patient_id", patientId); // only send patient_id
+                    startActivity(intent);
+                    finish(); // close PostoperativeActivity
                 } else {
                     Toast.makeText(PostoperativeActivity.this,
                             "⚠️ Failed to save (" + response.code() + ")",
@@ -136,29 +131,15 @@ public class PostoperativeActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
-    private void goToNext(int totalScore) {
-        Intent intent = new Intent(this, ScoreActivity.class);
-        intent.putExtra("patient_id", patientId);
-        intent.putExtra("patient_score", patientScore);
-        intent.putExtra("medical_score", medicalScore);
-        intent.putExtra("preop_score", preopScore);
-        intent.putExtra("surgery_score", surgeryScore);
-        intent.putExtra("anesthetic_score", plannedAnesthesiaScore);
-        intent.putExtra("postop_score", postopScore);
-        intent.putExtra("total_score", totalScore);
-        startActivity(intent);
-    }
-
-    // ------------------ Scoring Helpers ------------------
     private int addIcuAnswer(List<Answer> answers) {
         int id = groupIcu.getCheckedRadioButtonId();
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
-        String choice = rb.getText().toString();
-        int score = choice.equalsIgnoreCase(getString(R.string.yes)) ? 2 : 0;
-        answers.add(new Answer("Planned ICU/HDU admission", choice, score));
+        int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.yes)) ? 2 : 0;
+        answers.add(new Answer("Planned ICU/HDU admission", rb.getText().toString(), score));
         return score;
     }
 
@@ -166,9 +147,8 @@ public class PostoperativeActivity extends AppCompatActivity {
         int id = groupVentilation.getCheckedRadioButtonId();
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
-        String choice = rb.getText().toString();
-        int score = choice.equalsIgnoreCase(getString(R.string.yes)) ? 4 : 0;
-        answers.add(new Answer("Anticipated >24h ventilation", choice, score));
+        int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.yes)) ? 4 : 0;
+        answers.add(new Answer("Anticipated >24h ventilation", rb.getText().toString(), score));
         return score;
     }
 
@@ -176,9 +156,8 @@ public class PostoperativeActivity extends AppCompatActivity {
         int id = groupAnalgesia.getCheckedRadioButtonId();
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
-        String choice = rb.getText().toString();
-        int score = choice.equalsIgnoreCase(getString(R.string.opioid_heavy)) ? 2 : 0;
-        answers.add(new Answer("Post-op analgesia", choice, score));
+        int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.opioid_heavy)) ? 2 : 0;
+        answers.add(new Answer("Post-op analgesia", rb.getText().toString(), score));
         return score;
     }
 
@@ -186,16 +165,15 @@ public class PostoperativeActivity extends AppCompatActivity {
         int id = groupMobilization.getCheckedRadioButtonId();
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
-        String choice = rb.getText().toString();
-        int score = choice.equalsIgnoreCase(getString(R.string.no)) ? 2 : 0;
-        answers.add(new Answer("Early mobilization within 24h", choice, score));
+        int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.no)) ? 2 : 0;
+        answers.add(new Answer("Early mobilization within 24h", rb.getText().toString(), score));
         return score;
     }
 
-    // ------------------ Risk Level Calculator ------------------
     private String getRiskLevel(int score) {
-        if (score <= 2) return "Low";
-        else if (score <= 5) return "Moderate";
-        else return "High";
+        if (score <= 20) return "Low";
+        else if (score <= 40) return "Moderate";
+        else if (score <= 60) return "High";
+        else return "Very high";
     }
 }
