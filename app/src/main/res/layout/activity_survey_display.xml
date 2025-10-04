@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <LinearLayout
-        android:id="@+id/llContainer"
+        android:id="@+id/llSurveyContainer"
         android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!-- dynamic content inserted by code -->
+
+        <!-- Top Risk Card Example -->
+        <LinearLayout
+            android:id="@+id/llRiskCard"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_bg"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp" />
+
+        <!-- Section Cards Container -->
+        <LinearLayout
+            android:id="@+id/llSectionCards"
+            android:orientation="vertical"
+            android:background="@color/purple_200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </ScrollView>

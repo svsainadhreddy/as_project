@@ -33,6 +33,7 @@ public class SurveyDisplayResponse {
         private String custom_text;
         private int score;
 
+
         public String getQuestion() { return question; }
         public String getSelected_option() { return selected_option; }
         public String getCustom_text() { return custom_text; }

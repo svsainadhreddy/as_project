@@ -60,13 +60,10 @@ public class DoctorHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             });
            btnSurveyRecords.setOnClickListener(view -> {
-               Intent intent = new Intent(DoctorHomeActivity.this, PatientDemographicsActivity.class);
-                startActivity(intent);
+               Intent intent = new Intent(DoctorHomeActivity.this,SurveyListActivity.class);
+               startActivity(intent);
             });
-            btnSurveyEntry.setOnClickListener(view -> {
-                Intent intent = new Intent(DoctorHomeActivity.this,SurveyListActivity.class);
-                startActivity(intent);
-            });
+
             btnDashboard.setOnClickListener(view -> {
                 Intent intent = new Intent(DoctorHomeActivity.this,DetailsActivity.class);
                 startActivity(intent);

@@ -20,6 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etDoctorId, etName, etPhone, etEmail, etAge, etSpecialization, etUsername, etPassword, etConfirmPassword;
     Spinner spinnerGender;
     Button btnSave;
+    ImageButton btnBack;
+
 
     ApiService apiService;
 
@@ -43,8 +45,12 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnSave = findViewById(R.id.btnSave);
-
+        btnBack = findViewById(R.id.ivBack);
         apiService = ApiClient.getClient().create(ApiService.class);
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
         btnSave.setOnClickListener(v -> registerDoctor());
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(

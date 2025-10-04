@@ -27,10 +27,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Collects surgery-related factors, posts them to Django backend,
- * and keeps selections when user navigates back.
- */
 public class SurgeryFactorsActivity extends AppCompatActivity {
 
     private RadioGroup rgSurgeryType, rgUrgency, rgDuration, rgBloodLoss;
@@ -38,11 +34,7 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    private int patientScore;
-    private int medicalScore;
-    private int preopScore;
     private int patientId;
-
     private ApiService apiService;
     private String token;
 
@@ -57,22 +49,21 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
 
         initViews();
 
-        Intent fromPrev = getIntent();
-        patientScore = fromPrev.getIntExtra("patient_score", 0);
-        medicalScore = fromPrev.getIntExtra("medical_score", 0);
-        preopScore   = fromPrev.getIntExtra("preop_score", 0);
-        patientId    = fromPrev.getIntExtra("patient_id", -1);
-
+        patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {
-            Toast.makeText(this,
-                    "⚠️ Invalid patient ID. Please create a patient first.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid patient ID.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         apiService = ApiClient.getClient().create(ApiService.class);
         String savedToken = SharedPrefManager.getInstance(this).getToken();
         if (savedToken != null && !savedToken.trim().isEmpty()) {
             token = "Token " + savedToken.trim();
+        } else {
+            Toast.makeText(this, "Authentication token missing.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         // Restore selections
@@ -87,18 +78,14 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
             checkedType = id;
             toggleOtherVisibility(id);
         });
-        rgUrgency.setOnCheckedChangeListener((g,i)-> checkedUrg=i);
-        rgDuration.setOnCheckedChangeListener((g,i)-> checkedDur=i);
-        rgBloodLoss.setOnCheckedChangeListener((g,i)-> checkedLoss=i);
+        rgUrgency.setOnCheckedChangeListener((g, i) -> checkedUrg = i);
+        rgDuration.setOnCheckedChangeListener((g, i) -> checkedDur = i);
+        rgBloodLoss.setOnCheckedChangeListener((g, i) -> checkedLoss = i);
 
         btnBack.setOnClickListener(v -> {
             otherText = etOtherSurgery.getText().toString();
-            Intent intent = new Intent(this, PreoperativeConsiderationsActivity.class);
-            intent.putExtra("patient_id", patientId);
-            intent.putExtra("patient_score", patientScore);
-            intent.putExtra("medical_score", medicalScore);
-            intent.putExtra("preop_score", preopScore);
-            startActivity(intent);
+            startActivity(new Intent(this, PreoperativeConsiderationsActivity.class)
+                    .putExtra("patient_id", patientId));
             finish();
         });
 
@@ -110,18 +97,18 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
 
     private void initViews() {
         rgSurgeryType = findViewById(R.id.rgSurgeryType);
-        rgUrgency     = findViewById(R.id.rgUrgency);
-        rgDuration    = findViewById(R.id.rgDuration);
-        rgBloodLoss   = findViewById(R.id.rgBloodLoss);
-        etOtherSurgery= findViewById(R.id.etOtherSurgery);
-        btnNext       = findViewById(R.id.btnNext);
-        btnBack       = findViewById(R.id.btnBack);
+        rgUrgency = findViewById(R.id.rgUrgency);
+        rgDuration = findViewById(R.id.rgDuration);
+        rgBloodLoss = findViewById(R.id.rgBloodLoss);
+        etOtherSurgery = findViewById(R.id.etOtherSurgery);
+        btnNext = findViewById(R.id.btnNext);
+        btnBack = findViewById(R.id.btnBack);
     }
 
     private void toggleOtherVisibility(int id) {
         if (id != -1) {
             RadioButton rb = findViewById(id);
-            if (rb != null && rb.getText().toString().equalsIgnoreCase("Others")) {
+            if (rb != null && "Others".equalsIgnoreCase(rb.getText().toString())) {
                 etOtherSurgery.setVisibility(View.VISIBLE);
                 return;
             }
@@ -130,63 +117,67 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
     }
 
     private void sendSurvey() {
-        int tmpScore = 0;
-        List<Answer> answers = new ArrayList<>();
+        if (patientId <= 0 || token == null) return;
 
-        // --- Type of surgery ---
+        List<Answer> answers = new ArrayList<>();
+        int totalScore = 0;
+
+        // Type of surgery
         int idType = rgSurgeryType.getCheckedRadioButtonId();
         if (idType != -1) {
             RadioButton rb = findViewById(idType);
             String type = rb.getText().toString();
-            if (type.equalsIgnoreCase("Others")) {
+            int score = 0;
+            if ("Thoracic".equalsIgnoreCase(type)) score = 7;
+            else if ("Upper abdominal".equalsIgnoreCase(type)) score = 5;
+            else if ("Lower abdominal".equalsIgnoreCase(type)) score = 3;
+            else if ("Neurosurgery".equalsIgnoreCase(type)) score = 3;
+            else if ("Orthopedic".equalsIgnoreCase(type)) score = 2;
+            else if ("Ent / Head & neck".equalsIgnoreCase(type)) score = 2;
+            else if ("Vascular / Cardiac".equalsIgnoreCase(type)) score = 7;
+            else if ("Others".equalsIgnoreCase(type)) score = 1;
+
+            if ("Others".equalsIgnoreCase(type)) {
                 String otherTxt = etOtherSurgery.getText().toString().trim();
-                if (!otherTxt.isEmpty()) type = type + " (" + otherTxt + ")";
+                if (!otherTxt.isEmpty()) type += " (" + otherTxt + ")";
             }
-            int s = 0;
-            switch (rb.getText().toString()) {
-                case "Thoracic":           s = 7; break;
-                case "Upper abdominal":    s = 5; break;
-                case "Lower abdominal":    s = 3; break;
-                case "Neurosurgery":       s = 3; break;
-                case "Orthopedic":         s = 2; break;
-                case "Ent / Head & neck":  s = 2; break;
-                case "Vascular / Cardiac": s = 7; break;
-                case "Others":             s = 1; break;
-            }
-            tmpScore += s;
-            answers.add(new Answer("Type of surgery", type, s));
+
+            totalScore += score;
+            answers.add(new Answer("Type of surgery", type, score));
         }
 
-        // --- Urgency ---
+        // Urgency
         int idUrg = rgUrgency.getCheckedRadioButtonId();
         if (idUrg != -1) {
             RadioButton rb = findViewById(idUrg);
             String urgency = rb.getText().toString();
-            int s = urgency.equalsIgnoreCase("Emergency") ? 4 : 0;
-            tmpScore += s;
-            answers.add(new Answer("Urgency", urgency, s));
+            int score = "Emergency".equalsIgnoreCase(urgency) ? 4 : 0;
+            totalScore += score;
+            answers.add(new Answer("Urgency", urgency, score));
         }
 
-        // --- Duration ---
+        // Duration
         int idDur = rgDuration.getCheckedRadioButtonId();
         if (idDur != -1) {
             RadioButton rb = findViewById(idDur);
-            String duration = rb.getText().toString();
-            int s = (duration.contains("2–4") || duration.contains("2-4")) ? 3 :
-                    (duration.contains(">4") || duration.contains("gt")) ? 5 : 0;
-            tmpScore += s;
-            answers.add(new Answer("Duration", duration, s));
+            String dur = rb.getText().toString();
+            int score = 0;
+            if (dur.contains("2–4") || dur.contains("2-4")) score = 3;
+            else if (dur.contains(">4") || dur.toLowerCase().contains("gt")) score = 5;
+            totalScore += score;
+            answers.add(new Answer("Duration", dur, score));
         }
 
-        // --- Estimated Blood Loss ---
+        // Estimated blood loss
         int idLoss = rgBloodLoss.getCheckedRadioButtonId();
         if (idLoss != -1) {
             RadioButton rb = findViewById(idLoss);
             String loss = rb.getText().toString();
-            int s = (loss.contains("500–1000") || loss.contains("500-1000")) ? 2 :
-                    (loss.contains(">1000") || loss.contains("gt")) ? 3 : 0;
-            tmpScore += s;
-            answers.add(new Answer("Estimated blood loss", loss, s));
+            int score = 0;
+            if (loss.contains("500–1000") || loss.contains("500-1000")) score = 2;
+            else if (loss.contains(">1000") || loss.toLowerCase().contains("gt")) score = 3;
+            totalScore += score;
+            answers.add(new Answer("Estimated blood loss", loss, score));
         }
 
         if (answers.isEmpty()) {
@@ -194,17 +185,14 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
             return;
         }
 
-        final int surgeryScore = tmpScore;
-        final int combinedTotal = patientScore + medicalScore + preopScore + surgeryScore;
-
+        // Create request
         SurveyRequest req = new SurveyRequest();
         req.setPatient_id(patientId);
-        req.setTotal_score(surgeryScore);
-        req.setStatus("surgery_Factors");  // ✅ match section
-        req.setRisk_level(getRiskLevel(surgeryScore));
-
+        req.setTotal_score(totalScore);
+        req.setStatus("surgery_Factors");  // match backend section
+        req.setRisk_level(getRiskLevel(totalScore));
         List<SectionScore> sections = new ArrayList<>();
-        sections.add(new SectionScore("Surgery Factors", surgeryScore));
+        sections.add(new SectionScore("Surgery Factors", totalScore));
         req.setSection_scores(sections);
         req.setAnswers(answers);
 
@@ -212,38 +200,22 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(SurgeryFactorsActivity.this,
-                            "Surgery data saved. Score: " + surgeryScore,
-                            Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(SurgeryFactorsActivity.this,
-                            PlannedAnesthesiaActivity.class);
-                    intent.putExtra("patient_id", patientId);
-                    intent.putExtra("patient_score", patientScore);
-                    intent.putExtra("medical_score", medicalScore);
-                    intent.putExtra("preop_score", preopScore);
-                    intent.putExtra("surgery_score", surgeryScore);
-                    intent.putExtra("combined_total", combinedTotal);
-                    intent.putExtra("survey_id", response.body().getId());
-                    startActivity(intent);
+                    Toast.makeText(SurgeryFactorsActivity.this, "Survey saved!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SurgeryFactorsActivity.this, PlannedAnesthesiaActivity.class)
+                            .putExtra("patient_id", patientId));
                     finish();
                 } else {
-                    Toast.makeText(SurgeryFactorsActivity.this,
-                            "Save failed: " + response.code(),
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(SurgeryFactorsActivity.this, "Save failed: " + response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyResponse> call, Throwable t) {
-                Toast.makeText(SurgeryFactorsActivity.this,
-                        "Network error: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(SurgeryFactorsActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    // ---------- Risk level calculator ----------
     private String getRiskLevel(int score) {
         if (score <= 2) return "Low";
         else if (score <= 5) return "Moderate";

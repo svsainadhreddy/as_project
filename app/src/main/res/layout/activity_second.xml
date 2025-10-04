@@ -189,6 +189,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/registerButton"
         app:layout_constraintHorizontal_bias="1.0"
+        app:layout_editor_absoluteX="@dimen/cardview_default_radius"
+        app:layout_editor_absoluteY="@dimen/cardview_default_radius"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="685dp" />
 

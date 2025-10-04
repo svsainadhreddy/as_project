@@ -4,6 +4,7 @@ import com.example.myapplicationpopc.model.DashboardResponse;
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.model.PendingPatient;
+import com.example.myapplicationpopc.model.RecordsResponse;
 import com.example.myapplicationpopc.model.SurveyDisplayResponse;
 import com.example.myapplicationpopc.model.SurveyRequest;
 import com.example.myapplicationpopc.model.SurveyResponse;
@@ -119,5 +120,12 @@ public interface ApiService {
 
     @GET("api/surveys/not-completed/")
     Call<List<PendingPatient>> getPendingSurveys(@Header("Authorization") String token);
+
+        // Add this method
+        // ✅ Return RecordsResponse which includes pk, patient_id, and name
+        // Make sure this matches exactly the method you're calling in SurveyListActivity
+     @GET("api/surveys/completed/")
+     Call<List<RecordsResponse>> listCompletedPatients(@Header("Authorization") String token);
+
 
 }

@@ -25,10 +25,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Collects medical history survey answers and posts them to backend.
- * Does NOT persist selections across different patients.
- */
 public class MedicalHistoryActivity extends AppCompatActivity {
 
     private RadioGroup rgCOPD, rgAsthma, rgOSA, rgILD, rgHeartFailure,
@@ -36,7 +32,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     private Button btnNext;
     private ImageButton btnBack;
 
-    private int patientId, prevScore;
+    private int patientId;
     private ApiService apiService;
     private String token;
 
@@ -47,17 +43,21 @@ public class MedicalHistoryActivity extends AppCompatActivity {
 
         initViews();
 
-        patientId  = getIntent().getIntExtra("patient_id", -1);
-        prevScore  = getIntent().getIntExtra("patient_score", 0);
-
+        patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {
             Toast.makeText(this, "⚠️ Invalid patient ID.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         apiService = ApiClient.getClient().create(ApiService.class);
         String savedToken = SharedPrefManager.getInstance(this).getToken();
         if (savedToken != null && !savedToken.trim().isEmpty()) {
             token = "Token " + savedToken.trim();
+        } else {
+            Toast.makeText(this, "Authentication token missing.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         btnBack.setOnClickListener(v -> {
@@ -87,9 +87,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
 
     private void sendSurvey() {
         if (patientId <= 0 || token == null) {
-            Toast.makeText(this,
-                    "Cannot proceed without patient ID or token.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Cannot proceed without patient ID or token.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -106,46 +104,42 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         sectionScore += addDiseaseScore(rgDiabetes, "Diabetes", 1, answers);
         sectionScore += addDiseaseScore(rgCKD, "CKD", 2, answers);
 
-        int cappedSection = Math.min(sectionScore, 15);
-        int combinedScore = prevScore + cappedSection;
-
         SurveyRequest req = new SurveyRequest();
         req.setPatient_id(patientId);
-        req.setTotal_score(cappedSection);
+        req.setTotal_score(sectionScore); // Only this section score
         req.setStatus("medical_history");
-        req.setRisk_level(getRiskLevel(combinedScore));
+        req.setRisk_level(getRiskLevel(sectionScore)); // optional
 
         List<SectionScore> sections = new ArrayList<>();
-        sections.add(new SectionScore("Medical History", cappedSection));
+        sections.add(new SectionScore("Medical History", sectionScore));
         req.setSection_scores(sections);
         req.setAnswers(answers);
+
+        // Optional: log JSON for debugging
+        // Log.d("SurveyRequestJSON", new Gson().toJson(req));
 
         apiService.createSurvey(token, req).enqueue(new Callback<SurveyResponse>() {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    goToNext(combinedScore);
+                    goToNext();
                 } else {
                     Toast.makeText(MedicalHistoryActivity.this,
-                            "Save failed: " + response.code(),
-                            Toast.LENGTH_LONG).show();
+                            "Save failed: " + response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyResponse> call, Throwable t) {
                 Toast.makeText(MedicalHistoryActivity.this,
-                        "Network error: " + t.getLocalizedMessage(),
-                        Toast.LENGTH_LONG).show();
+                        "Network error: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void goToNext(int combinedScore) {
-        Intent i = new Intent(MedicalHistoryActivity.this,
-                PreoperativeConsiderationsActivity.class);
-        i.putExtra("patient_id", patientId);
-        i.putExtra("patient_score", combinedScore);
+    private void goToNext() {
+        Intent i = new Intent(MedicalHistoryActivity.this, PreoperativeConsiderationsActivity.class);
+        i.putExtra("patient_id", patientId); // Only pass patient ID
         startActivity(i);
         finish();
     }
