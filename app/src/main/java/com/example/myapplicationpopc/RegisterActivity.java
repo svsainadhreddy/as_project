@@ -1,9 +1,11 @@
 package com.example.myapplicationpopc;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Patterns;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,77 +19,158 @@ import okhttp3.ResponseBody;
 import retrofit2.*;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText etDoctorId, etName, etPhone, etEmail, etAge, etSpecialization, etUsername, etPassword, etConfirmPassword;
-    Spinner spinnerGender;
+    EditText etDoctorId, etName, etPhone, etEmail, etAge, etUsername, etPassword, etConfirmPassword;
+    Spinner spinnerGender, spinnerSpecialization;
     Button btnSave;
     ImageButton btnBack;
-
-
     ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-          // Hide toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
 
+        // Hide toolbar
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+
+        // 🔹 Find all views
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
         etAge = findViewById(R.id.etAge);
         spinnerGender = findViewById(R.id.spinnerGender);
-        etSpecialization = findViewById(R.id.etSpecialization);
+        spinnerSpecialization = findViewById(R.id.etSpecialization);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnSave = findViewById(R.id.btnSave);
         btnBack = findViewById(R.id.ivBack);
         apiService = ApiClient.getClient().create(ApiService.class);
-        btnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
 
-        btnSave.setOnClickListener(v -> registerDoctor());
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                new String[]{"Male", "Female", "Other"} // options
-        );
+        // 🔹 Back button
+        btnBack.setOnClickListener(view -> finish());
+
+        // 🔹 Gender dropdown
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, new String[]{"Male", "Female", "Other"});
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGender.setAdapter(genderAdapter);
+
+        // 🔹 Specialization dropdown
+        ArrayAdapter<String> specializationAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, new String[]{"Anesthesia"});
+        specializationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSpecialization.setAdapter(specializationAdapter);
+
+        // 🔹 Password toggle
         ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
         ImageView ivTogglePassword2 = findViewById(R.id.ivTogglePasswords);
 
-        ivTogglePassword.setOnClickListener(v -> {
-            if (etPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                // Show password
-                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_eye_open);
-            } else {
-                // Hide password
-                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
-            }
-            etPassword.setSelection(etPassword.getText().length()); // move cursor to end
-        });
-        ivTogglePassword2.setOnClickListener(v -> {
-            if (etConfirmPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                // Show password
-                etConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ivTogglePassword2.setImageResource(R.drawable.ic_eye_open);
-            } else {
-                // Hide password
-                etConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ivTogglePassword2.setImageResource(R.drawable.ic_eye_closed);
-            }
-            etConfirmPassword.setSelection(etConfirmPassword.getText().length()); // move cursor to end
-        });
+        ivTogglePassword.setOnClickListener(v -> togglePassword(etPassword, ivTogglePassword));
+        ivTogglePassword2.setOnClickListener(v -> togglePassword(etConfirmPassword, ivTogglePassword2));
 
+        // 🔹 Enter key navigation
+        setEditTextNext(etDoctorId, etName);
+        setEditTextNext(etName, etPhone);
+        setEditTextNext(etPhone, etEmail);
+        setEditTextNext(etEmail, etAge);
+        setEditTextNext(etAge, etUsername);
+        setEditTextNext(etUsername, etPassword);
+        setEditTextNext(etPassword, etConfirmPassword);
+        etConfirmPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        // 🔹 Save button
+        btnSave.setOnClickListener(v -> {
+            if (validateFields()) registerDoctor();
+        });
+    }
+
+    private void togglePassword(EditText et, ImageView iv) {
+        if (et.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+            et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            iv.setImageResource(R.drawable.ic_eye_open);
+        } else {
+            et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            iv.setImageResource(R.drawable.ic_eye_closed);
+        }
+        et.setSelection(et.getText().length());
+    }
+
+    private void setEditTextNext(EditText current, EditText next) {
+        current.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_NEXT ||
+                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                next.requestFocus();
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private boolean validateFields() {
+        String doctorId = etDoctorId.getText().toString().trim();
+        String name = etName.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String age = etAge.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString();
+        String confirmPassword = etConfirmPassword.getText().toString();
+
+        if (doctorId.isEmpty() || name.isEmpty() || phone.isEmpty() || email.isEmpty()
+                || age.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!name.matches("[a-zA-Z ]+")) {
+            etName.setError("Name must contain only alphabets");
+            etName.requestFocus();
+            return false;
+        }
+
+        if (!email.matches(Patterns.EMAIL_ADDRESS.pattern())) {
+            etEmail.setError("Invalid email address");
+            etEmail.requestFocus();
+            return false;
+        }
+
+        if (!phone.matches("[6-9][0-9]{9}")) {
+            etPhone.setError("Enter valid 10-digit Indian phone number");
+            etPhone.requestFocus();
+            return false;
+        }
+
+        if (!age.matches("\\d+")) {
+            etAge.setError("Age must be a number");
+            etAge.requestFocus();
+            return false;
+        }
+
+        if (!username.matches("[a-zA-Z0-9]+")) {
+            etUsername.setError("Username must be alphanumeric");
+            etUsername.requestFocus();
+            return false;
+        }
+
+        if (!isStrongPassword(password)) {
+            etPassword.setError("Password must be min 8 chars, alphanumeric with letters and digits");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError("Passwords do not match");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isStrongPassword(String password) {
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     }
 
     private void registerDoctor() {
@@ -99,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
         body.put("phone", etPhone.getText().toString());
         body.put("age", etAge.getText().toString());
         body.put("gender", spinnerGender.getSelectedItem().toString());
-        body.put("specialization", etSpecialization.getText().toString());
+        body.put("specialization", spinnerSpecialization.getSelectedItem().toString());
         body.put("password", etPassword.getText().toString());
         body.put("password2", etConfirmPassword.getText().toString());
 
@@ -126,6 +209,5 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.widget.ImageButton;
-
+import android.widget.LinearLayout;
 
 
 public class PatientManagementActivity extends AppCompatActivity {
 
-    Button btnAddPatient, btnViewPatient, btnEditPatient,btnDeletePatient;
+    LinearLayout btnAddPatient, btnViewPatient, btnEditPatient,btnDeletePatient;
     ImageButton btn1;
 
     @Override

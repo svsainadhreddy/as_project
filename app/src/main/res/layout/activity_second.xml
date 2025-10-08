@@ -179,32 +179,34 @@
 
     <!-- Register Button -->
 
+    <!-- "Don't have an Account?" text -->
     <TextView
+        android:id="@+id/tvNoAccount"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Don't have an Account?"
+        android:layout_height="40dp"
+        android:text="Don't have an Account? "
         android:textColor="@android:color/black"
-        android:textSize="19dp"
+        android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/registerButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_editor_absoluteX="@dimen/cardview_default_radius"
-        app:layout_editor_absoluteY="@dimen/cardview_default_radius"
+        app:layout_constraintTop_toBottomOf="@id/loginCard"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="685dp" />
+        app:layout_constraintEnd_toStartOf="@id/registerButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginTop="16dp" />
 
+    <!-- Register Button -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_marginTop="508dp"
-        android:layout_marginEnd="26dp"
         android:background="@drawable/rounded_button"
         android:text="@string/register"
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/loginCard"
+        app:layout_constraintStart_toEndOf="@id/tvNoAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout" />
+        android:layout_marginTop="16dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

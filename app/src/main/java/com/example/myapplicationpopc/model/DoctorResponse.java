@@ -17,6 +17,7 @@ public class DoctorResponse {
 
     @SerializedName("profile_image")
     private String profileImage; // fixed to match Django JSON field
+    private String profileImageUrl;
 
     // ---- Getters ----
     public String getDoctorId() { return doctorId; }
@@ -39,5 +40,8 @@ public class DoctorResponse {
     public void setAge(String age) { this.age = age; }
     public void setGender(String gender) { this.gender = gender; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
-    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
 }

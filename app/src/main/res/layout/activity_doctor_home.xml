@@ -2,182 +2,230 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AD000000"
-    android:padding="8dp">
-
-    <!-- Top Bar -->
-    <!--  <TextView
-         android:id="@+id/tvHeader"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="#405DDD"
-         android:gravity="center"
-         android:padding="0dp"
-         android:text="popc"
-         android:textColor="#FFFFFF"
-         android:textSize="28sp"
-         android:textStyle="bold" />   -->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#121622"
+    android:padding="16dp">
 
     <!-- Doctor Info Card -->
     <LinearLayout
         android:id="@+id/doctorInfoCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/gray_bg"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:elevation="4dp">
+        android:background="@drawable/dark_rounded_card"
+        android:elevation="6dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
 
-        <!-- Profile Image -->
         <ImageView
             android:id="@+id/imgDoctor"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/img_profile"
-            android:padding="10dp"
-            android:scaleType="centerInside"
-            android:contentDescription="doctor_icon"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="16dp"
-             />
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_image"
+            android:layout_marginEnd="16dp" />
 
-        <!-- Doctor Info (Dynamic) -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvDoctorId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DOCTOR ID : "
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/etDoctorId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/doctor_id"
-                android:padding="10dp"
-                android:background="@android:color/transparent"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textStyle="bold" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <TextView
+            <EditText
                 android:id="@+id/tvDoctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NAME : "
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
-            <TextView
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/doctor_name"
-                android:background="@android:color/transparent"
-                android:padding="4dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
-        </LinearLayout>
+                android:text="Dr. Eleanor Grant"
+                android:background="@null"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
 
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDoctorSpeciality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anesthesia"
+                android:textColor="#BBBBBB"
+                android:textSize="14sp"
+                android:layout_marginTop="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID: "
+                    android:textColor="#8FA8B3"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/tvDoctorId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:text="DR-982341"
+                    android:textColor="#8FA8B3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Dashboard Buttons Grid -->
     <GridLayout
         android:id="@+id/gridButtons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/doctorInfoCard"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:columnCount="2"
-        android:rowCount="3"
-        android:useDefaultMargins="true"
-        android:alignmentMode="alignBounds">
+        android:rowCount="2"
+        android:alignmentMode="alignMargins"
+        android:rowOrderPreserved="false"
+        android:useDefaultMargins="true">
 
-        <Button
-            android:id="@+id/btnDashboard"
+        <!-- Dashboard Button Template -->
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:text="Details"
-            android:textColor="#C9000000"
-            android:textSize="16sp"
-            android:background="@drawable/sai10" />
+            android:layout_margin="8dp"
+            android:background="@drawable/dark_rounded_card"
+            android:elevation="4dp">
 
-        <Button
-            android:id="@+id/btnPatientManagement"
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btnDashboard"
+                    android:layout_width="42dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Button 2 -->
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:text="Patient Management"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:background="@drawable/sai0" />
+            android:layout_margin="8dp"
+            android:background="@drawable/dark_rounded_card"
+            android:elevation="4dp">
 
-        <Button
-            android:id="@+id/btnSurveyEntry"
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btnPatientManagement"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_patients"
+                    app:tint="#FFFFFF"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Patients"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Button 3 -->
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:text="Patient Risk level"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:background="@drawable/bt_bg_home" />
+            android:layout_margin="8dp"
+            android:background="@drawable/dark_rounded_card"
+            android:elevation="4dp">
 
-        <Button
-            android:id="@+id/btnSurveyRecords"
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btnSettings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Button 4 -->
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:text="Survey Records"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:background="@drawable/bt_bg_home" />
+            android:layout_margin="8dp"
+            android:background="@drawable/dark_rounded_card"
+            android:elevation="4dp">
 
-        <!--  <Button
-            android:id="@+id/btnAnalytics"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:text="Analytics And Reports"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:background="@drawable/rounded_button" />    -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:text="Settings"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:background="@drawable/bt_bg_home" />
+                <ImageView
+                    android:id="@+id/btnReports"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_reports"
+                    app:tint="#FFFFFF" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reports"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </FrameLayout>
     </GridLayout>
-
-
 </RelativeLayout>

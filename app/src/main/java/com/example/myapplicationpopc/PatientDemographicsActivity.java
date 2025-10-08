@@ -45,6 +45,10 @@ public class PatientDemographicsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_demographics);
 
         initViews();
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         // Get patient_id from intent
         patientId = getIntent().getIntExtra("patient_id", -1);

@@ -2,117 +2,185 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai12"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#0E1726"
     android:padding="16dp">
 
-    <!-- Back Button -->
+    <!-- Back Button and Title -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="32dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/circle_image"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patient Management"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+    <!-- Card Container -->
+    <LinearLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- ADD PATIENT -->
+        <LinearLayout
+            android:id="@+id/btnAddPatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_card_add">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_add_patient"
+                app:tint="@android:color/white"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD PATIENT"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
 
-    <!-- Title -->
+            </LinearLayout>
+        </LinearLayout>
 
-    <!-- Add Patient -->
+        <!-- VIEW PATIENT -->
+        <LinearLayout
+            android:id="@+id/btnViewPatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_card_view">
 
-    <!-- View Patient -->
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_view_list"
+                app:tint="@android:color/white"
+                android:layout_marginEnd="12dp" />
 
-    <!-- Edit Patients -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/circle_dark_bg"
-        android:contentDescription="Back"
-        android:src="@drawable/ic_arrow_back" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW PATIENTS"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="274dp"
-        android:layout_height="53dp"
-        android:layout_alignTop="@+id/btnBack"
-        android:layout_alignBottom="@+id/btnBack"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-1dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="-4dp"
-        android:width="300dp"
-        android:height="40dp"
-        android:background="?attr/actionBarDivider"
-        android:gravity="center"
-        android:text="Patient Management"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddPatient"
-        android:layout_width="271dp"
-        android:layout_height="109dp"
-        android:layout_below="@id/tvTitle"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="89dp"
-        android:layout_marginEnd="42dp"
-        android:textStyle="bold"
-        android:background="@android:drawable/toast_frame"
-        android:text="ADD PATIENT"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+        <!-- DELETE PATIENT -->
+        <LinearLayout
+            android:id="@+id/btnDeletePatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_card_delete">
 
-    <Button
-        android:id="@+id/btnViewPatient"
-        android:layout_width="286dp"
-        android:layout_height="111dp"
-        android:layout_below="@id/btnAddPatient"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:drawable/toast_frame"
-        android:text="VIEW PATIENT"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_delete"
+                app:tint="@android:color/white"
+                android:layout_marginEnd="12dp" />
 
-    <Button
-        android:id="@+id/btnDeletePatient"
-        android:layout_width="285dp"
-        android:layout_height="121dp"
-        android:layout_below="@id/btnViewPatient"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="35dp"
-        android:background="@android:drawable/toast_frame"
-        android:text="DELETE PATIENT"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnEditPatient"
-        android:layout_width="279dp"
-        android:layout_height="112dp"
-        android:layout_below="@+id/btnDeletePatient"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginEnd="37dp"
-        android:background="@android:drawable/toast_frame"
-        android:text="EDIT PATIENTS"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DELETE PATIENTS"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- EDIT PATIENTS -->
+        <LinearLayout
+            android:id="@+id/btnEditPatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:padding="18dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_card_edit">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_edit"
+                app:tint="@android:color/white"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EDIT PATIENTS"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
 
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

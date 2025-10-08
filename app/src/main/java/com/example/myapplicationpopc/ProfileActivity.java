@@ -7,9 +7,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,14 +42,16 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    EditText etName, etPhone, etEmail, etSpecialization, etAge, etDoctor_gender;
+    EditText etName, etPhone, etEmail, etAge, etDoctor_gender;
+    Spinner etSpecialization;
     TextView etDoctorId;
-    ImageView ivProfile,btn1;
+    ImageView ivProfile, btn1;
     Button btnUpdate;
 
     ApiService apiService;
     String token;
     Uri selectedImageUri;
+    String selectedSpecialization = "Anesthesia";
 
     ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -54,11 +59,13 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        //HideToolbar
+
+        // Hide toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
+        // Bind UI
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
@@ -70,6 +77,24 @@ public class ProfileActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         btn1 = findViewById(R.id.btnBack);
 
+        // Spinner setup
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.specialization_array, android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        etSpecialization.setAdapter(adapter);
+
+        etSpecialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                selectedSpecialization = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedSpecialization = "Anesthesia";
+            }
+        });
 
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -89,28 +114,24 @@ public class ProfileActivity extends AppCompatActivity {
 
         ivProfile.setOnClickListener(v -> showImagePickerDialog());
         btnUpdate.setOnClickListener(v -> updateProfile());
-        // back to DoctorHomeActivity
+
+        // Back to home
         btn1.setOnClickListener(v -> {
             Intent i = new Intent(this, DoctorHomeActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
-
     }
 
-    // Let user choose Gallery
     private void showImagePickerDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Option")
+        new AlertDialog.Builder(this)
+                .setTitle("Choose Option")
                 .setItems(new CharSequence[]{"Gallery"}, (dialog, which) -> {
-                    if (which == 0) {
-                        openGallery();
-                    }
+                    if (which == 0) openGallery();
                 }).show();
     }
 
     private void openGallery() {
-        // Handle permissions depending on Android version
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -124,18 +145,15 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
         }
-
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         galleryLauncher.launch(intent);
     }
 
-    // Handle permission result
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if ((requestCode == 100 || requestCode == 101) &&
                 grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openGallery();
@@ -154,9 +172,15 @@ public class ProfileActivity extends AppCompatActivity {
                     etName.setText(doctor.getName());
                     etPhone.setText(doctor.getPhone());
                     etEmail.setText(doctor.getEmail());
-                    etSpecialization.setText(doctor.getSpecialization());
                     etAge.setText(doctor.getAge());
                     etDoctor_gender.setText(doctor.getGender());
+
+                    // Set specialization to dropdown
+                    if (doctor.getSpecialization() != null) {
+                        int pos = ((ArrayAdapter) etSpecialization.getAdapter())
+                                .getPosition(doctor.getSpecialization());
+                        if (pos >= 0) etSpecialization.setSelection(pos);
+                    }
 
                     if (doctor.getProfileImage() != null) {
                         Glide.with(ProfileActivity.this)
@@ -199,7 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
         RequestBody age = RequestBody.create(etAge.getText().toString(), MediaType.parse("text/plain"));
         RequestBody gender = RequestBody.create(etDoctor_gender.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody specialization = RequestBody.create(etSpecialization.getText().toString(), MediaType.parse("text/plain"));
+        RequestBody specialization = RequestBody.create(selectedSpecialization, MediaType.parse("text/plain"));
         RequestBody email = RequestBody.create(etEmail.getText().toString(), MediaType.parse("text/plain"));
 
         MultipartBody.Part imagePart = null;

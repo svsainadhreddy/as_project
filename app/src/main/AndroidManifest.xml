@@ -49,203 +49,132 @@
         <activity
             android:name=".SecondActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+           />
+
 
         <!-- Register Activity -->
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            />
+
         <!-- Home Activity -->
         <activity
             android:name=".DoctorHomeActivity"
             android:exported="false"
-            android:parentActivityName=".SecondActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SecondActivity" />
-        </activity>
+            />
+        <!-- Settings Activity -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            />
 
         <!-- Profile Activity -->
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".DoctorHomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DoctorHomeActivity" />
-        </activity>
+            />
+
+        <!--Details Activity -->
+
+        <activity
+            android:name=".DetailsActivity"
+            android:exported="false"
+            />
+
+        <!--Survey ListActivity -->
+
+        <activity
+            android:name=".SurveyListActivity"
+            android:exported="false"
+             />
+
+        <!--Survey DisplayActivity-->
+
+        <activity
+            android:name=".SurveyDisplayActivity"
+            android:exported="false"
+            />
+
+        <activity
+            android:name=".PendingSurveysActivity"
+            android:exported="false"
+             />
+
+
 
         <!-- patient management Activity -->
         <activity
             android:name=".PatientManagementActivity"
             android:exported="false"
-            android:parentActivityName=".DoctorHomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DoctorHomeActivity" />
-        </activity>
+            />
         <!--  EditPatientListActivity  -->
         <activity
             android:name=".EditPatientListActivity"
             android:exported="false"
-            android:parentActivityName=".PatientManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PatientManagementActivity" />
-        </activity>
+           />
         <!-- EditPatientActivity -->
         <activity
             android:name=".EditPatientActivity"
             android:exported="false"
-            android:parentActivityName=".EditPatientListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".EditPatientListActivity" />
-        </activity>
+             />
         <!-- AddPatientActivity -->
         <activity
             android:name=".AddPatientActivity"
             android:exported="false"
-            android:parentActivityName=".PatientManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PatientManagementActivity" />
-        </activity>
+             />
             <!--  viewPatientListActivity  -->
             <activity
                 android:name=".ViewPatientListActivity"
                 android:exported="false"
-                android:parentActivityName=".PatientManagementActivity">
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".PatientManagementActivity" />
+                 />
 
-        </activity>
         <!-- ViewPatientActivity -->
         <activity
             android:name=".ViewPatientActivity"
             android:exported="false"
-            android:parentActivityName=".PatientManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PatientManagementActivity" />
-        </activity>
+            />
         <!-- DeletePatientActivity -->
         <activity
             android:name=".DeletePatientActivity"
             android:exported="false"
-            android:parentActivityName=".PatientManagementActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PatientManagementActivity" />
-        </activity>
+             />
         <!-- Question Activity -->
         <activity
             android:name=".PatientDemographicsActivity"
             android:exported="false"
-            android:parentActivityName=".DoctorHomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DoctorHomeActivity" />
-        </activity>
+            />
 
           <activity
                  android:name=".MedicalHistoryActivity"
                  android:exported="false"
-                 android:parentActivityName=".PatientDemographicsActivity">
-                 <meta-data
-                     android:name="android.support.PARENT_ACTIVITY"
-                     android:value=".PatientDemographicsActivity" />
-             </activity>
+                 />
 
             <activity
               android:name=".PreoperativeConsiderationsActivity"
               android:exported="false"
-              android:parentActivityName=".MedicalHistoryActivity">
-          <meta-data
-              android:name="android.support.PARENT_ACTIVITY"
-              android:value=".MedicalHistoryActivity" />
-          </activity>
+             />
 
                <activity
                    android:name=".SurgeryFactorsActivity"
                    android:exported="false"
-                   android:parentActivityName=".PreoperativeConsiderationsActivity">
-                   <meta-data
-                       android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".PreoperativeConsiderationsActivity" />
-               </activity>
+                   />
 
                <activity
                    android:name=".PlannedAnesthesiaActivity"
                    android:exported="false"
-                   android:parentActivityName=".SurgeryFactorsActivity">
-                   <meta-data
-                       android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".SurgeryFactorsActivity" />
-               </activity>
+                    />
 
                <activity
                    android:name=".PostoperativeActivity"
                    android:exported="false"
-                   android:parentActivityName=".PlannedAnesthesiaActivity">
-                   <meta-data
-                       android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".PlannedAnesthesiaActivity" />
-               </activity>
+                   />
 
            <activity
               android:name=".ScoreActivity"
               android:exported="false"
-              android:parentActivityName=".PostoperativeActivity">
-              <meta-data
-                  android:name="android.support.PARENT_ACTIVITY"
-                  android:value=".PostoperativeActivity" />
-          </activity>
+               />
 
-        <activity
-            android:name=".DetailsActivity"
-            android:exported="false"
-            android:parentActivityName=".DoctorHomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DoctorHomeActivity" />
-        </activity>
-
-        <activity
-            android:name=".SurveyListActivity"
-            android:exported="false"
-            android:parentActivityName=".DoctorHomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DoctorHomeActivity" />
-        </activity>
-        <activity
-            android:name=".SurveyDisplayActivity"
-            android:exported="false"
-            android:parentActivityName=".SurveyListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SurveyListActivity" />
-        </activity>
-
-        <activity
-            android:name=".PendingSurveysActivity"
-            android:exported="false"
-            android:parentActivityName=".DetailsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailsActivity" />
-        </activity>
 
          </application>
      </manifest>

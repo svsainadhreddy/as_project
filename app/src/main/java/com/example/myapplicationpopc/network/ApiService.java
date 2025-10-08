@@ -1,6 +1,7 @@
 package com.example.myapplicationpopc.network;
 
 import com.example.myapplicationpopc.model.DashboardResponse;
+import com.example.myapplicationpopc.model.Dashboardgraph;
 import com.example.myapplicationpopc.model.DoctorResponse;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.model.PendingPatient;
@@ -127,5 +128,11 @@ public interface ApiService {
      @GET("api/surveys/completed/")
      Call<List<RecordsResponse>> listCompletedPatients(@Header("Authorization") String token);
 
+    @GET("api/surveys/stats/")
+    Call<Dashboardgraph> getDashboardStats(
+            @Header("Authorization") String token
+    );
 
+    @GET("accounts/profile/update/")
+    Call<DoctorResponse> getDoctorimg(@Header("Authorization") String token);
 }

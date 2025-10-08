@@ -48,6 +48,10 @@ public class SurgeryFactorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_surgery_factors);
 
         initViews();
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {

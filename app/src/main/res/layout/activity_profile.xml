@@ -228,14 +228,15 @@
                     android:textStyle="bold"
                     android:textColor="@android:color/black" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/etSpecialization"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:hint="Specialization"
-                    android:background="@drawable/rounded_card"
-                    android:textColorHint="@android:color/black"
-                    android:textColor="@android:color/black" />
+                    android:background="@drawable/rounded_button"
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/specialization_array"
+                    />
             </LinearLayout>
 
             <!-- Gender -->

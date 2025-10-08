@@ -69,6 +69,8 @@
                     android:padding="10dp"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
                     />
             </LinearLayout>
 
@@ -121,6 +123,8 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                          />
                 </LinearLayout>
             </LinearLayout>
@@ -175,6 +179,8 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -229,6 +235,8 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                          />
                 </LinearLayout>
             </LinearLayout>
@@ -268,6 +276,8 @@
                     android:padding="10dp"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
                   />
             </LinearLayout>
 
@@ -303,7 +313,8 @@
                     android:textColor="@color/black"
                     android:background="@drawable/rounded_button"
                     android:padding="8dp"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:imeOptions="actionNext"/>
             </LinearLayout>
 
             <!-- Specialization -->
@@ -331,16 +342,17 @@
                     android:textStyle="bold"
                     android:textColor="@android:color/black" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/etSpecialization"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/doctor_specialization"
                     android:background="@drawable/rounded_button"
-                    android:padding="10dp"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                     />
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/specialization_array"
+                    android:imeOptions="actionNext"
+                    />
+
             </LinearLayout>
 
             <!-- Username -->
@@ -392,6 +404,8 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -440,6 +454,8 @@
                         android:padding="4dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                          />
 
                     <ImageView
@@ -500,7 +516,9 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_eye_closed"
                     android:contentDescription="@string/show_password"
-                    android:layout_marginStart="6dp" />
+                    android:layout_marginStart="6dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 

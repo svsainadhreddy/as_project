@@ -41,6 +41,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
+
         initViews();
 
         patientId = getIntent().getIntExtra("patient_id", -1);
@@ -60,19 +61,19 @@ public class MedicalHistoryActivity extends AppCompatActivity {
             return;
         }
 
-        btnBack.setOnClickListener(v -> {
+        /* btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, PatientDemographicsActivity.class);
             i.putExtra("patient_id", patientId);
             startActivity(i);
             finish();
-        });
+        });  */
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
 
     private void initViews() {
         btnNext = findViewById(R.id.btnNext);
-        btnBack = findViewById(R.id.btnBack);
+        //btnBack = findViewById(R.id.btnBack);
 
         rgCOPD         = findViewById(R.id.rgCOPD);
         rgAsthma       = findViewById(R.id.rgAsthma);

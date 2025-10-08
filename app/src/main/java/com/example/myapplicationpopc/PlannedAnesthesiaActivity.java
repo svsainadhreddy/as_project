@@ -39,6 +39,10 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_anesthesia);
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {

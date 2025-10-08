@@ -44,7 +44,9 @@
     </string-array>
 
         <string name="Doctor_specialization">Specialization</string>
-         <string name="doctor_specialization">Specialization</string>
+    <string-array name="specialization_array">
+        <item>Anesthesia</item>
+    </string-array>
 
         <string name="Doctor_username">Username</string>
          <string name="doctor_username">Username</string>

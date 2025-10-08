@@ -2,6 +2,8 @@ package com.example.myapplicationpopc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +35,16 @@ public class SurveyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey_list);
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
 
         recycler = findViewById(R.id.recyclerPatients);
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        //back button
 
         // ✅ Adapter needs PatientResponse
         adapter = new RecordAdapter(this, patientList, patient -> {
@@ -51,7 +60,12 @@ public class SurveyListActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(SurveyListActivity.this,DoctorHomeActivity.class);
+            startActivity(intent);
+        });
         loadPatients();
+
     }
 
     private void loadPatients() {

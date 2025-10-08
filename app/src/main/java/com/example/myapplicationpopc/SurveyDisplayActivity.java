@@ -29,6 +29,10 @@ public class SurveyDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey_display);
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         llSurveyContainer = findViewById(R.id.llSurveyContainer);
         apiService = ApiClient.getClient().create(ApiService.class);

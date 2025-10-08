@@ -1,6 +1,8 @@
 package com.example.myapplicationpopc;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,12 @@ public class PendingSurveysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_surveys);
+        // Hide Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
 
         recyclerView = findViewById(R.id.recyclerPatients);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,6 +56,10 @@ public class PendingSurveysActivity extends AppCompatActivity {
             return;
         }
 
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(PendingSurveysActivity.this,DetailsActivity.class);
+            startActivity(intent);
+        });
         loadPendingPatients();
     }
 
