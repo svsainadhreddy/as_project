@@ -1,12 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai5">
+    android:background="@color/black">
 
     <!-- Back Button -->
-
-    <!-- Scrollable Form -->
-
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="48dp"
@@ -15,20 +12,17 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="42dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/circle_dark_bg"
-        android:contentDescription="Back"
-        android:src="@drawable/ic_arrow_back" />
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Back" />
 
+    <!-- Scrollable Form -->
     <ScrollView
-        android:id="@+id/formScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/btnBack"
         android:layout_marginTop="20dp">
 
-        <!-- Outer container with margin so sides of bg are visible -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +30,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:background="#F10386FA"
+            android:background="#F1F3FA"
             android:padding="20dp"
             android:elevation="6dp">
 
@@ -46,290 +40,234 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/ic_img"
-                android:background="@drawable/circle_bg"
+                android:background="@drawable/circle_avatar_bg"
                 android:scaleType="centerInside"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="8dp" />
 
             <TextView
-                android:id="@+id/tvAddPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Patient Photo"
-                android:textSize="18sp"
+                android:text="Patient Details"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="18dp"/>
 
-            <!-- ROW: Patient ID -->
+            <!-- Patient Info Rows -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Patient ID"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="18dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etPatientId"
+                <!-- Patient ID -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:hint=" Patient Id"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Patient ID"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvPatientId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="12345"/>
+                </LinearLayout>
 
-            <!-- ROW: Name -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="42dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etName"
+                <!-- Name -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:hint=" Name"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="John Doe"/>
+                </LinearLayout>
 
-            <!-- ROW: Age -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Age"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="53dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etAge"
+                <!-- Age -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:hint=" Age"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="30"/>
+                </LinearLayout>
 
-            <!-- ROW: Phone -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="38dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etPhone"
+                <!-- Phone -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="@color/black"
-                    android:hint=" Mobile Number"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="9876543210"/>
+                </LinearLayout>
 
-            <!-- ROW: Weight -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight (kg)"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etWeight"
+                <!-- Weight (kg) -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black"
-                    android:hint=" Weight"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight (kg)"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="70"/>
+                </LinearLayout>
 
-            <!-- ROW: Gender -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gender"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="30dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etGender"
+                <!-- Gender -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:hint=" Gender"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Male"/>
+                </LinearLayout>
 
-            <!-- ROW: Height -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Height (cm)"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etHeight"
+                <!-- Height (cm) -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black"
-                    android:hint=" Height"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Height (cm)"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="175"/>
+                </LinearLayout>
 
-            <!-- ROW: BMI -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BMI"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:layout_marginLeft="50dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etBMI"
+                <!-- BMI -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black"
-                    android:hint=" Body Mass Index"
+                    android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="10dp"/>
+                    android:padding="12dp"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BMI"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text=" : " />
+                    <TextView
+                        android:id="@+id/tvBMI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="22.9"/>
+                </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

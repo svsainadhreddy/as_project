@@ -133,6 +133,6 @@ public interface ApiService {
             @Header("Authorization") String token
     );
 
-    @GET("accounts/profile/update/")
+    @GET("accounts/profile")
     Call<DoctorResponse> getDoctorimg(@Header("Authorization") String token);
 }

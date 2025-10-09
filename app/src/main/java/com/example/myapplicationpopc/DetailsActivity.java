@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private TextView tvTotalPatientsValue, tvPendingValue, tvHighriskvalue;
+    private TextView tvTotalPatientsValue, tvPendingValue, tvHighriskvalue,tvTotalValue;
     private PieChart pieChart;
     private ApiService apiService;
     private String token;
@@ -42,6 +42,7 @@ public class DetailsActivity extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
        TextView btn1 = findViewById(R.id.labelPending);
 
+        tvTotalValue= findViewById(R.id.tvTotalValue);
         tvTotalPatientsValue = findViewById(R.id.tvTotalPatientsValue);
         tvPendingValue = findViewById(R.id.tvPendingValue);
         tvHighriskvalue = findViewById(R.id.tvHighriskvalue);
@@ -69,8 +70,8 @@ public class DetailsActivity extends AppCompatActivity {
             public void onResponse(Call<DashboardResponse> call, Response<DashboardResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     DashboardResponse data = response.body();
-
-                    tvTotalPatientsValue.setText(String.valueOf(data.getTotal_patients()));
+                    tvTotalValue.setText(String.valueOf(data.getTotal_patients ()));
+                    tvTotalPatientsValue.setText(String.valueOf(data.getTotal_surveyed()));
                     tvPendingValue.setText(String.valueOf(data.getPending_surveys()));
                     tvHighriskvalue.setText(String.valueOf(data.getHigh_risk_patients()));
                 } else {

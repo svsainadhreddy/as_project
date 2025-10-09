@@ -1,230 +1,199 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai1"
-    android:padding="16dp">
+    android:background="#171D26"
+    android:paddingBottom="16dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:paddingTop="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
-        <!-- Patient Demographics header with back arrow -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:text="Patient Demographics"
+            android:textSize="25sp"
+            android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:padding="8dp">
+            android:layout_marginBottom="28dp"
+            android:textColor="#293042" />
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle_dark_bg"
-                android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_back"
-                android:scaleType="centerInside" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:background="@drawable/rounded_card"
-                android:text="@string/patient_demographics"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Age -->
+        <!-- Age Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_card"
-            android:padding="16dp">
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select_age"
-                android:textStyle="bold" />
+                android:text="age"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
 
             <RadioGroup
                 android:id="@+id/rgAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age_5" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age_51_80" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age_80" />
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_5"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_51_80"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_80"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
-
-        <!-- Sex -->
+        <!-- Sex Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_card"
-            android:padding="16dp">
-
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sex"
-                android:textStyle="bold" />
-
+                android:text="sex"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgSex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/male" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/female" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/others" />
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="male"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="female"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="others"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
-
-        <!-- BMI -->
+        <!-- BMI Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_card"
-            android:padding="16dp">
-
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bmi"
-                android:textStyle="bold" />
-
+                android:text="bmi"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgBmi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bmi_low" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bmi_high" />
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bmi_low"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bmi_high"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
-
-        <!-- Smoking -->
+        <!-- Smoking Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_card"
-            android:padding="16dp">
-
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/smoking_status"
-                android:textStyle="bold" />
-
+                android:text="smoking"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgSmoking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/never" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/current_smoker" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ex_smoker" />
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="never"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="current_smoker"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ex_smoker"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
-
-        <!-- Alcohol -->
+        <!-- Alcohol Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_card"
-            android:padding="16dp">
-
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="24dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/alcohol_consumption"
-                android:textStyle="bold" />
-
+                android:text="alcohol"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgAlcohol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yes" />
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no" />
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="yes"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="no"
+                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
+                    android:textColor="#9699A9" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
-
         <!-- Next Button -->
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#AAAAAA"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
-
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="next"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/next_button_bg"
+            android:backgroundTint="@null"
+            android:textStyle="bold"
+            android:textColor="#4E4E4E"
+            android:textSize="18sp"/>
     </LinearLayout>
 </ScrollView>

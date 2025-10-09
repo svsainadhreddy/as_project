@@ -103,13 +103,14 @@
             android:elevation="4dp">
 
             <LinearLayout
+                android:id="@+id/btnDashboard"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnDashboard"
+                    android:id="@+id/btnDashboard1"
                     android:layout_width="42dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_calendar"
@@ -137,13 +138,14 @@
             android:elevation="4dp">
 
             <LinearLayout
+                android:id="@+id/btnPatientManagement"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnPatientManagement"
+                    android:id="@+id/btnPatientManagement1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_patients"
@@ -171,13 +173,14 @@
             android:elevation="4dp">
 
             <LinearLayout
+                android:id="@+id/btnSettings"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnSettings"
+                    android:id="@+id/btnSettings1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_settings"
@@ -205,13 +208,14 @@
             android:elevation="4dp">
 
             <LinearLayout
+                android:id="@+id/btnReports"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnReports"
+                    android:id="@+id/btnReports1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_reports"

@@ -2,6 +2,7 @@ package com.example.myapplicationpopc;
 
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,10 +43,10 @@ public class DoctorHomeActivity extends AppCompatActivity {
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        ImageView btnPatientManagement = findViewById(R.id.btnPatientManagement);
-        ImageView btnSurveyRecords = findViewById(R.id.btnReports);
-        ImageView btnDashboard = findViewById(R.id.btnDashboard);
-        ImageView btnSettings = findViewById(R.id.btnSettings);
+        LinearLayout btnPatientManagement = findViewById(R.id.btnPatientManagement);
+        LinearLayout btnSurveyRecords = findViewById(R.id.btnReports);
+        LinearLayout btnDashboard = findViewById(R.id.btnDashboard);
+        LinearLayout btnSettings = findViewById(R.id.btnSettings);
 
         imgDoctor.setOnClickListener(view -> {
             startActivity(new Intent(DoctorHomeActivity.this, ProfileActivity.class));

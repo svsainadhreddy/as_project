@@ -182,9 +182,9 @@ public class ProfileActivity extends AppCompatActivity {
                         if (pos >= 0) etSpecialization.setSelection(pos);
                     }
 
-                    if (doctor.getProfileImage() != null) {
+                    if (doctor.getProfileImageUrl() != null) {
                         Glide.with(ProfileActivity.this)
-                                .load(ApiClient.BASE_URL + doctor.getProfileImage())
+                                .load(ApiClient.BASE_URL + doctor.getProfileImageUrl())
                                 .into(ivProfile);
                     }
                 } else {
