@@ -2,6 +2,7 @@ package com.example.myapplicationpopc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -9,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.myapplicationpopc.model.SurveyRequest;
 import com.example.myapplicationpopc.model.SurveyRequest.Answer;
@@ -30,6 +32,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
     private RadioGroup radioAriscat, radioVentilation, radioMuscle, radioReversal, radioAnalgesia;
     private Button btnNext;
     private ImageButton btnBack;
+    private View layoutReversal; // container for reversal question
 
     private int patientId = -1;
     private ApiService apiService;
@@ -39,7 +42,6 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_anesthesia);
-        // Hide Toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -54,7 +56,6 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        // Bind views
         radioAriscat     = findViewById(R.id.radioAriscat);
         radioVentilation = findViewById(R.id.radioVentilation);
         radioMuscle      = findViewById(R.id.radioMuscle);
@@ -62,8 +63,19 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         radioAnalgesia   = findViewById(R.id.radioAnalgesia);
         btnNext          = findViewById(R.id.btnNext);
         btnBack          = findViewById(R.id.btnBack);
+        layoutReversal   = findViewById(R.id.layoutReversal);
 
-        btnBack.setOnClickListener(v -> finish()); // just finish current activity
+        btnBack.setOnClickListener(v -> finish());
+
+        // Show/hide reversal question based on Muscle Relaxants yes/no
+        radioMuscle.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbMuscleYes) {
+                layoutReversal.setVisibility(View.VISIBLE);
+            } else {
+                layoutReversal.setVisibility(View.GONE);
+                radioReversal.clearCheck();
+            }
+        });
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
@@ -110,6 +122,9 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
                     if (rev.contains("Neostigmine")) s = 2;
                     else if (rev.contains("Sugammadex")) s = 1;
                     answers.add(new Answer("Reversal", rev, s));
+                } else {
+                    Toast.makeText(this, "Please select reversal method", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
             sectionScore += s;
@@ -131,7 +146,6 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             return;
         }
 
-        // Build SurveyRequest
         SurveyRequest req = new SurveyRequest();
         req.setPatient_id(patientId);
         req.setTotal_score(sectionScore);
@@ -144,21 +158,18 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(PlannedAnesthesiaActivity.this,
-                            "Survey saved successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PlannedAnesthesiaActivity.this, "Survey saved successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(PlannedAnesthesiaActivity.this, PostoperativeActivity.class)
                             .putExtra("patient_id", patientId));
                     finish();
                 } else {
-                    Toast.makeText(PlannedAnesthesiaActivity.this,
-                            "Save failed (" + response.code() + ")", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlannedAnesthesiaActivity.this, "Save failed (" + response.code() + ")", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyResponse> call, Throwable t) {
-                Toast.makeText(PlannedAnesthesiaActivity.this,
-                        "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PlannedAnesthesiaActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

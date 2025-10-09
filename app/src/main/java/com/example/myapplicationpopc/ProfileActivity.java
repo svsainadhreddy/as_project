@@ -42,16 +42,19 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    EditText etName, etPhone, etEmail, etAge, etDoctor_gender;
+    EditText etName, etPhone, etEmail;
     Spinner etSpecialization;
     TextView etDoctorId;
     ImageView ivProfile, btn1;
     Button btnUpdate;
+    NumberPicker npAge;
+    TextView tvAgeIncCount, tvAgeDecCount;
 
     ApiService apiService;
     String token;
     Uri selectedImageUri;
     String selectedSpecialization = "Anesthesia";
+    int ageIncCount = 0, ageDecCount = 0;
 
     ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -60,22 +63,53 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Hide toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Bind UI
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
         etSpecialization = findViewById(R.id.etSpecialization);
-        etAge = findViewById(R.id.etAge);
-        etDoctor_gender = findViewById(R.id.etDoctor_gender);
         ivProfile = findViewById(R.id.ivProfile);
         btnUpdate = findViewById(R.id.btnUpdate);
         btn1 = findViewById(R.id.btnBack);
+        npAge = findViewById(R.id.npAge);
+        tvAgeIncCount = findViewById(R.id.tvAgeIncCount);
+        tvAgeDecCount = findViewById(R.id.tvAgeDecCount);
+
+        // Age NumberPicker setup
+        npAge.setMinValue(18);
+        npAge.setMaxValue(120);
+        npAge.setValue(30);
+        npAge.setWrapSelectorWheel(true);
+
+        npAge.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            if (newVal > oldVal) {
+                ageIncCount++;
+                tvAgeIncCount.setText("↑ " + ageIncCount);
+            } else if (newVal < oldVal) {
+                ageDecCount++;
+                tvAgeDecCount.setText("↓ " + ageDecCount);
+            }
+        });
+
+        // Tapping up/down counter labels increments/decrements age
+        tvAgeIncCount.setOnClickListener(v -> {
+            int curr = npAge.getValue();
+            if (curr < npAge.getMaxValue()) {
+                npAge.setValue(curr + 1);
+                ageIncCount++;
+                tvAgeIncCount.setText("↑ " + ageIncCount);
+            }
+        });
+        tvAgeDecCount.setOnClickListener(v -> {
+            int curr = npAge.getValue();
+            if (curr > npAge.getMinValue()) {
+                npAge.setValue(curr - 1);
+                ageDecCount++;
+                tvAgeDecCount.setText("↓ " + ageDecCount);
+            }
+        });
 
         // Spinner setup
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -89,7 +123,6 @@ public class ProfileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
                 selectedSpecialization = parent.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedSpecialization = "Anesthesia";
@@ -101,7 +134,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadProfile();
 
-        // Gallery launcher
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -111,11 +143,9 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
         );
-
         ivProfile.setOnClickListener(v -> showImagePickerDialog());
         btnUpdate.setOnClickListener(v -> updateProfile());
 
-        // Back to home
         btn1.setOnClickListener(v -> {
             Intent i = new Intent(this, DoctorHomeActivity.class);
             i.putExtra("mode", "edit");
@@ -172,16 +202,20 @@ public class ProfileActivity extends AppCompatActivity {
                     etName.setText(doctor.getName());
                     etPhone.setText(doctor.getPhone());
                     etEmail.setText(doctor.getEmail());
-                    etAge.setText(doctor.getAge());
-                    etDoctor_gender.setText(doctor.getGender());
+                    int ageLoaded = 30;
+                    try { ageLoaded = Integer.parseInt(doctor.getAge()); } catch(Exception ignored){}
+                    npAge.setValue(ageLoaded);
 
-                    // Set specialization to dropdown
+                    ageIncCount = 0;
+                    ageDecCount = 0;
+                    tvAgeIncCount.setText("↑ " + ageIncCount);
+                    tvAgeDecCount.setText("↓ " + ageDecCount);
+
                     if (doctor.getSpecialization() != null) {
                         int pos = ((ArrayAdapter) etSpecialization.getAdapter())
                                 .getPosition(doctor.getSpecialization());
                         if (pos >= 0) etSpecialization.setSelection(pos);
                     }
-
                     if (doctor.getProfileImageUrl() != null) {
                         Glide.with(ProfileActivity.this)
                                 .load(ApiClient.BASE_URL + doctor.getProfileImageUrl())
@@ -221,8 +255,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
         RequestBody name = RequestBody.create(etName.getText().toString(), MediaType.parse("text/plain"));
         RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody age = RequestBody.create(etAge.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody gender = RequestBody.create(etDoctor_gender.getText().toString(), MediaType.parse("text/plain"));
+        RequestBody age = RequestBody.create(String.valueOf(npAge.getValue()), MediaType.parse("text/plain"));
         RequestBody specialization = RequestBody.create(selectedSpecialization, MediaType.parse("text/plain"));
         RequestBody email = RequestBody.create(etEmail.getText().toString(), MediaType.parse("text/plain"));
 
@@ -235,7 +268,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
-        apiService.updateDoctorProfile(token, name, email, phone, age, gender, specialization, imagePart)
+        apiService.updateDoctorProfile(token, name, email, phone, age, null, specialization, imagePart)
                 .enqueue(new Callback<DoctorResponse>() {
                     @Override
                     public void onResponse(Call<DoctorResponse> call, Response<DoctorResponse> response) {
@@ -246,7 +279,6 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Update failed: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<DoctorResponse> call, Throwable t) {
                         Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -254,3 +286,4 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 }
+

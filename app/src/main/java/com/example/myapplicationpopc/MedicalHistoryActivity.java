@@ -61,12 +61,12 @@ public class MedicalHistoryActivity extends AppCompatActivity {
             return;
         }
 
-        /* btnBack.setOnClickListener(v -> {
+       /*btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, PatientDemographicsActivity.class);
             i.putExtra("patient_id", patientId);
             startActivity(i);
             finish();
-        });  */
+        });*/
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }

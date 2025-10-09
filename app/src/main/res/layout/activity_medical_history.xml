@@ -1,15 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai1"
-    android:padding="16dp">
+    android:background="#171D26"
+    android:paddingBottom="16dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
         <!-- Header -->
         <LinearLayout
@@ -17,7 +21,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="12dp">
+            android:padding="0dp"
+            android:layout_marginBottom="28dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -34,348 +39,410 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/medical_history"
-                android:textSize="20sp"
-                android:background="@drawable/rounded_card"
-                android:textStyle="bold" />
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
-        <!-- ===== Questions ===== -->
-
-        <!-- COPD -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardCOPD"
+        <!-- Medical Condition Sections -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_copd"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgCOPD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvCOPD"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbCOPDYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_copd"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgCOPD"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbCOPDNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbCOPDYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbCOPDNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- Asthma -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardAsthma"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_asthma"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgAsthma"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvAsthma"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbAsthmaYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_asthma"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgAsthma"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbAsthmaNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbAsthmaYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbAsthmaNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- OSA -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardOSA"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_osa"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgOSA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvOSA"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbOSAYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_osa"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgOSA"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbOSANo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbOSAYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbOSANo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- ILD -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardILD"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_ild"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgILD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvILD"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbILDYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_ild"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgILD"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbILDNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbILDYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbILDNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- Heart Failure -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardHeartFailure"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_heart_failure"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgHeartFailure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvHeartFailure"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbHeartFailureYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_heart_failure"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgHeartFailure"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbHeartFailureNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbHeartFailureYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbHeartFailureNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- CAD -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardCAD"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_cad"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgCAD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvCAD"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbCADYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_cad"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgCAD"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbCADNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbCADYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbCADNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- Hypertension -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardHypertension"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_hypertension"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgHypertension"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvHypertension"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbHypertensionYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
-                    android:text="@string/disease_hypertension"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/rgHypertension"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbHypertensionNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbHypertensionYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbHypertensionNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- Diabetes -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardDiabetes"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_diabetes"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgDiabetes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvDiabetes"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbDiabetesYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_diabetes"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgDiabetes"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbDiabetesNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbDiabetesYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbDiabetesNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
-        <!-- CKD -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardCKD"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_section_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease_ckd"
+                android:textStyle="bold"
+                android:textColor="#293042"
+                android:layout_marginBottom="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgCKD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvCKD"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/rbCKDYes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/disease_ckd"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp" />
-                <RadioGroup
-                    android:id="@+id/rgCKD"
-                    android:layout_width="match_parent"
+                    android:text="@string/yes"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+                <RadioButton
+                    android:id="@+id/rbCKDNo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbCKDYes"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/yes"/>
-                    <RadioButton android:id="@+id/rbCKDNo"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="@string/no"/>
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:text="@string/no"
+                    android:button="@null"
+                    android:background="@drawable/selector_radio_bg"
+                    android:padding="12dp"
+                    android:textColor="#9699A9"
+                    android:layout_margin="6dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
         <!-- Next Button -->
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:text="@string/next"
-            android:backgroundTint="#AAAAAA" />
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/next_button_bg"
+            android:textStyle="bold"
+            android:textColor="#4E4E4E"
+            android:textSize="18sp"/>
+
     </LinearLayout>
 </ScrollView>

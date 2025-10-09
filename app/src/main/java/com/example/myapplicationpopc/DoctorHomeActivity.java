@@ -83,13 +83,14 @@ public class DoctorHomeActivity extends AppCompatActivity {
                     String imageUrl = doctor.getProfileImageUrl();
                     if (imageUrl != null && !imageUrl.isEmpty()) {
                         Glide.with(DoctorHomeActivity.this)
-                                .load(imageUrl)
+                                .load(imageUrl)  // Correct: Using absolute URL directly from API
                                 .placeholder(R.drawable.ic_person_outline)
                                 .error(R.drawable.ic_person_outline)
                                 .into(imgDoctor);
                     } else {
                         imgDoctor.setImageResource(R.drawable.ic_person_outline);
                     }
+
                 } else {
                     Toast.makeText(DoctorHomeActivity.this, "Failed to load profile", Toast.LENGTH_SHORT).show();
                 }

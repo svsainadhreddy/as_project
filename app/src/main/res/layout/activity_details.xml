@@ -77,7 +77,7 @@
                     android:id="@+id/tvTotalValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="1,284"
+                    android:hint=""
                     android:textColor="#FFFFFF"
                     android:textSize="36sp"
                     android:textStyle="bold" />
@@ -86,7 +86,7 @@
                     android:id="@+id/tvActive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="active"
+                    android:text="Saved"
                     android:textColor="#BFD6FF"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -131,7 +131,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
-                android:background="@drawable/card_bg_light">
+                android:background="@drawable/bg_card_add">
 
                 <TextView
                     android:id="@+id/labelTotalPatients"
@@ -162,7 +162,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
-                android:background="@drawable/card_bg_light">
+                android:background="@drawable/bg_card_edit">
 
                 <TextView
                     android:id="@+id/labelPending"
@@ -200,7 +200,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
-                android:background="@drawable/card_bg_light">
+                android:background="@drawable/bg_card_delete">
 
                 <TextView
                     android:id="@+id/labelHighRisk"

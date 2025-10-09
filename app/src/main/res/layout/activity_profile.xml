@@ -1,323 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C4C4C4">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#0A2342">
 
-    <!-- Orange Header -->
-    <View
-        android:id="@+id/topSection"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="#00897B" />
-
-    <!-- Back Button -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/circle_dark_bg"
-        android:src="@drawable/ic_arrow_back"
-        android:contentDescription="Back" />
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/tvProfile"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:text="PROFILE"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="#000" />
+        android:clipChildren="false">
 
-    <!-- Profile Image -->
-    <FrameLayout
-        android:id="@+id/profileImageHolder"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/circle_bg"
-        android:elevation="4dp">
-
-        <ImageView
-            android:id="@+id/ivProfile"
+        <View
+            android:id="@+id/topSection"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_img"
-            android:scaleType="centerInside"
-            android:padding="15dp" />
-    </FrameLayout>
+            android:layout_height="280dp"
+            android:background="#0A2342" />
 
-    <!-- Scrollable White Card -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/profileImageHolder"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:fillViewport="true">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_dark_bg"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#FFFFFF"
+            android:contentDescription="Back" />
 
         <LinearLayout
-            android:id="@+id/infoCard"
+            android:id="@+id/profileCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/bottom_bar"
-            android:elevation="6dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginHorizontal="24dp"
             android:orientation="vertical"
-            android:padding="22dp">
+            android:background="@drawable/rounded_card"
+            android:elevation="6dp"
+            android:padding="24dp"
+            android:clipChildren="false">
+
+            <FrameLayout
+                android:id="@+id/profileImageHolder"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_light_bg"
+                android:elevation="4dp"
+                android:layout_marginTop="-80dp">
+
+                <ImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_img"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:padding="0dp" />
+            </FrameLayout>
 
             <!-- Doctor ID -->
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOCTOR ID"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/etDoctorId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Doctor ID"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/etDoctorId"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Doctor ID"
-                    android:background="@drawable/rounded_card"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:text="DOC-482913"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="4dp" />
 
             <!-- Name -->
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Name"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:background="@drawable/rounded_card"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"/>
-            </LinearLayout>
+                android:background="@drawable/chip_input_bg"
+                android:hint="Dr. Evelyn Hart"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#555"
+                android:textSize="16sp" />
 
             <!-- Phone -->
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PHONE"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Phone"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/etPhone"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Phone"
-                    android:inputType="phone"
-                    android:background="@drawable/rounded_card"
-                    android:textColorHint="@android:color/black"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+                android:background="@drawable/chip_input_bg"
+                android:hint="+1 (415) 555-0123"
+                android:padding="10dp"
+                android:inputType="phone"
+                android:textColor="#000"
+                android:textColorHint="#555"
+                android:textSize="16sp" />
 
             <!-- Email -->
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EMAIL"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Email"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:background="@drawable/rounded_card"
-                    android:textColorHint="@android:color/black"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+                android:background="@drawable/chip_input_bg"
+                android:hint="e.hart@clinic.example"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#555"
+                android:textSize="16sp" />
 
             <!-- Specialization -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPECIALIZATION"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/etSpecialization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip_input_bg"
+                android:spinnerMode="dropdown"
+                android:padding="8dp"
+                android:entries="@array/specialization_array" />
+
+            <!-- Gender -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GENDER"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginBottom="12dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Specialization"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
                 <Spinner
-                    android:id="@+id/etSpecialization"
-                    android:layout_width="200dp"
+                    android:id="@+id/spinnerGender"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:background="@drawable/rounded_button"
                     android:padding="8dp"
                     android:spinnerMode="dropdown"
-                    android:entries="@array/specialization_array"
-                    />
-            </LinearLayout>
+                    android:imeOptions="actionNext"/>
 
-            <!-- Gender -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Gender"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/etDoctor_gender"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Gender"
-                    android:background="@drawable/rounded_card"
-                    android:textColorHint="@android:color/black"
-                    android:textColor="@android:color/black" />
             </LinearLayout>
 
             <!-- Age -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AGE"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
 
-                <TextView
+                <NumberPicker
+                    android:id="@+id/npAge"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Age"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" : "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:layout_height="48dp"
+                    android:background="@drawable/rounded_button"
+                    android:divider="@android:color/transparent" />
 
-                <EditText
-                    android:id="@+id/etAge"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Age"
-                    android:inputType="number"
-                    android:background="@drawable/rounded_card"
-                    android:textColorHint="@android:color/black"
-                    android:textColor="@android:color/black" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvAgeIncCount"
+                        android:layout_width="38dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="↑"
+                        android:textColor="#4caf50"
+                        android:textStyle="bold"
+                        android:textSize="13sp"/>
+                    <TextView
+                        android:id="@+id/tvAgeDecCount"
+                        android:layout_width="38dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="↓"
+                        android:textStyle="bold"
+                        android:textColor="#d32f2f"
+                        android:textSize="13sp"/>
+                </LinearLayout>
             </LinearLayout>
+
 
             <!-- Update Button -->
             <Button
                 android:id="@+id/btnUpdate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Update"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_button"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/btn_copper_bg"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:padding="12dp"
-                android:layout_marginTop="20dp"/>
+                android:textAllCaps="false" />
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

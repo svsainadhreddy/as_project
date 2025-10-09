@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/score_box_bg"
-    android:padding="12dp"
-    android:layout_marginTop="12dp">
+    android:padding="16dp"
+    android:layout_marginTop="12dp"
+    android:elevation="3dp">
 
     <TextView
         android:id="@+id/tvCategoryName"
@@ -14,17 +14,20 @@
         android:text="Category"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:layout_gravity="center_horizontal"/>
+        android:textColor="#44443C"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="4dp"/>
 
     <TextView
         android:id="@+id/tvCategoryScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textSize="20sp"
+        android:textSize="26sp"
         android:textStyle="bold"
+        android:textColor="#222"
         android:layout_marginTop="6dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/rounded_card"
-        android:padding="6dp"/>
+        android:background="@drawable/rounded_card_s"
+        android:padding="8dp"/>
 </LinearLayout>

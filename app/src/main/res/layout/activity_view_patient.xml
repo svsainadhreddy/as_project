@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvPatientId"
+                        android:id="@+id/etPatientId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvName"
+                        android:id="@+id/etName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvAge"
+                        android:id="@+id/etAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvPhone"
+                        android:id="@+id/etPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvWeight"
+                        android:id="@+id/etWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -209,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvGender"
+                        android:id="@+id/etGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -235,7 +235,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvHeight"
+                        android:id="@+id/etHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -261,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : " />
                     <TextView
-                        android:id="@+id/tvBMI"
+                        android:id="@+id/etBMI"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"

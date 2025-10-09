@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai1"
+    android:background="@drawable/rounded_card_bg"
     android:padding="16dp">
 
     <LinearLayout
@@ -19,57 +19,58 @@
             android:text="Score"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:textColor="#F3D27D"/>
 
-        <!-- Category Scores -->
-
-        <!-- Dynamically added section scores -->
+        <!-- Section Scores (Dynamically Added) -->
         <LinearLayout
             android:id="@+id/llSections"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="16dp"
-            android:padding="8dp">
-            <!-- Section TextViews will be added here by ScoreActivity -->
-        </LinearLayout>
+            android:padding="0dp"/>
 
-        <!-- Total -->
+        <!-- Total Score -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/score_box_bg"
-            android:padding="12dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gold_score_bg"
+            android:padding="18dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Score"
+                android:text="TOTAL SCORE"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textColor="#44443C"
+                android:textSize="17sp"
+                android:letterSpacing="0.1"
+                android:paddingBottom="4dp"/>
 
             <TextView
                 android:id="@+id/tvTotalScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
+                android:textColor="#44443C"
                 android:layout_gravity="center_horizontal"
                 android:padding="6dp"
                 android:background="@drawable/rounded_card"/>
         </LinearLayout>
 
-        <!-- Management text -->
+        <!-- Management Guidance -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/score_box_bg"
             android:layout_marginTop="16dp"
-            android:padding="12dp">
+            android:padding="14dp">
 
             <TextView
                 android:id="@+id/tvManagement"
@@ -77,17 +78,23 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="16sp"
+                android:textColor="#222"
+                android:lineSpacingExtra="2dp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
         <!-- Done Button -->
         <Button
             android:id="@+id/btnDone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Done"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"/>
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#F3D27D"
+            android:textColor="#222"
+            android:textStyle="bold"
+            android:padding="16dp"/>
 
     </LinearLayout>
 </ScrollView>
