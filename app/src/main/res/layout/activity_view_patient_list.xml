@@ -1,10 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_navy_gradient">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -14,17 +12,14 @@
         android:padding="8dp"
         android:layout_marginTop="14dp">
 
-        <!-- Back -->
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/gold"
-            android:background="@drawable/bg_icon_glow"
+            android:background="@drawable/bg_icon_glow1"
             android:contentDescription="Back" />
 
-        <!-- Search Box -->
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
@@ -34,25 +29,21 @@
             android:background="@drawable/bg_search_rounded"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:drawablePadding="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textColor="@color/white"
-            android:textColorHint="#A0A4B8"
+            android:textColorHint="#DDE6EF"
             android:gravity="center_vertical"/>
 
-        <!-- Profile -->
         <ImageView
             android:id="@+id/btnProfile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/bg_icon_glow"
+            android:background="@drawable/bg_icon_glow1"
             android:src="@drawable/ic_user"
-            app:tint="@color/gold"
             android:contentDescription="Profile"/>
     </LinearLayout>
 
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPatients"
         android:layout_width="match_parent"

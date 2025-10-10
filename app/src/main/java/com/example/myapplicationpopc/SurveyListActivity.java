@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class SurveyListActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        ImageButton btnBack = findViewById(R.id.btnBack);
+        ImageView btnBack = findViewById(R.id.btnBack);
 
         recycler = findViewById(R.id.recyclerPatients);
         recycler.setLayoutManager(new LinearLayoutManager(this));

@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:background="@drawable/bg_search_rounded"
     android:padding="15dp"
@@ -9,59 +8,49 @@
     android:elevation="4dp"
     android:gravity="center_vertical">
 
-    <!-- Patient Image -->
     <ImageView
         android:id="@+id/imgPatient"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:src="@drawable/ic_img"
-        android:background="@drawable/circle_avatar_bg"
-        android:scaleType="centerCrop" />
+        android:background="@drawable/circle_avatar_bg1"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical" />
 
-    <!-- Details Section -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingStart="16dp">
+        android:paddingStart="16dp"
+        android:gravity="center_vertical">
 
-        <!-- Patient Name -->
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="John Doe"
+            android:hint="John Doe"
             android:textStyle="bold"
             android:textSize="17sp"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
 
-        <!-- Patient ID -->
         <TextView
             android:id="@+id/tvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="23456"
+            android:hint="ID 23456"
             android:textColor="@color/gold"
+            android:textColorHint="@color/gold"
             android:textSize="14sp"
             android:layout_marginTop="3dp"/>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="34dp"
-            android:layout_height="1dp"
-            android:background="@color/navy_gray_dark"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
-    <!-- Arrow -->
     <ImageView
         android:id="@+id/btnNext"
-        android:layout_width="32dp"
+        android:layout_width="28dp"
         android:layout_height="32dp"
-        android:src="@drawable/img_right_arrow"
-        app:tint="@color/gold"
-        android:background="@drawable/bg_icon_glow"
-        android:contentDescription="Next"/>
+        android:background="@drawable/bg_icon_glow1"
+        android:contentDescription="Next"
+        android:src="@drawable/img_right_arrow" />
 </LinearLayout>

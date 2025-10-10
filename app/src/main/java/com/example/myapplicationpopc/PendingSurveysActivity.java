@@ -3,6 +3,7 @@ package com.example.myapplicationpopc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class PendingSurveysActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        ImageButton btnBack = findViewById(R.id.btnBack);
+        ImageView btnBack = findViewById(R.id.btnBack);
 
         recyclerView = findViewById(R.id.recyclerPatients);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

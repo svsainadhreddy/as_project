@@ -39,11 +39,12 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.widget.NumberPicker;
 
 public class ProfileActivity extends AppCompatActivity {
 
     EditText etName, etPhone, etEmail;
-    Spinner etSpecialization;
+    Spinner etSpecialization, spinnerGender;
     TextView etDoctorId;
     ImageView ivProfile, btn1;
     Button btnUpdate;
@@ -54,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     String token;
     Uri selectedImageUri;
     String selectedSpecialization = "Anesthesia";
-    int ageIncCount = 0, ageDecCount = 0;
+    String selectedGender = "Male"; // Default gender selection
 
     ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -70,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
         etSpecialization = findViewById(R.id.etSpecialization);
+        spinnerGender = findViewById(R.id.spinnerGender);
         ivProfile = findViewById(R.id.ivProfile);
         btnUpdate = findViewById(R.id.btnUpdate);
         btn1 = findViewById(R.id.btnBack);
@@ -84,34 +86,26 @@ public class ProfileActivity extends AppCompatActivity {
         npAge.setWrapSelectorWheel(true);
 
         npAge.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            if (newVal > oldVal) {
-                ageIncCount++;
-                tvAgeIncCount.setText("↑ " + ageIncCount);
-            } else if (newVal < oldVal) {
-                ageDecCount++;
-                tvAgeDecCount.setText("↓ " + ageDecCount);
-            }
+            // No count update in UI, no action needed here now
         });
 
-        // Tapping up/down counter labels increments/decrements age
+        // Tapping up/down counter labels increments/decrements age with Toast messages
         tvAgeIncCount.setOnClickListener(v -> {
             int curr = npAge.getValue();
             if (curr < npAge.getMaxValue()) {
                 npAge.setValue(curr + 1);
-                ageIncCount++;
-                tvAgeIncCount.setText("↑ " + ageIncCount);
+                Toast.makeText(ProfileActivity.this, "Age incremented to " + npAge.getValue(), Toast.LENGTH_SHORT).show();
             }
         });
         tvAgeDecCount.setOnClickListener(v -> {
             int curr = npAge.getValue();
             if (curr > npAge.getMinValue()) {
                 npAge.setValue(curr - 1);
-                ageDecCount++;
-                tvAgeDecCount.setText("↓ " + ageDecCount);
+                Toast.makeText(ProfileActivity.this, "Age decremented to " + npAge.getValue(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Spinner setup
+        // Spinner specialization setup
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.specialization_array, android.R.layout.simple_spinner_item
         );
@@ -126,6 +120,24 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedSpecialization = "Anesthesia";
+            }
+        });
+
+        // Spinner gender setup
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(
+                this, R.array.gender_array, android.R.layout.simple_spinner_item
+        );
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGender.setAdapter(genderAdapter);
+
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                selectedGender = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedGender = "Male"; // default fallback
             }
         });
 
@@ -206,16 +218,19 @@ public class ProfileActivity extends AppCompatActivity {
                     try { ageLoaded = Integer.parseInt(doctor.getAge()); } catch(Exception ignored){}
                     npAge.setValue(ageLoaded);
 
-                    ageIncCount = 0;
-                    ageDecCount = 0;
-                    tvAgeIncCount.setText("↑ " + ageIncCount);
-                    tvAgeDecCount.setText("↓ " + ageDecCount);
-
                     if (doctor.getSpecialization() != null) {
                         int pos = ((ArrayAdapter) etSpecialization.getAdapter())
                                 .getPosition(doctor.getSpecialization());
                         if (pos >= 0) etSpecialization.setSelection(pos);
                     }
+
+                    // Set gender spinner selection if gender is available
+                    if (doctor.getGender() != null) {
+                        int genderPos = ((ArrayAdapter) spinnerGender.getAdapter())
+                                .getPosition(doctor.getGender());
+                        if (genderPos >= 0) spinnerGender.setSelection(genderPos);
+                    }
+
                     if (doctor.getProfileImageUrl() != null) {
                         Glide.with(ProfileActivity.this)
                                 .load(ApiClient.BASE_URL + doctor.getProfileImageUrl())
@@ -258,6 +273,7 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody age = RequestBody.create(String.valueOf(npAge.getValue()), MediaType.parse("text/plain"));
         RequestBody specialization = RequestBody.create(selectedSpecialization, MediaType.parse("text/plain"));
         RequestBody email = RequestBody.create(etEmail.getText().toString(), MediaType.parse("text/plain"));
+        RequestBody gender = RequestBody.create(selectedGender, MediaType.parse("text/plain"));
 
         MultipartBody.Part imagePart = null;
         if (selectedImageUri != null) {
@@ -268,7 +284,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
-        apiService.updateDoctorProfile(token, name, email, phone, age, null, specialization, imagePart)
+        apiService.updateDoctorProfile(token, name, email, phone, age, gender, specialization, imagePart)
                 .enqueue(new Callback<DoctorResponse>() {
                     @Override
                     public void onResponse(Call<DoctorResponse> call, Response<DoctorResponse> response) {
@@ -286,4 +302,3 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 }
-

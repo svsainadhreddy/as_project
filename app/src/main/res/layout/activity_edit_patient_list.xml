@@ -1,61 +1,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CB000000">
+    android:background="#90000000">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:layout_marginTop="8dp"> <!-- moved little below -->
+        android:layout_marginTop="14dp">
 
-        <!-- Back -->
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="60dp"
-            android:layout_height="90dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/bg_icon_glow1"
             android:contentDescription="Back" />
 
-        <!-- Search Box -->
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:hint="search name or Id"
-            android:background="@drawable/rounded_card"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:drawablePadding="8dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="#000"
-            android:textColorHint="#555"
-            android:gravity="center_vertical" />
+            android:hint="Search patients"
+            android:background="@drawable/bg_search_rounded1"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="#DDE6EF"
+            android:gravity="center_vertical"/>
 
-        <!-- Profile -->
         <ImageView
             android:id="@+id/btnProfile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/bg_icon_glow1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Profile" />
+            android:contentDescription="Profile"/>
     </LinearLayout>
 
-
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPatients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topBar"
-        android:padding="8dp"
-        android:scrollbars="vertical" />
-
+        android:paddingTop="4dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
 </RelativeLayout>

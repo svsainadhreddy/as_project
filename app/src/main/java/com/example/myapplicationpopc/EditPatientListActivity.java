@@ -29,7 +29,7 @@ public class EditPatientListActivity extends AppCompatActivity {
 
     RecyclerView recyclerPatients;
     EditText etSearch;
-    ImageView btnBack, btnProfile,btn1, btn2;;
+    ImageView btnBack, btnProfile;
 
     PatientAdapter adapter;
     List<PatientResponse> patientList = new ArrayList<>();
@@ -84,14 +84,14 @@ public class EditPatientListActivity extends AppCompatActivity {
 
 
         // ✅ open PatientManagementActivity
-        btn1.setOnClickListener(v -> {
+        btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, PatientManagementActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
 
         // ✅ back to ProfileActivity
-        btn2.setOnClickListener(v -> {
+        btnProfile.setOnClickListener(v -> {
             Intent i = new Intent(this, ProfileActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);

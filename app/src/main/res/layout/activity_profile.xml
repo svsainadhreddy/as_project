@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/chip_input_bg"
-                android:hint="+1 (415) 555-0123"
+                android:hint="+91 4555501235"
                 android:padding="10dp"
                 android:inputType="phone"
                 android:textColor="#000"
@@ -182,9 +182,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/chip_input_bg"
                     android:padding="8dp"
                     android:spinnerMode="dropdown"
+                    android:entries="@array/gender_array"
                     android:imeOptions="actionNext"/>
 
 
@@ -209,10 +210,10 @@
 
                 <NumberPicker
                     android:id="@+id/npAge"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="48dp"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/chip_input_bg"
+                    android:layout_height="40dp"
                     android:divider="@android:color/transparent" />
 
                 <LinearLayout

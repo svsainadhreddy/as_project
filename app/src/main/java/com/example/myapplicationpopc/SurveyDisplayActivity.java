@@ -2,6 +2,8 @@ package com.example.myapplicationpopc;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -15,36 +17,45 @@ import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SurveyDisplayActivity extends AppCompatActivity {
 
-    private LinearLayout llSurveyContainer;
+    private LinearLayout llSections;
+    private TextView tvRiskLevel, tvRiskLevelSub, tvRiskBadge;
+    private Button btnDone;
     private ApiService apiService;
     private int patientId;
+
+    private Map<String, Boolean> expandedSections = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey_display);
-        // Hide Toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        llSurveyContainer = findViewById(R.id.llSurveyContainer);
+        llSections = findViewById(R.id.llSections);
+        btnDone = findViewById(R.id.btnDone);
+        tvRiskLevel = findViewById(R.id.tvRiskLevel);
+        tvRiskLevelSub = findViewById(R.id.tvRiskLevelSub);
+        tvRiskBadge = findViewById(R.id.tvRiskBadge);
+
         apiService = ApiClient.getClient().create(ApiService.class);
-
-
         patientId = getIntent().getIntExtra("patient_id", -1);
+
         if (patientId <= 0) {
             Toast.makeText(this, "Invalid patient id", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
+        btnDone.setOnClickListener(v -> finish());
         fetchSurvey();
     }
 
@@ -55,8 +66,7 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         apiService.getSurveyByPatient(authToken, patientId)
                 .enqueue(new Callback<SurveyDisplayResponse>() {
                     @Override
-                    public void onResponse(Call<SurveyDisplayResponse> call,
-                                           Response<SurveyDisplayResponse> resp) {
+                    public void onResponse(Call<SurveyDisplayResponse> call, Response<SurveyDisplayResponse> resp) {
                         if (resp.isSuccessful() && resp.body() != null) {
                             renderSurvey(resp.body());
                         } else {
@@ -72,58 +82,99 @@ public class SurveyDisplayActivity extends AppCompatActivity {
     }
 
     private void renderSurvey(SurveyDisplayResponse survey) {
-        llSurveyContainer.removeAllViews();
+        llSections.removeAllViews();
 
-        // ---- Top Card: Risk Level ----
-        LinearLayout riskCard = new LinearLayout(this);
-        riskCard.setOrientation(LinearLayout.VERTICAL);
-        riskCard.setPadding(24, 24, 24, 24);
-        riskCard.setBackgroundResource(R.drawable.rounded_card);
+        // --- Top card ---
+        String level = getRiskLevel(survey.getTotal_score());
+        tvRiskLevel.setText("Risk Level: " + level);
 
-        TextView tvRisk = new TextView(this);
-        tvRisk.setText("Risk Level: " + getRiskLevel(survey.getTotal_score()));
-        tvRisk.setTextSize(18f);
-        riskCard.addView(tvRisk);
+        if (level.equals("High")) {
+            tvRiskBadge.setText("High");
+            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_orange);
+            tvRiskLevelSub.setText("Coordinate care plan; follow-up in 3 months.");
+        } else if (level.equals("Low")) {
+            tvRiskBadge.setText("Low");
+            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
+            tvRiskLevelSub.setText("No intervention needed.");
+        } else {
+            tvRiskBadge.setText(level);
+            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_yellow);
+            tvRiskLevelSub.setText("Monitor and provide guidance.");
+        }
 
-        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        cardParams.setMargins(0, 0, 0, 24);
-        llSurveyContainer.addView(riskCard, cardParams);
-
-        // ---- Section Cards ----
+        // --- Each section ---
         for (SurveyDisplayResponse.SectionScore sec : survey.getSection_scores()) {
+            String sectionName = sec.getSection();
+            int sectionScore = sec.getScore();
 
+            // Section card container
             LinearLayout sectionCard = new LinearLayout(this);
             sectionCard.setOrientation(LinearLayout.VERTICAL);
-            sectionCard.setPadding(24, 24, 24, 24);
-            sectionCard.setBackgroundResource(R.drawable.rounded_card);
+            sectionCard.setBackgroundResource(R.drawable.bg_risk_card);
+            sectionCard.setPadding(12, 12, 12, 12);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            p.setMargins(0, 0, 0, 22);
+            sectionCard.setLayoutParams(p);
 
-            TextView tvSection = new TextView(this);
-            tvSection.setText("Section: " + sec.getSection());
-            tvSection.setTextSize(16f);
-            tvSection.setPadding(0, 0, 0, 16);
-            sectionCard.addView(tvSection);
+            // Header layout
+            LinearLayout header = new LinearLayout(this);
+            header.setOrientation(LinearLayout.HORIZONTAL);
+            header.setGravity(Gravity.CENTER_VERTICAL);
 
-            // TableLayout for Q/A
+            TextView tvHeader = new TextView(this);
+            tvHeader.setText("Section: " + sectionName);
+            tvHeader.setTextSize(17f);
+            tvHeader.setTypeface(null, android.graphics.Typeface.BOLD);
+            tvHeader.setTextColor(0xFF232028);
+            tvHeader.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+            TextView tvScore = new TextView(this);
+            tvScore.setText(String.valueOf(sectionScore));
+            tvScore.setTextSize(13f);
+            tvScore.setTextColor(0xFF232028);
+            tvScore.setPadding(16, 6, 16, 6);
+            tvScore.setBackgroundResource(R.drawable.bg_badge_gray);
+            tvScore.setGravity(Gravity.CENTER);
+
+            TextView tvArrow = new TextView(this);
+            tvArrow.setText("\u25BC"); // ▼
+            tvArrow.setTextSize(18f);
+            tvArrow.setPadding(10, 0, 0, 0);
+            tvArrow.setTextColor(0xFF232028);
+
+            header.addView(tvHeader);
+            header.addView(tvScore);
+            header.addView(tvArrow);
+
+            sectionCard.addView(header);
+
+            // --- Table for this section’s Q/A ---
             TableLayout table = new TableLayout(this);
+            table.setVisibility(View.GONE);
             table.setStretchAllColumns(true);
+            table.setPadding(0, 15, 0, 6);
 
             for (SurveyDisplayResponse.Answer ans : survey.getAnswers()) {
-                if (sec.getSection().equalsIgnoreCase(sec.getSection())) {
-                    String sel = ans.getSelected_option();
-                    if (sel == null || sel.isEmpty()) sel = ans.getCustom_text();
+                // ✅ FIXED: compare each answer's section
+                if (sec.getSection() != null && sec.getSection().equalsIgnoreCase(sectionName)) {
+                    String value = ans.getSelected_option();
+                    if (value == null || value.isEmpty()) value = ans.getCustom_text();
 
                     TableRow row = new TableRow(this);
+
                     TextView tvQ = new TextView(this);
                     tvQ.setText(ans.getQuestion());
-                    tvQ.setPadding(0, 8, 16, 8);
+                    tvQ.setPadding(0, 7, 9, 7);
+                    tvQ.setTextSize(14f);
 
                     TextView tvA = new TextView(this);
-                    tvA.setText(sel);
-                    tvA.setPadding(16, 8, 0, 8);
-                    tvA.setGravity(Gravity.START);
+                    tvA.setText(value);
+                    tvA.setPadding(9, 7, 0, 7);
+                    tvA.setTextSize(14f);
+                    tvA.setTypeface(null, android.graphics.Typeface.BOLD);
 
                     row.addView(tvQ);
                     row.addView(tvA);
@@ -132,18 +183,25 @@ public class SurveyDisplayActivity extends AppCompatActivity {
             }
 
             sectionCard.addView(table);
-            llSurveyContainer.addView(sectionCard, cardParams);
+
+            // Expand/Collapse toggle
+            header.setOnClickListener(v -> {
+                boolean expanded = table.getVisibility() == View.VISIBLE;
+                table.setVisibility(expanded ? View.GONE : View.VISIBLE);
+                tvArrow.setText(expanded ? "\u25BC" : "\u25B2"); // ▼ or ▲
+            });
+
+            llSections.addView(sectionCard);
         }
     }
 
     private void showSurveyNotCompleted() {
-        llSurveyContainer.removeAllViews();
-
+        llSections.removeAllViews();
         TextView tvMsg = new TextView(this);
         tvMsg.setText("Survey not completed.");
         tvMsg.setTextSize(18f);
         tvMsg.setGravity(Gravity.CENTER);
-        llSurveyContainer.addView(tvMsg);
+        llSections.addView(tvMsg);
     }
 
     private String getRiskLevel(int score) {
