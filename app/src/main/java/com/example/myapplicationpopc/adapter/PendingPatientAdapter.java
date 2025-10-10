@@ -93,7 +93,7 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvId, tvName, tvStatus;
-        ImageView btnNext;
+        ImageView btnNext, imgPhoto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +101,7 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
             tvName = itemView.findViewById(R.id.tvName);
             tvStatus = itemView.findViewById(R.id.tvstaus);
             btnNext = itemView.findViewById(R.id.btnNext);
+            imgPhoto = itemView.findViewById(R.id.imgPhoto);
         }
     }
 }
