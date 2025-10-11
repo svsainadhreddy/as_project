@@ -1,6 +1,7 @@
 package com.example.myapplicationpopc.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplicationpopc.R;
 import com.example.myapplicationpopc.model.RecordsResponse;
 
@@ -46,10 +49,49 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.PatientVie
     @Override
     public void onBindViewHolder(@NonNull PatientViewHolder holder, int position) {
         RecordsResponse patient = patients.get(position);
-        holder.tvId.setText(patient.getId());        // display patient ID
+        holder.tvId.setText(patient.getId());
         holder.tvName.setText(patient.getName());
 
-        holder.btnNext.setOnClickListener(v -> listener.onItemClick(patient));
+        String photoUrl = patient.getPhoto();
+        String name = patient.getName() != null ? patient.getName().trim() : "";
+
+        // Debug log
+        Log.d("RecordAdapter", "Patient: " + name + ", Photo URL: " + photoUrl);
+
+        if (photoUrl != null && !photoUrl.isEmpty()) {
+            // Show image, hide initials
+            holder.tvInitials.setVisibility(View.GONE);
+            holder.imgPatient.setVisibility(View.VISIBLE);
+
+            Glide.with(context)
+                    .load(photoUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_doctor_logo) // fallback while loading
+                    .error(R.drawable.ic_doctor_logo)       // fallback if failed
+                    .into(holder.imgPatient);
+        } else {
+            // Show initials if no image
+            holder.imgPatient.setVisibility(View.GONE);
+            holder.tvInitials.setVisibility(View.VISIBLE);
+
+            String initials = "NA";
+            if (!name.isEmpty()) {
+                String[] parts = name.split(" ");
+                if (parts.length >= 2) {
+                    initials = (parts[0].substring(0, 1) + parts[1].substring(0, 1)).toUpperCase();
+                } else {
+                    initials = name.length() >= 2
+                            ? name.substring(0, 2).toUpperCase()
+                            : name.substring(0, 1).toUpperCase();
+                }
+            }
+            holder.tvInitials.setText(initials);
+        }
+
+        holder.btnNext.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClick(patient);
+        });
     }
 
     @Override
@@ -58,14 +100,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.PatientVie
     }
 
     static class PatientViewHolder extends RecyclerView.ViewHolder {
-        TextView tvId, tvName;
-        ImageView btnNext;
+        TextView tvId, tvName, tvInitials;
+        ImageView btnNext, imgPatient;
 
         public PatientViewHolder(@NonNull View itemView) {
             super(itemView);
             tvId = itemView.findViewById(R.id.tvId);
             tvName = itemView.findViewById(R.id.tvName);
             btnNext = itemView.findViewById(R.id.btnNext);
+            imgPatient = itemView.findViewById(R.id.imgPatient);
+            tvInitials = itemView.findViewById(R.id.tvInitials);
         }
     }
 }

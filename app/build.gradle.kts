@@ -18,12 +18,16 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        // ✅ Add this line
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
         viewBinding = true
     }
 }
+
 
 dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
@@ -40,10 +44,13 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
-    // ✅ MPAndroidChart
-    implementation("com.github.PhilJay:MPAndroidChart:3.1.0") // no 'v' prefix
+    // MPAndroidChart
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
 
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    // ✅ ADD THESE TEST DEPENDENCIES
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
+
 

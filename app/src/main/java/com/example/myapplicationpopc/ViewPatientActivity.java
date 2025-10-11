@@ -21,20 +21,17 @@ import retrofit2.Response;
 public class ViewPatientActivity extends AppCompatActivity {
 
     TextView tvPatientId, tvName, tvAge, tvPhone, tvWeight, tvGender, tvHeight, tvBMI;
-    ImageView ivPhoto,btn1;
+    ImageView ivPhoto, btn1;
     ApiService apiService;
     String token;
     int patientId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient);
-        // Hide toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         tvPatientId = findViewById(R.id.etPatientId);
         tvName = findViewById(R.id.etName);
@@ -47,20 +44,18 @@ public class ViewPatientActivity extends AppCompatActivity {
         ivPhoto = findViewById(R.id.imgPatient);
         btn1 = findViewById(R.id.btnBack);
 
-
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId != -1) loadPatient(patientId);
         else Toast.makeText(this, "No patient id", Toast.LENGTH_SHORT).show();
-        // back to ViewPatientListActivity
+
         btn1.setOnClickListener(v -> {
             Intent i = new Intent(this, ViewPatientListActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
-
     }
 
     private void loadPatient(int id) {
@@ -79,7 +74,10 @@ public class ViewPatientActivity extends AppCompatActivity {
                     tvBMI.setText(p.getBmi());
 
                     if (p.getPhotoUrl() != null && !p.getPhotoUrl().isEmpty()) {
-                        Glide.with(ViewPatientActivity.this).load(ApiClient.BASE_URL + p.getPhotoUrl()).into(ivPhoto);
+                        Glide.with(ViewPatientActivity.this)
+                                .load(p.getPhotoUrl())
+                                .circleCrop()
+                                .into(ivPhoto);
                     }
                 } else {
                     Toast.makeText(ViewPatientActivity.this, "Failed to fetch", Toast.LENGTH_SHORT).show();

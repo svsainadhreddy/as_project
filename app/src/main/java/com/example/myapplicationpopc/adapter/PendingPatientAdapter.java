@@ -11,13 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplicationpopc.*;
+import com.bumptech.glide.Glide;
+import com.example.myapplicationpopc.PatientDemographicsActivity;
+import com.example.myapplicationpopc.MedicalHistoryActivity;
+import com.example.myapplicationpopc.PreoperativeConsiderationsActivity;
+import com.example.myapplicationpopc.SurgeryFactorsActivity;
+import com.example.myapplicationpopc.PlannedAnesthesiaActivity;
+import com.example.myapplicationpopc.PostoperativeActivity;
+import com.example.myapplicationpopc.R;
 import com.example.myapplicationpopc.model.PendingPatient;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
 
 import java.util.List;
 
 public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAdapter.ViewHolder> {
+
     private List<PendingPatient> patients;
     private Context context;
 
@@ -42,18 +50,50 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PendingPatient patient = patients.get(position);
-
-
-        holder.tvId.setText(String.valueOf(patient.getId()));   // still show custom patient_id
+        // Bind status
+        String status = patient.getStatus() != null ? patient.getStatus() : "Not Started";
+        holder.tvStatus.setText(status);
+        holder.tvId.setText(patient.getId());
         holder.tvName.setText(patient.getName());
-        holder.tvStatus.setText(patient.getStatus());
 
+        String photoUrl = patient.getPhotoUrl();
+        String name = patient.getName() != null ? patient.getName().trim() : "";
 
+        // Load image if exists
+        if (photoUrl != null && !photoUrl.isEmpty()) {
+            holder.imgPhoto.setVisibility(View.VISIBLE);
+            holder.tvInitials.setVisibility(View.GONE);
+
+            Glide.with(context)
+                    .load(photoUrl)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_doctor_logo) // fallback placeholder
+                    .error(R.drawable.ic_doctor_logo)
+                    .into(holder.imgPhoto);
+
+        } else {
+            // Show initials if no image
+            holder.imgPhoto.setVisibility(View.GONE);
+            holder.tvInitials.setVisibility(View.VISIBLE);
+
+            String initials = "NA";
+            if (!name.isEmpty()) {
+                String[] parts = name.split(" ");
+                if (parts.length > 0 && parts[0].length() >= 2) {
+                    initials = parts[0].substring(0, 2).toUpperCase();
+                } else if (name.length() >= 2) {
+                    initials = name.substring(0, 2).toUpperCase();
+                } else if (name.length() == 1) {
+                    initials = name.substring(0, 1).toUpperCase();
+                }
+            }
+            holder.tvInitials.setText(initials);
+        }
+
+        // Handle next button click
         holder.btnNext.setOnClickListener(v -> {
-            String status = patient.getStatus().toLowerCase();
             Intent intent = null;
 
-            // Decide next activity based on status
             switch (status) {
                 case "patient_demographics":
                 case "not started":
@@ -76,13 +116,11 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
                     break;
             }
 
-            // Inside onBindViewHolder -> btnNext click
             if (intent != null) {
-                intent.putExtra("patient_id", patient.getPk());   // ✅ send DB pk
+                intent.putExtra("patient_id", patient.getPk());
                 intent.putExtra("auth_token", "Token " + SharedPrefManager.getInstance(context).getToken());
                 context.startActivity(intent);
             }
-
         });
     }
 
@@ -92,16 +130,17 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvId, tvName, tvStatus;
+        TextView tvId, tvName, tvInitials,tvStatus;
         ImageView btnNext, imgPhoto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvId = itemView.findViewById(R.id.tvId);
             tvName = itemView.findViewById(R.id.tvName);
-            tvStatus = itemView.findViewById(R.id.tvstaus);
+            tvStatus = itemView.findViewById(R.id.tvstatus);
             btnNext = itemView.findViewById(R.id.btnNext);
-            imgPhoto = itemView.findViewById(R.id.imgPhoto);
+            imgPhoto = itemView.findViewById(R.id.imgPatient);
+            tvInitials = itemView.findViewById(R.id.tvInitials);
         }
     }
 }

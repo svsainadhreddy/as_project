@@ -8,14 +8,29 @@
     android:elevation="4dp"
     android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/imgPatient"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_img"
-        android:background="@drawable/circle_avatar_bg1"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center_vertical" />
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/imgPatient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_avatar_bg1" />
+
+        <TextView
+            android:id="@+id/tvInitials"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/circle_avatar_bg1"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"

@@ -3,15 +3,16 @@ package com.example.myapplicationpopc;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.text.Spanned;
 import android.widget.*;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
@@ -31,8 +32,8 @@ import retrofit2.Response;
 
 public class AddPatientActivity extends AppCompatActivity {
 
-    EditText etPatientId, etName, etAge, etPhone, etWeight, etGender, etHeight;
-    TextView etBMI;
+    EditText etPatientId, etName, etAge, etPhone, etWeight, etHeight, etBMI;
+    Spinner spGender;
     ImageView imgPatient, btn1;
     Button btnSave, btnNext;
     Uri selectedImage;
@@ -40,7 +41,6 @@ public class AddPatientActivity extends AppCompatActivity {
     ApiService apiService;
     String token;
 
-    // ✅ to know where to go after saving
     enum NextAction { MANAGEMENT, DEMOGRAPHICS }
     private NextAction nextAction = NextAction.MANAGEMENT;
 
@@ -51,14 +51,15 @@ public class AddPatientActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        // UI elements
         etPatientId = findViewById(R.id.etPatientId);
         etName      = findViewById(R.id.etName);
         etAge       = findViewById(R.id.etAge);
         etPhone     = findViewById(R.id.etPhone);
         etWeight    = findViewById(R.id.etWeight);
-        etGender    = findViewById(R.id.etGender);
         etHeight    = findViewById(R.id.etHeight);
         etBMI       = findViewById(R.id.etBMI);
+        spGender    = findViewById(R.id.spGender);
         imgPatient  = findViewById(R.id.imgPatient);
         btnSave     = findViewById(R.id.btnSave);
         btnNext     = findViewById(R.id.btnNext);
@@ -67,13 +68,38 @@ public class AddPatientActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        // ✅ modern picker works on all Android versions
+        // ✅ Name field restriction: alphabets, dot, space
+        InputFilter nameFilter = new InputFilter() {
+            public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
+                if (src.toString().matches("[a-zA-Z. ]*")) {
+                    return null;
+                }
+                Toast.makeText(AddPatientActivity.this, "Only alphabets, dot, and space allowed", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+        };
+        etName.setFilters(new InputFilter[]{nameFilter});
+
+        // ✅ Setup gender dropdown
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                new String[]{"Select Gender", "Male", "Female", "Other"}
+        );
+        spGender.setAdapter(genderAdapter);
+
+        // ✅ Modern photo picker
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         selectedImage = result.getData().getData();
-                        imgPatient.setImageURI(selectedImage);
+                        Glide.with(this)
+                                .load(selectedImage)
+                                .circleCrop()
+                                .placeholder(R.drawable.ic_person_outline)
+                                .error(R.drawable.ic_person_outline)
+                                .into(imgPatient);
                     }
                 });
 
@@ -84,12 +110,12 @@ public class AddPatientActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(v -> {
             nextAction = NextAction.MANAGEMENT;
-            savePatient();
+            validateAndSave();
         });
 
         btnNext.setOnClickListener(v -> {
             nextAction = NextAction.DEMOGRAPHICS;
-            savePatient();
+            validateAndSave();
         });
 
         btn1.setOnClickListener(v -> {
@@ -99,7 +125,6 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     private void openGallery() {
-        // ✅ safer universal photo picker
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -148,22 +173,64 @@ public class AddPatientActivity extends AppCompatActivity {
         }
     }
 
-    private void savePatient() {
-        // basic validation
-        if (etPatientId.getText().toString().trim().isEmpty() ||
-                etName.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Patient ID and Name are required", Toast.LENGTH_SHORT).show();
+    private void validateAndSave() {
+        if (etPatientId.getText().toString().trim().isEmpty()) {
+            etPatientId.requestFocus();
+            showToast("Enter Patient ID");
+            return;
+        }
+        if (etName.getText().toString().trim().isEmpty()) {
+            etName.requestFocus();
+            showToast("Enter Name");
+            return;
+        }
+        if (etAge.getText().toString().trim().isEmpty()) {
+            etAge.requestFocus();
+            showToast("Enter Age");
+            return;
+        }
+        if (etPhone.getText().toString().trim().isEmpty()) {
+            etPhone.requestFocus();
+            showToast("Enter Phone Number");
+            return;
+        }
+        if (etWeight.getText().toString().trim().isEmpty()) {
+            etWeight.requestFocus();
+            showToast("Enter Weight");
+            return;
+        }
+        if (spGender.getSelectedItemPosition() == 0) {
+            spGender.requestFocus();
+            showToast("Select Gender");
+            return;
+        }
+        if (etHeight.getText().toString().trim().isEmpty()) {
+            etHeight.requestFocus();
+            showToast("Enter Height");
+            return;
+        }
+        if (etBMI.getText().toString().trim().isEmpty()) {
+            etBMI.requestFocus();
+            showToast("Enter BMI");
             return;
         }
 
+        savePatient();
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void savePatient() {
         RequestBody patientId = textPart(etPatientId.getText().toString());
         RequestBody name      = textPart(etName.getText().toString());
-        RequestBody age       = textPartOrEmpty(etAge.getText().toString());
-        RequestBody phone     = textPartOrEmpty(etPhone.getText().toString());
-        RequestBody weight    = textPartOrEmpty(etWeight.getText().toString());
-        RequestBody gender    = textPartOrEmpty(etGender.getText().toString());
-        RequestBody height    = textPartOrEmpty(etHeight.getText().toString());
-        RequestBody bmi       = textPartOrEmpty(etBMI.getText().toString());
+        RequestBody age       = textPart(etAge.getText().toString());
+        RequestBody phone     = textPart(etPhone.getText().toString());
+        RequestBody weight    = textPart(etWeight.getText().toString());
+        RequestBody gender    = textPart(spGender.getSelectedItem().toString());
+        RequestBody height    = textPart(etHeight.getText().toString());
+        RequestBody bmi       = textPart(etBMI.getText().toString());
 
         MultipartBody.Part photoPart = null;
         if (selectedImage != null) {
@@ -182,9 +249,7 @@ public class AddPatientActivity extends AppCompatActivity {
                                            Response<PatientResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             int createdId = response.body().getId();
-                            Toast.makeText(AddPatientActivity.this,
-                                    "Patient saved successfully",
-                                    Toast.LENGTH_SHORT).show();
+                            showToast("Patient saved successfully");
 
                             if (nextAction == NextAction.MANAGEMENT) {
                                 startActivity(new Intent(AddPatientActivity.this,
@@ -197,31 +262,18 @@ public class AddPatientActivity extends AppCompatActivity {
                             }
                             finish();
                         } else {
-                            Toast.makeText(AddPatientActivity.this,
-                                    "Failed: " + response.code(),
-                                    Toast.LENGTH_SHORT).show();
+                            showToast("Patient Id already exists");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PatientResponse> call, Throwable t) {
-                        Toast.makeText(AddPatientActivity.this,
-                                "Error: " + t.getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        showToast("Error: " + t.getMessage());
                     }
                 });
     }
 
-    // ---------- helpers ----------
     private RequestBody textPart(String value) {
         return RequestBody.create(value.trim(), MediaType.parse("text/plain"));
-    }
-
-    // ✅ always send empty string if no value (prevents 400 Bad Request)
-    private RequestBody textPartOrEmpty(String value) {
-        return RequestBody.create(
-                value == null ? "" : value.trim(),
-                MediaType.parse("text/plain")
-        );
     }
 }

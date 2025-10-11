@@ -9,13 +9,30 @@
     android:elevation="2dp">
 
     <!-- Patient Image -->
-    <ImageView
-        android:id="@+id/imgPatient"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:src="@drawable/ic_img"
-        android:background="@drawable/circle_bg"
-        android:scaleType="centerCrop" />
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/imgPatient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_avatar_bg1" />
+
+        <TextView
+            android:id="@+id/tvInitials"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/circle_avatar_bg1"
+            android:visibility="gone" />
+    </FrameLayout>
+
 
     <!-- Details Section -->
     <LinearLayout
@@ -116,10 +133,10 @@
                 android:layout_marginStart="4dp"/>
 
             <TextView
-                android:id="@+id/tvstaus"
+                android:id="@+id/tvstatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="status"
+                android:hint=""
                 android:textColor="@color/gold"
                 android:textSize="16sp"/>
         </LinearLayout>

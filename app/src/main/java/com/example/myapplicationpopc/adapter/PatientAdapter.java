@@ -45,20 +45,24 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.tvId.setText(patient.getPatientId());
         holder.tvName.setText(patient.getName());
 
-
+        // ✅ Load circular image using Glide
         if (patient.getPhotoUrl() != null && !patient.getPhotoUrl().isEmpty()) {
             Glide.with(context)
                     .load(patient.getPhotoUrl())
+                    .circleCrop()  // Circular crop
                     .placeholder(R.drawable.ic_img)
+                    .error(R.drawable.ic_img)
                     .into(holder.imgPatient);
         } else {
-            holder.imgPatient.setImageResource(R.drawable.ic_img);
+            Glide.with(context)
+                    .load(R.drawable.ic_img)
+                    .circleCrop()
+                    .into(holder.imgPatient);
         }
 
         holder.btnNext.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(patient);
         });
-
     }
 
     @Override

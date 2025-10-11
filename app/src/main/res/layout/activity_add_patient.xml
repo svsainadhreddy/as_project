@@ -137,17 +137,23 @@
                 android:padding="8dp"
                 android:layout_marginBottom="10dp"/>
 
-            <TextView android:text="Gender" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etGender" android:hint="Gender"
-                android:inputType="text"
-                android:background="@drawable/field_bg"
+            <TextView
+                android:text="Gender"
                 android:textColor="#FFF"
-                android:textColorHint="#888"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/spGender"
+                android:background="@drawable/field_bg"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:spinnerMode="dropdown"/>
+
 
             <TextView android:text="Height (cm)" android:textColor="#FFF" android:textSize="14sp"
                 android:layout_width="wrap_content" android:layout_height="wrap_content" />
