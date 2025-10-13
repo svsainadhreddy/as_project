@@ -125,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!name.matches("[a-zA-Z ]+")) {
-            etName.setError("Name must contain only alphabets");
+            etName.setError("Enter valid Name");
             etName.requestFocus();
             return false;
         }
@@ -137,19 +137,19 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!phone.matches("[6-9][0-9]{9}")) {
-            etPhone.setError("Enter valid 10-digit Indian phone number");
+            etPhone.setError("Enter valid 10-digit phone number");
             etPhone.requestFocus();
             return false;
         }
 
         if (!age.matches("\\d+")) {
-            etAge.setError("Age must be a number");
+            etAge.setError("Enter valid age");
             etAge.requestFocus();
             return false;
         }
 
         if (!username.matches("[a-zA-Z0-9]+")) {
-            etUsername.setError("Username must be alphanumeric");
+            etUsername.setError("Enter Valid username");
             etUsername.requestFocus();
             return false;
         }

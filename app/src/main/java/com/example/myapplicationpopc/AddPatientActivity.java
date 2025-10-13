@@ -81,7 +81,7 @@ public class AddPatientActivity extends AppCompatActivity {
         InputFilter nameFilter = new InputFilter() {
             public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
                 if (src.toString().matches("[a-zA-Z. ]*")) return null;
-                Toast.makeText(AddPatientActivity.this, "Only alphabets, dot, and space allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPatientActivity.this, "Enter valid Name", Toast.LENGTH_SHORT).show();
                 return "";
             }
         };

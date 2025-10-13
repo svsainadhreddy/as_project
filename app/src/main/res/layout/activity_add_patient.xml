@@ -108,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Name"
+                android:maxLength="50"
                 android:inputType="textPersonName"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
@@ -243,6 +244,7 @@
                 android:layout_height="48dp"
                 android:hint="Mobile Number"
                 android:inputType="phone"
+                android:maxLength="10"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
@@ -266,6 +268,7 @@
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
+                android:maxLength="3"
                 android:padding="8dp"
                 android:layout_marginBottom="10dp" />
 
@@ -287,6 +290,7 @@
                 android:textColor="#FFF"
                 android:textColorHint="#888"
                 android:padding="8dp"
+                android:maxLength="3"
                 android:layout_marginBottom="10dp" />
 
             <!-- BMI -->

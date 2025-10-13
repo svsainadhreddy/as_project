@@ -91,15 +91,19 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         if (level.equals("High")) {
             tvRiskBadge.setText("High");
             tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_orange);
-            tvRiskLevelSub.setText("Coordinate care plan; follow-up in 3 months.");
-        } else if (level.equals("Low")) {
-            tvRiskBadge.setText("Low");
+            tvRiskLevelSub.setText("Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.");
+        } else if (level.equals("Very high")) {
+            tvRiskBadge.setText("Very high");
             tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
-            tvRiskLevelSub.setText("No intervention needed.");
+            tvRiskLevelSub.setText("Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.");
+        } else if (level.equals("Moderate")) {
+            tvRiskBadge.setText("Moderate");
+            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
+            tvRiskLevelSub.setText("Lung-protective ventilation, multimodal analgesia, encourage early mobilization.");
         } else {
             tvRiskBadge.setText(level);
             tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_yellow);
-            tvRiskLevelSub.setText("Monitor and provide guidance.");
+            tvRiskLevelSub.setText("Standard anesthesia; routine monitoring.");
         }
 
         // --- Render each section individually ---
@@ -111,12 +115,12 @@ public class SurveyDisplayActivity extends AppCompatActivity {
             LinearLayout sectionCard = new LinearLayout(this);
             sectionCard.setOrientation(LinearLayout.VERTICAL);
             sectionCard.setBackgroundResource(R.drawable.bg_risk_card);
-            sectionCard.setPadding(16, 16, 16, 16);
+            sectionCard.setPadding(16, 16, 16, 30);
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            cardParams.setMargins(0, 0, 0, 24);
+            cardParams.setMargins(0, 0, 0, 40);
             sectionCard.setLayoutParams(cardParams);
 
             // Header layout
