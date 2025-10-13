@@ -1,5 +1,7 @@
 package com.example.myapplicationpopc.network;
 
+import androidx.annotation.Nullable;
+
 import com.example.myapplicationpopc.model.DashboardResponse;
 import com.example.myapplicationpopc.model.Dashboardgraph;
 import com.example.myapplicationpopc.model.DoctorResponse;
@@ -47,6 +49,8 @@ public interface ApiService {
             @Part MultipartBody.Part profile_image
     );
 
+
+
     @Multipart
     @POST("patients/create/")
     Call<PatientResponse> createPatient(
@@ -67,7 +71,7 @@ public interface ApiService {
     Call<PatientResponse> updatePatient(
             @Header("Authorization") String token,
             @Path("id") int patientPk,
-            @Part("patient_id") RequestBody patientId,
+            @Nullable @Part("patient_id") RequestBody patientId,
             @Part("name") RequestBody name,
             @Part("age") RequestBody age,
             @Part("phone") RequestBody phone,
@@ -77,6 +81,9 @@ public interface ApiService {
             @Part("bmi") RequestBody bmi,
             @Part MultipartBody.Part photo
     );
+
+
+
 
     @GET("patients/{id}/")
     Call<PatientResponse> getPatient(

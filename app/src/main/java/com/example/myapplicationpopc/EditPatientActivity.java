@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 public class EditPatientActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 100;
+    private static final String TAG = "EDIT_PATIENT";
 
     private ImageView imgPatient, btnBack;
     private EditText etPatientId, etName, etPhone, etWeight, etHeight;
@@ -50,7 +52,6 @@ public class EditPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient);
-
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         imgPatient = findViewById(R.id.imgPatient);
@@ -220,7 +221,6 @@ public class EditPatientActivity extends AppCompatActivity {
             imagePart = MultipartBody.Part.createFormData("photo", file.getName(), reqFile);
         }
 
-        // Only send patient_id if changed
         String enteredPatientId = etPatientId.getText().toString().trim();
         RequestBody patientIdBody = null;
         if (!enteredPatientId.isEmpty() && !enteredPatientId.equals(originalPatientId)) {
@@ -235,12 +235,25 @@ public class EditPatientActivity extends AppCompatActivity {
         RequestBody heightBody = createPartFromString(etHeight.getText().toString());
         RequestBody bmiBody = createPartFromString(etBMI.getText().toString());
 
+        // Log all outgoing data
+        Log.d(TAG, "🟢 Sending Update Request:");
+        Log.d(TAG, "patient_id: " + (patientIdBody != null ? enteredPatientId : "(not sent)"));
+        Log.d(TAG, "name: " + etName.getText().toString());
+        Log.d(TAG, "age: " + etAgeInput.getText().toString());
+        Log.d(TAG, "phone: " + etPhone.getText().toString());
+        Log.d(TAG, "weight: " + etWeight.getText().toString());
+        Log.d(TAG, "height: " + etHeight.getText().toString());
+        Log.d(TAG, "gender: " + selectedGender);
+        Log.d(TAG, "bmi: " + etBMI.getText().toString());
+        Log.d(TAG, "image: " + (selectedImageUri != null ? selectedImageUri.toString() : "(no change)"));
+
         apiService.updatePatient(token, patientId,
                         patientIdBody, nameBody, ageBody, phoneBody,
                         weightBody, genderBody, heightBody, bmiBody, imagePart)
                 .enqueue(new Callback<PatientResponse>() {
                     @Override
                     public void onResponse(Call<PatientResponse> call, Response<PatientResponse> response) {
+                        Log.d(TAG, "🔵 Response Code: " + response.code());
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(EditPatientActivity.this, "✅ Patient updated successfully", Toast.LENGTH_SHORT).show();
                             finish();
@@ -248,12 +261,14 @@ public class EditPatientActivity extends AppCompatActivity {
                             Toast.makeText(EditPatientActivity.this, "⚠️ Patient ID already exists!", Toast.LENGTH_LONG).show();
                             etPatientId.setError("This ID is already used");
                         } else {
+                            Log.e(TAG, "❌ Error Response: " + response.message());
                             Toast.makeText(EditPatientActivity.this, "Update failed: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PatientResponse> call, Throwable t) {
+                        Log.e(TAG, "🚨 API Failure: " + t.getMessage());
                         Toast.makeText(EditPatientActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
