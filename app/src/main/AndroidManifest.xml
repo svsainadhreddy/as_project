@@ -69,6 +69,18 @@
             android:exported="false"
             />
 
+        <!-- change password Activity -->
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false"
+            />
+        <!-- change username Activity -->
+        <activity
+            android:name=".ChangeUsernameActivity"
+            android:exported="false"
+            />
+
+
         <!-- Profile Activity -->
         <activity
             android:name=".ProfileActivity"

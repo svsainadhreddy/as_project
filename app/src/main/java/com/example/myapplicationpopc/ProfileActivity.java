@@ -7,15 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -39,23 +31,27 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import android.widget.NumberPicker;
 
 public class ProfileActivity extends AppCompatActivity {
 
     EditText etName, etPhone, etEmail;
-    Spinner etSpecialization, spinnerGender;
+    Spinner etSpecialization;
     TextView etDoctorId;
     ImageView ivProfile, btn1;
     Button btnUpdate;
-    NumberPicker npAge;
-    TextView tvAgeIncCount, tvAgeDecCount;
+
+    // Gender segmented control
+    TextView btnFemale, btnMale, btnOther;
+
+    // Age segmented control
+    TextView btnAgeMinus, btnAgePlus, tvAge;
 
     ApiService apiService;
     String token;
     Uri selectedImageUri;
     String selectedSpecialization = "Anesthesia";
-    String selectedGender = "Male"; // Default gender selection
+    String selectedGender = "Female";
+    int selectedAge = 24;
 
     ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -71,73 +67,45 @@ public class ProfileActivity extends AppCompatActivity {
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
         etSpecialization = findViewById(R.id.etSpecialization);
-        spinnerGender = findViewById(R.id.spinnerGender);
         ivProfile = findViewById(R.id.ivProfile);
         btnUpdate = findViewById(R.id.btnUpdate);
         btn1 = findViewById(R.id.btnBack);
-        npAge = findViewById(R.id.npAge);
-        tvAgeIncCount = findViewById(R.id.tvAgeIncCount);
-        tvAgeDecCount = findViewById(R.id.tvAgeDecCount);
 
-        // Age NumberPicker setup
-        npAge.setMinValue(18);
-        npAge.setMaxValue(120);
-        npAge.setValue(30);
-        npAge.setWrapSelectorWheel(true);
+        // Gender segmented buttons
+        btnFemale = findViewById(R.id.btnFemale);
+        btnMale = findViewById(R.id.btnMale);
+        btnOther = findViewById(R.id.btnOther);
 
-        npAge.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            // No count update in UI, no action needed here now
-        });
+        // Age segmented controls
+        btnAgeMinus = findViewById(R.id.btnAgeMinus);
+        btnAgePlus = findViewById(R.id.btnAgePlus);
+        tvAge = findViewById(R.id.tvAge);
 
-        // Tapping up/down counter labels increments/decrements age with Toast messages
-        tvAgeIncCount.setOnClickListener(v -> {
-            int curr = npAge.getValue();
-            if (curr < npAge.getMaxValue()) {
-                npAge.setValue(curr + 1);
-                Toast.makeText(ProfileActivity.this, "Age incremented to " + npAge.getValue(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        tvAgeDecCount.setOnClickListener(v -> {
-            int curr = npAge.getValue();
-            if (curr > npAge.getMinValue()) {
-                npAge.setValue(curr - 1);
-                Toast.makeText(ProfileActivity.this, "Age decremented to " + npAge.getValue(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Spinner specialization setup
+        // Setup specialization spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.specialization_array, android.R.layout.simple_spinner_item
-        );
+                this, R.array.specialization_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etSpecialization.setAdapter(adapter);
 
-        etSpecialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-                selectedSpecialization = parent.getItemAtPosition(position).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selectedSpecialization = "Anesthesia";
+        // --- Gender selection logic ---
+        btnFemale.setOnClickListener(v -> setGenderSelected("Female"));
+        btnMale.setOnClickListener(v -> setGenderSelected("Male"));
+        btnOther.setOnClickListener(v -> setGenderSelected("Other"));
+
+        // --- Age counter logic ---
+        tvAge.setText(String.valueOf(selectedAge));
+
+        btnAgePlus.setOnClickListener(v -> {
+            if (selectedAge < 120) {
+                selectedAge++;
+                tvAge.setText(String.valueOf(selectedAge));
             }
         });
 
-        // Spinner gender setup
-        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(
-                this, R.array.gender_array, android.R.layout.simple_spinner_item
-        );
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGender.setAdapter(genderAdapter);
-
-        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-                selectedGender = parent.getItemAtPosition(position).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selectedGender = "Male"; // default fallback
+        btnAgeMinus.setOnClickListener(v -> {
+            if (selectedAge > 18) {
+                selectedAge--;
+                tvAge.setText(String.valueOf(selectedAge));
             }
         });
 
@@ -153,16 +121,29 @@ public class ProfileActivity extends AppCompatActivity {
                         selectedImageUri = result.getData().getData();
                         ivProfile.setImageURI(selectedImageUri);
                     }
-                }
-        );
+                });
+
         ivProfile.setOnClickListener(v -> showImagePickerDialog());
         btnUpdate.setOnClickListener(v -> updateProfile());
-
         btn1.setOnClickListener(v -> {
             Intent i = new Intent(this, DoctorHomeActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
+    }
+
+    private void setGenderSelected(String gender) {
+        selectedGender = gender;
+        btnFemale.setBackgroundResource(
+                gender.equals("Female") ? R.drawable.bg_segment_selected : android.R.color.transparent);
+        btnMale.setBackgroundResource(
+                gender.equals("Male") ? R.drawable.bg_segment_selected : android.R.color.transparent);
+        btnOther.setBackgroundResource(
+                gender.equals("Other") ? R.drawable.bg_segment_selected : android.R.color.transparent);
+
+        btnFemale.setTextColor(gender.equals("Female") ? 0xFFFFFFFF : 0xFF555555);
+        btnMale.setTextColor(gender.equals("Male") ? 0xFFFFFFFF : 0xFF555555);
+        btnOther.setTextColor(gender.equals("Other") ? 0xFFFFFFFF : 0xFF555555);
     }
 
     private void showImagePickerDialog() {
@@ -214,9 +195,11 @@ public class ProfileActivity extends AppCompatActivity {
                     etName.setText(doctor.getName());
                     etPhone.setText(doctor.getPhone());
                     etEmail.setText(doctor.getEmail());
-                    int ageLoaded = 30;
-                    try { ageLoaded = Integer.parseInt(doctor.getAge()); } catch(Exception ignored){}
-                    npAge.setValue(ageLoaded);
+
+                    try {
+                        selectedAge = Integer.parseInt(doctor.getAge());
+                    } catch (Exception ignored) {}
+                    tvAge.setText(String.valueOf(selectedAge));
 
                     if (doctor.getSpecialization() != null) {
                         int pos = ((ArrayAdapter) etSpecialization.getAdapter())
@@ -224,16 +207,11 @@ public class ProfileActivity extends AppCompatActivity {
                         if (pos >= 0) etSpecialization.setSelection(pos);
                     }
 
-                    // Set gender spinner selection if gender is available
-                    if (doctor.getGender() != null) {
-                        int genderPos = ((ArrayAdapter) spinnerGender.getAdapter())
-                                .getPosition(doctor.getGender());
-                        if (genderPos >= 0) spinnerGender.setSelection(genderPos);
-                    }
+                    if (doctor.getGender() != null) setGenderSelected(doctor.getGender());
 
                     if (doctor.getProfileImageUrl() != null) {
                         Glide.with(ProfileActivity.this)
-                                .load(ApiClient.BASE_URL + doctor.getProfileImageUrl())
+                                .load(doctor.getProfileImageUrl())
                                 .into(ivProfile);
                     }
                 } else {
@@ -270,7 +248,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
         RequestBody name = RequestBody.create(etName.getText().toString(), MediaType.parse("text/plain"));
         RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody age = RequestBody.create(String.valueOf(npAge.getValue()), MediaType.parse("text/plain"));
+        RequestBody age = RequestBody.create(String.valueOf(selectedAge), MediaType.parse("text/plain"));
         RequestBody specialization = RequestBody.create(selectedSpecialization, MediaType.parse("text/plain"));
         RequestBody email = RequestBody.create(etEmail.getText().toString(), MediaType.parse("text/plain"));
         RequestBody gender = RequestBody.create(selectedGender, MediaType.parse("text/plain"));
@@ -295,6 +273,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Update failed: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<DoctorResponse> call, Throwable t) {
                         Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();

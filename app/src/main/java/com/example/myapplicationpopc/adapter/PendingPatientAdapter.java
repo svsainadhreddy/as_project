@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.myapplicationpopc.PatientDemographicsActivity;
 import com.example.myapplicationpopc.MedicalHistoryActivity;
 import com.example.myapplicationpopc.PreoperativeConsiderationsActivity;
+import com.example.myapplicationpopc.ScoreActivity;
 import com.example.myapplicationpopc.SurgeryFactorsActivity;
 import com.example.myapplicationpopc.PlannedAnesthesiaActivity;
 import com.example.myapplicationpopc.PostoperativeActivity;
@@ -95,24 +96,26 @@ public class PendingPatientAdapter extends RecyclerView.Adapter<PendingPatientAd
             Intent intent = null;
 
             switch (status) {
-                case "patient_demographics":
-                case "not started":
+                case "patient_Demographics":
+                    intent = new Intent(context, MedicalHistoryActivity.class);
+                    break;
+                case "Not Started":
                     intent = new Intent(context, PatientDemographicsActivity.class);
                     break;
                 case "medical_history":
-                    intent = new Intent(context, MedicalHistoryActivity.class);
-                    break;
-                case "preoperative_considerations":
                     intent = new Intent(context, PreoperativeConsiderationsActivity.class);
                     break;
-                case "surgery_factors":
+                case "preoperative_considerations":
                     intent = new Intent(context, SurgeryFactorsActivity.class);
                     break;
-                case "planned_anesthesia":
+                case "surgery_Factors":
                     intent = new Intent(context, PlannedAnesthesiaActivity.class);
                     break;
-                case "postoperative":
+                case "planned_Anesthesia":
                     intent = new Intent(context, PostoperativeActivity.class);
+                    break;
+                case "postoperative":
+                    intent = new Intent(context, ScoreActivity.class);
                     break;
             }
 

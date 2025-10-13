@@ -135,4 +135,12 @@ public interface ApiService {
 
     @GET("accounts/profile")
     Call<DoctorResponse> getDoctorimg(@Header("Authorization") String token);
+
+
+    @PUT("accounts/change-username/")
+    Call<Void> changeUsername(@Header("Authorization") String token, @Body Map<String, String> body);
+
+    @PUT("accounts/change-password/")
+    Call<Void> changePassword(@Header("Authorization") String token, @Body Map<String, String> body);
+
 }

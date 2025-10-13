@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="10dp">
+
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
@@ -26,6 +27,7 @@
                 android:src="@drawable/ic_arrow_back"
                 app:tint="#FFF"
                 android:scaleType="centerInside" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,10 +35,10 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="#FFF"
-                android:layout_marginStart="14dp"/>
+                android:layout_marginStart="14dp" />
         </LinearLayout>
 
-        <!-- Photo Upload Section -->
+        <!-- Photo Upload -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -45,6 +47,7 @@
             android:background="@drawable/rounded_card_bgap"
             android:gravity="center_vertical"
             android:layout_marginBottom="15dp">
+
             <ImageView
                 android:id="@+id/imgPatient"
                 android:layout_width="70dp"
@@ -52,23 +55,18 @@
                 android:src="@drawable/ic_person_outline"
                 android:background="@drawable/circle_image"
                 android:scaleType="centerCrop"
-                android:contentDescription="Add Patient Photo"/>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:contentDescription="Add Patient Photo" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add Patient Photo"
-                    android:textColor="#FFF"
-                    android:textSize="15sp"/>
-            </LinearLayout>
+                android:text="Add Patient Photo"
+                android:textColor="#FFF"
+                android:textSize="15sp"
+                android:layout_marginStart="16dp" />
         </LinearLayout>
 
-        <!-- Patient Info Card -->
+        <!-- Patient Info -->
         <LinearLayout
             android:orientation="vertical"
             android:background="@drawable/rounded_card_bg"
@@ -77,109 +75,239 @@
             android:padding="15dp"
             android:layout_marginBottom="18dp">
 
-            <TextView android:text="Patient ID" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etPatientId" android:hint="Patient Id"
+            <!-- Patient ID -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patient ID"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etPatientId"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Patient Id"
                 android:inputType="text"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
+                android:padding="8dp"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView android:text="Name" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etName" android:hint="Name"
+                android:hint="Name"
                 android:inputType="textPersonName"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
+                android:padding="8dp"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Gender -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:id="@+id/genderGroup"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView android:text="Age" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etAge" android:hint="Age"
-                android:inputType="number"
+                android:orientation="horizontal"
                 android:background="@drawable/field_bg"
-                android:textColor="#FFF"
-                android:textColorHint="#888"
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/btnFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Female"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_segment_selected"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/btnMale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Male"
+                    android:textColor="#555555"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/btnOther"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Other"
+                    android:textColor="#555555"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Age -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#9AA5B1"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:id="@+id/ageContainer"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/field_bg"
+                android:padding="4dp"
+                android:layout_marginTop="8dp">
 
-            <TextView android:text="Phone" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etPhone" android:hint="Mobile Number"
+                <TextView
+                    android:id="@+id/btnAgeMinus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="−"
+                    android:textSize="20sp"
+                    android:textColor="#555555"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="24"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnAgePlus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:textColor="#555555"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Phone -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textColor="#FFF"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Mobile Number"
                 android:inputType="phone"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
                 android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
-            <TextView android:text="Weight (kg)" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etWeight" android:hint="Weight"
-                android:inputType="numberDecimal"
-                android:background="@drawable/field_bg"
-                android:textColor="#FFF"
-                android:textColorHint="#888"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
-
+            <!-- Weight -->
             <TextView
-                android:text="Gender"
-                android:textColor="#FFF"
-                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Weight (kg)"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
 
-            <Spinner
-                android:id="@+id/spGender"
-                android:background="@drawable/field_bg"
+            <EditText
+                android:id="@+id/etWeight"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="10dp"
-                android:spinnerMode="dropdown"/>
-
-
-            <TextView android:text="Height (cm)" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etHeight" android:hint="Height"
+                android:hint="Weight"
                 android:inputType="numberDecimal"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
+                android:padding="8dp"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Height -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Height (cm)"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etHeight"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView android:text="BMI" android:textColor="#FFF" android:textSize="14sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            <EditText android:id="@+id/etBMI" android:hint="Body Mass Index"
+                android:hint="Height"
                 android:inputType="numberDecimal"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
+                android:padding="8dp"
+                android:layout_marginBottom="10dp" />
+
+            <!-- BMI -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BMI"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etBMI"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:padding="8dp"/>
+                android:hint="Body Mass Index"
+                android:inputType="numberDecimal"
+                android:background="@drawable/field_bg"
+                android:textColor="#FFF"
+                android:textColorHint="#888"
+                android:padding="8dp" />
         </LinearLayout>
 
-
+        <!-- Buttons -->
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center"
@@ -188,22 +316,22 @@
 
             <Button
                 android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
                 android:text="Save"
                 android:textColor="#FFF"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="48dp"
                 android:backgroundTint="#38D395"
-                android:layout_marginEnd="12dp"/>
+                android:layout_marginEnd="12dp" />
 
             <Button
                 android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
                 android:text="Next"
                 android:textColor="#FFF"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="48dp"
-                android:backgroundTint="#2E2D35"/>
+                android:backgroundTint="#2E2D35" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

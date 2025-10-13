@@ -1,6 +1,10 @@
 package com.example.myapplicationpopc.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,22 +49,19 @@ public class DeletePatientAdapter extends RecyclerView.Adapter<DeletePatientAdap
         holder.tvId.setText(patient.getPatientId());
         holder.tvName.setText(patient.getName());
 
-        // ✅ Load circular image using Glide
+        // Load image or generate initials drawable
         if (patient.getPhotoUrl() != null && !patient.getPhotoUrl().isEmpty()) {
             Glide.with(context)
                     .load(patient.getPhotoUrl())
-                    .circleCrop()  // Circular crop
+                    .circleCrop()
                     .placeholder(R.drawable.ic_img)
                     .error(R.drawable.ic_img)
                     .into(holder.imgPatient);
         } else {
-            Glide.with(context)
-                    .load(R.drawable.ic_img)
-                    .circleCrop()
-                    .into(holder.imgPatient);
+            // Generate initials drawable
+            holder.imgPatient.setImageBitmap(generateInitialsDrawable(patient.getName()));
         }
 
-        // Delete button
         holder.tvDelete.setOnClickListener(v -> {
             if (listener != null) listener.onDeleteClick(patient);
         });
@@ -87,5 +88,37 @@ public class DeletePatientAdapter extends RecyclerView.Adapter<DeletePatientAdap
             tvName = itemView.findViewById(R.id.tvName);
             tvDelete = itemView.findViewById(R.id.tvDelete);
         }
+    }
+
+    private Bitmap generateInitialsDrawable(String name) {
+        String initials = "NA";
+        if (name != null && name.length() >= 2) {
+            initials = name.substring(0, 2).toUpperCase();
+        } else if (name != null && name.length() == 1) {
+            initials = name.substring(0, 1).toUpperCase();
+        }
+
+        int size = 150; // image size in px
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        // Background circle
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#FFBB86FC")); // random pastel color
+        canvas.drawCircle(size / 2, size / 2, size / 2, paint);
+
+        // Text paint
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(size / 2);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+
+        // Draw text in center
+        float yPos = (canvas.getHeight() / 2 - (textPaint.descent() + textPaint.ascent()) / 2);
+        canvas.drawText(initials, size / 2, yPos, textPaint);
+
+        return bitmap;
     }
 }

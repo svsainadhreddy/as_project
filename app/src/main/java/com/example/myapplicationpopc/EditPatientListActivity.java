@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplicationpopc.adapter.PatientAdapter;
 import com.example.myapplicationpopc.model.PatientResponse;
+import com.example.myapplicationpopc.model.RecordsResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
@@ -120,17 +121,20 @@ public class EditPatientListActivity extends AppCompatActivity {
     }
 
     private void filterPatients(String query) {
+        if (query == null) query = "";
+        query = query.trim().toLowerCase();
         filteredList.clear();
-        if (query.isEmpty()) {
-            filteredList.addAll(patientList);
-        } else {
-            for (PatientResponse patient : patientList) {
-                if (patient.getName().toLowerCase().contains(query.toLowerCase()) ||
-                        patient.getPatientId().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(patient);
-                }
+
+        for (PatientResponse p : patientList) {
+            String name = (p.getName() != null) ? p.getName().toLowerCase() : "";
+            String id = (p.getPatientId() != null) ? p.getPatientId().toLowerCase() : "";
+
+            if (name.contains(query) || id.contains(query)) {
+                filteredList.add(p);
             }
         }
+
         adapter.setList(filteredList);
     }
+
 }

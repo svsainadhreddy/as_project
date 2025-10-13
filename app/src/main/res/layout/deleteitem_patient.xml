@@ -11,10 +11,10 @@
     <!-- Patient Image -->
     <ImageView
         android:id="@+id/imgPatient"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_img"
-        android:background="@drawable/circle_bg"
+        android:background="@drawable/circle_avatar_bg1"
         android:scaleType="centerCrop" />
 
     <!-- Details Section -->
@@ -47,7 +47,7 @@
                 android:text=" : "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:textColor="@color/white"
                 android:layout_marginStart="4dp"/>
 
             <TextView
@@ -81,7 +81,7 @@
                 android:text=" : "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:textColor="@color/gold"
                 android:layout_marginStart="4dp"/>
 
             <TextView
@@ -89,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John"
+                android:textStyle="bold"
                 android:textColor="@color/gold"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -105,7 +106,7 @@
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:background="#F27979"
+        android:background="@drawable/score_box_bg"
         android:layout_gravity="center" />
 
 </LinearLayout>

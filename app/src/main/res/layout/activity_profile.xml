@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0A2342">
 
     <RelativeLayout
@@ -10,12 +10,7 @@
         android:layout_height="wrap_content"
         android:clipChildren="false">
 
-        <View
-            android:id="@+id/topSection"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="#0A2342" />
-
+        <!-- Back Button -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
@@ -26,36 +21,39 @@
             app:tint="#FFFFFF"
             android:contentDescription="Back" />
 
+        <!-- Floating Circular Profile Image -->
+        <FrameLayout
+            android:id="@+id/profileImageHolder"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/circle_light_bg"
+            android:elevation="10dp"
+            android:clipToOutline="true">
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_img"
+                android:contentDescription="Profile Image" />
+        </FrameLayout>
+
+        <!-- Profile Card -->
         <LinearLayout
             android:id="@+id/profileCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
+            android:layout_below="@id/profileImageHolder"
+            android:layout_marginTop="-60dp"
             android:layout_marginHorizontal="24dp"
             android:orientation="vertical"
             android:background="@drawable/rounded_card"
             android:elevation="6dp"
             android:padding="24dp"
             android:clipChildren="false">
-
-            <FrameLayout
-                android:id="@+id/profileImageHolder"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_light_bg"
-                android:elevation="4dp"
-                android:layout_marginTop="-80dp">
-
-                <ImageView
-                    android:id="@+id/ivProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_img"
-                    android:scaleType="fitCenter"
-                    android:background="@null"
-                    android:padding="0dp" />
-            </FrameLayout>
 
             <!-- Doctor ID -->
             <TextView
@@ -164,83 +162,111 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="GENDER"
+                android:text="Gender"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#9AA5B1"
                 android:layout_marginTop="16dp" />
 
             <LinearLayout
+                android:id="@+id/genderGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:background="@drawable/chip_input_bg"
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_marginTop="8dp">
 
-                <Spinner
-                    android:id="@+id/spinnerGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:background="@drawable/chip_input_bg"
-                    android:padding="8dp"
-                    android:spinnerMode="dropdown"
-                    android:entries="@array/gender_array"
-                    android:imeOptions="actionNext"/>
+                <TextView
+                    android:id="@+id/btnFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Female"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_segment_selected"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/btnMale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Male"
+                    android:textColor="#555555"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/btnOther"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Other"
+                    android:textColor="#555555"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Age -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AGE"
+                android:text="Age"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#9AA5B1"
                 android:layout_marginTop="16dp" />
 
             <LinearLayout
+                android:id="@+id/ageContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:gravity="center"
+                android:background="@drawable/chip_input_bg"
+                android:padding="4dp"
+                android:layout_marginTop="8dp">
 
-                <NumberPicker
-                    android:id="@+id/npAge"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/btnAgeMinus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/chip_input_bg"
-                    android:layout_height="40dp"
-                    android:divider="@android:color/transparent" />
+                    android:gravity="center"
+                    android:text="−"
+                    android:textSize="20sp"
+                    android:textColor="#555555"
+                    android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="24"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvAgeIncCount"
-                        android:layout_width="38dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="↑"
-                        android:textColor="#4caf50"
-                        android:textStyle="bold"
-                        android:textSize="13sp"/>
-                    <TextView
-                        android:id="@+id/tvAgeDecCount"
-                        android:layout_width="38dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="↓"
-                        android:textStyle="bold"
-                        android:textColor="#d32f2f"
-                        android:textSize="13sp"/>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/btnAgePlus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:textColor="#555555"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

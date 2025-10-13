@@ -5,8 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -32,14 +34,15 @@ import retrofit2.Response;
 
 public class AddPatientActivity extends AppCompatActivity {
 
-    EditText etPatientId, etName, etAge, etPhone, etWeight, etHeight, etBMI;
-    Spinner spGender;
+    EditText etPatientId, etName, etPhone, etWeight, etHeight, etBMI;
     ImageView imgPatient, btn1;
     Button btnSave, btnNext;
+    TextView btnFemale, btnMale, btnOther, btnAgeMinus, tvAge, btnAgePlus;
     Uri selectedImage;
     ActivityResultLauncher<Intent> galleryLauncher;
     ApiService apiService;
     String token;
+    String selectedGender = "Female"; // default selected
 
     enum NextAction { MANAGEMENT, DEMOGRAPHICS }
     private NextAction nextAction = NextAction.MANAGEMENT;
@@ -51,44 +54,42 @@ public class AddPatientActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // UI elements
+        // UI initialization
         etPatientId = findViewById(R.id.etPatientId);
         etName      = findViewById(R.id.etName);
-        etAge       = findViewById(R.id.etAge);
         etPhone     = findViewById(R.id.etPhone);
         etWeight    = findViewById(R.id.etWeight);
         etHeight    = findViewById(R.id.etHeight);
         etBMI       = findViewById(R.id.etBMI);
-        spGender    = findViewById(R.id.spGender);
         imgPatient  = findViewById(R.id.imgPatient);
         btnSave     = findViewById(R.id.btnSave);
         btnNext     = findViewById(R.id.btnNext);
         btn1        = findViewById(R.id.btnBack);
 
+        // gender buttons
+        btnFemale = findViewById(R.id.btnFemale);
+        btnMale   = findViewById(R.id.btnMale);
+        btnOther  = findViewById(R.id.btnOther);
+
+        // age section
+        btnAgeMinus = findViewById(R.id.btnAgeMinus);
+        tvAge       = findViewById(R.id.tvAge);
+        btnAgePlus  = findViewById(R.id.btnAgePlus);
+
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        // ✅ Name field restriction: alphabets, dot, space
+        // ✅ Restrict name to alphabets, dot, and space
         InputFilter nameFilter = new InputFilter() {
             public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
-                if (src.toString().matches("[a-zA-Z. ]*")) {
-                    return null;
-                }
+                if (src.toString().matches("[a-zA-Z. ]*")) return null;
                 Toast.makeText(AddPatientActivity.this, "Only alphabets, dot, and space allowed", Toast.LENGTH_SHORT).show();
                 return "";
             }
         };
         etName.setFilters(new InputFilter[]{nameFilter});
 
-        // ✅ Setup gender dropdown
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"Select Gender", "Male", "Female", "Other"}
-        );
-        spGender.setAdapter(genderAdapter);
-
-        // ✅ Modern photo picker
+        // ✅ Modern image picker
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -108,6 +109,15 @@ public class AddPatientActivity extends AppCompatActivity {
         etWeight.addTextChangedListener(bmiTextWatcher);
         etHeight.addTextChangedListener(bmiTextWatcher);
 
+        // ✅ Gender selection logic
+        btnFemale.setOnClickListener(v -> selectGender("Female"));
+        btnMale.setOnClickListener(v -> selectGender("Male"));
+        btnOther.setOnClickListener(v -> selectGender("Other"));
+
+        // ✅ Age increment/decrement
+        btnAgeMinus.setOnClickListener(v -> changeAge(-1));
+        btnAgePlus.setOnClickListener(v -> changeAge(1));
+
         btnSave.setOnClickListener(v -> {
             nextAction = NextAction.MANAGEMENT;
             validateAndSave();
@@ -122,6 +132,37 @@ public class AddPatientActivity extends AppCompatActivity {
             startActivity(new Intent(this, PatientManagementActivity.class));
             finish();
         });
+    }
+
+    private void selectGender(String gender) {
+        selectedGender = gender;
+        // reset all
+        btnFemale.setBackgroundResource(android.R.color.transparent);
+        btnMale.setBackgroundResource(android.R.color.transparent);
+        btnOther.setBackgroundResource(android.R.color.transparent);
+
+        btnFemale.setTextColor(getResources().getColor(R.color.gray));
+        btnMale.setTextColor(getResources().getColor(R.color.gray));
+        btnOther.setTextColor(getResources().getColor(R.color.gray));
+
+        // highlight selected
+        if (gender.equals("Female")) {
+            btnFemale.setBackgroundResource(R.drawable.bg_segment_selected);
+            btnFemale.setTextColor(getResources().getColor(android.R.color.white));
+        } else if (gender.equals("Male")) {
+            btnMale.setBackgroundResource(R.drawable.bg_segment_selected);
+            btnMale.setTextColor(getResources().getColor(android.R.color.white));
+        } else {
+            btnOther.setBackgroundResource(R.drawable.bg_segment_selected);
+            btnOther.setTextColor(getResources().getColor(android.R.color.white));
+        }
+    }
+
+    private void changeAge(int delta) {
+        int age = Integer.parseInt(tvAge.getText().toString());
+        age += delta;
+        if (age < 0) age = 0;
+        tvAge.setText(String.valueOf(age));
     }
 
     private void openGallery() {
@@ -184,8 +225,7 @@ public class AddPatientActivity extends AppCompatActivity {
             showToast("Enter Name");
             return;
         }
-        if (etAge.getText().toString().trim().isEmpty()) {
-            etAge.requestFocus();
+        if (tvAge.getText().toString().trim().isEmpty()) {
             showToast("Enter Age");
             return;
         }
@@ -199,8 +239,7 @@ public class AddPatientActivity extends AppCompatActivity {
             showToast("Enter Weight");
             return;
         }
-        if (spGender.getSelectedItemPosition() == 0) {
-            spGender.requestFocus();
+        if (selectedGender == null || selectedGender.isEmpty()) {
             showToast("Select Gender");
             return;
         }
@@ -225,10 +264,10 @@ public class AddPatientActivity extends AppCompatActivity {
     private void savePatient() {
         RequestBody patientId = textPart(etPatientId.getText().toString());
         RequestBody name      = textPart(etName.getText().toString());
-        RequestBody age       = textPart(etAge.getText().toString());
+        RequestBody age       = textPart(tvAge.getText().toString());
         RequestBody phone     = textPart(etPhone.getText().toString());
         RequestBody weight    = textPart(etWeight.getText().toString());
-        RequestBody gender    = textPart(spGender.getSelectedItem().toString());
+        RequestBody gender    = textPart(selectedGender);
         RequestBody height    = textPart(etHeight.getText().toString());
         RequestBody bmi       = textPart(etBMI.getText().toString());
 

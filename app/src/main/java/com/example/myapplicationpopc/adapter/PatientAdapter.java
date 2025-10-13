@@ -1,6 +1,10 @@
 package com.example.myapplicationpopc.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,19 +49,15 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.tvId.setText(patient.getPatientId());
         holder.tvName.setText(patient.getName());
 
-        // ✅ Load circular image using Glide
         if (patient.getPhotoUrl() != null && !patient.getPhotoUrl().isEmpty()) {
             Glide.with(context)
                     .load(patient.getPhotoUrl())
-                    .circleCrop()  // Circular crop
+                    .circleCrop()
                     .placeholder(R.drawable.ic_img)
                     .error(R.drawable.ic_img)
                     .into(holder.imgPatient);
         } else {
-            Glide.with(context)
-                    .load(R.drawable.ic_img)
-                    .circleCrop()
-                    .into(holder.imgPatient);
+            holder.imgPatient.setImageBitmap(generateInitialsDrawable(patient.getName()));
         }
 
         holder.btnNext.setOnClickListener(v -> {
@@ -86,5 +86,34 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
             tvName = itemView.findViewById(R.id.tvName);
             btnNext = itemView.findViewById(R.id.btnNext);
         }
+    }
+
+    private Bitmap generateInitialsDrawable(String name) {
+        String initials = "NA";
+        if (name != null && name.length() >= 2) {
+            initials = name.substring(0, 2).toUpperCase();
+        } else if (name != null && name.length() == 1) {
+            initials = name.substring(0, 1).toUpperCase();
+        }
+
+        int size = 150;
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#FF6200EE"));
+        canvas.drawCircle(size / 2, size / 2, size / 2, paint);
+
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(size / 2);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+
+        float yPos = (canvas.getHeight() / 2 - (textPaint.descent() + textPaint.ascent()) / 2);
+        canvas.drawText(initials, size / 2, yPos, textPaint);
+
+        return bitmap;
     }
 }

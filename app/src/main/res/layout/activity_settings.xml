@@ -1,296 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_navy_gradient"
-    android:padding="0dp">
+    android:background="#F5F7FA"
+    android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="18dp">
+        android:orientation="vertical">
 
-        <!-- APP BAR -->
+        <!-- Top Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingBottom="80dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/bg_icon_glow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/circle_dark_bg"
+                android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/gold"
-                android:contentDescription="Back" />
+                android:scaleType="centerInside" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="APPEARANCE"
-                android:textAllCaps="true"
-                android:textColor="@color/gold"
-                android:letterSpacing="0.15"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginStart="8dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adaptive"
-                android:textColor="@color/light_gray"
-                android:textSize="14sp"
-                android:layout_marginEnd="4dp"/>
+                android:text="Settings"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="90dp" />
         </LinearLayout>
 
-        <!-- Modes Card -->
+        <!-- Change Username -->
         <LinearLayout
+            android:id="@+id/btnChangeUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/rounded_card_bgap"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="14dp"
+            android:background="@drawable/bg_card_white"
             android:padding="18dp"
-            android:elevation="6dp">
-
-            <!-- Adaptive Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingBottom="10dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_adaptive"
-                    android:background="@drawable/bg_icon_glow"
-                    app:tint="@color/gold"
-                    />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="16dp">
-                    <TextView
-                        android:text="Adaptive"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="Follows daylight with gold accents"
-                        android:textColor="@color/gold"
-                        android:textSize="13sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <RadioButton
-                    android:id="@+id/rbAdaptive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/gold"/>
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navy_gray_dark"/>
-
-            <!-- Vivid Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_vivid"
-                    android:background="@drawable/bg_icon_glow"
-                    app:tint="@color/gold"
-                    />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="16dp">
-                    <TextView
-                        android:text="Vivid"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="High contrast, vibrant glow"
-                        android:textColor="@color/vivid"
-                        android:textSize="13sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <RadioButton
-                    android:id="@+id/rbVivid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/vivid"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navy_gray_dark"/>
-
-            <!-- Calm Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_calm"
-                    android:background="@drawable/bg_icon_glow"
-                    app:tint="@color/gold"
-                    />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="16dp">
-                    <TextView
-                        android:text="Calm"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="Soft tones for low light"
-                        android:textColor="@color/calm"
-                        android:textSize="13sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <RadioButton
-                    android:id="@+id/rbCalm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/calm"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Night routines card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_card_bgap"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Night routines"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Schedule warm ambiance , focus mode"
-                android:textColor="@color/gold"
-                android:textSize="13sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Manage"
-                android:textColor="@color/gold"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_gravity="end"
-                android:paddingEnd="4dp"/>
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:progress="80"
-                android:progressDrawable="@drawable/bg_gold_progress"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="22:00–07:00"
-                android:textColor="@color/light_gray"
-                android:textSize="13sp"
-                android:gravity="end"/>
-        </LinearLayout>
-
-        <!-- Bottom navigation sample (fixed with 4 icons and text, feel free to adjust) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal"
-            android:background="@drawable/bg_bottom_nav"
-            android:gravity="center_vertical"
-            android:layout_marginTop="18dp">
+            android:gravity="center_vertical">
 
-            <!-- One nav item (repeat with changes for Secure, Focus, Profile) -->
-            <LinearLayout
-                android:orientation="vertical"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_user"
+                app:tint="@color/black" />
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:text="Change Username"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_overview"
-                    app:tint="@color/gold"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Overview"
-                    android:textColor="@color/gold"
-                    android:textSize="11sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <!-- Repeat 3 more times with Secure, Focus, Profile -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/gray" />
+        </LinearLayout>
+
+        <!-- Change Password -->
+        <LinearLayout
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_white"
+            android:padding="18dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lock"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Change Password"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/gray" />
+        </LinearLayout>
+
+        <!-- Rate Us -->
+        <LinearLayout
+            android:id="@+id/btnRateUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_white"
+            android:padding="18dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_star"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rate Us"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/gray" />
+        </LinearLayout>
+
+        <!-- Logout -->
+        <LinearLayout
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_red"
+            android:padding="18dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_logout"
+                app:tint="@color/red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Logout"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/red" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -10,8 +10,8 @@
 
     <!-- Patient Image -->
     <FrameLayout
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="8dp">
 
         <ImageView
@@ -50,12 +50,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="7dp"
+                android:layout_height="match_parent"
                 android:text="Id"
-                android:textStyle="bold"
+                android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textColor="@color/white" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,8 +146,8 @@
     <!-- Arrow -->
     <ImageView
         android:id="@+id/btnNext"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="70dp"
+        android:layout_height="41dp"
         android:background="@drawable/bg_icon_glow1"
         android:src="@drawable/img_right_arrow"
         android:contentDescription="Next"

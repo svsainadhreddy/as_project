@@ -6,58 +6,71 @@
     android:layout_height="match_parent"
     android:padding="20dp">
 
-    <!-- Risk Card -->
-    <LinearLayout
-        android:id="@+id/riskCard"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_risk_card"
-        android:padding="18dp"
-        android:layout_marginBottom="18dp">
-
-        <TextView
-            android:id="@+id/tvRiskLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Risk Level:"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#232028" />
-
-        <TextView
-            android:id="@+id/tvRiskLevelSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint=" "
-            android:textSize="14sp"
-            android:textColor="#555"
-            android:layout_marginTop="3dp"/>
-
-        <TextView
-            android:id="@+id/tvRiskBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint=""
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:background="@drawable/bg_badge_orange"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:layout_marginTop="7dp"
-            android:layout_gravity="start"/>
-    </LinearLayout>
-
-    <!-- Collapsible Sections container -->
-    <LinearLayout
-        android:id="@+id/llSections"
-        android:orientation="vertical"
+    <!-- Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Risk Card -->
+            <LinearLayout
+                android:id="@+id/riskCard"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_risk_card"
+                android:padding="18dp"
+                android:layout_marginBottom="18dp">
+
+                <TextView
+                    android:id="@+id/tvRiskLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Risk Level:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#232028" />
+
+                <TextView
+                    android:id="@+id/tvRiskLevelSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint=" "
+                    android:textSize="14sp"
+                    android:textColor="#555"
+                    android:layout_marginTop="3dp" />
+
+                <TextView
+                    android:id="@+id/tvRiskBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint=""
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:background="@drawable/bg_badge_orange"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="start" />
+            </LinearLayout>
+
+            <!-- Collapsible Sections container -->
+            <LinearLayout
+                android:id="@+id/llSections"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Done Button -->
     <Button
@@ -70,5 +83,5 @@
         android:background="@drawable/bg_orange_btn"
         android:textColor="#fff"
         android:textAllCaps="false"
-        android:layout_marginTop="18dp"/>
+        android:layout_marginTop="18dp" />
 </LinearLayout>

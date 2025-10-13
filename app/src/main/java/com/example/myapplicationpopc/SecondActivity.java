@@ -33,11 +33,11 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         // 🔹 If user already logged in, skip login screen
-       // if (SharedPrefManager.getInstance(this).getToken() != null) {
-         //   startActivity(new Intent(SecondActivity.this, DoctorHomeActivity.class));
-          //  finish();
-          //  return;
-       // }
+        // if (SharedPrefManager.getInstance(this).getToken() != null) {
+        //   startActivity(new Intent(SecondActivity.this, DoctorHomeActivity.class));
+        //  finish();
+        //  return;
+        // }
 
         // Initialize views
         etUsername = findViewById(R.id.username);
