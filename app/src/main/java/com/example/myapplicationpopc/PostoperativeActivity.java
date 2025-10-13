@@ -68,7 +68,12 @@ public class PostoperativeActivity extends AppCompatActivity {
             token = "Token " + savedToken.trim();
         }
 
-        btnBack.setOnClickListener(v -> finish()); // just go back
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, PlannedAnesthesiaActivity.class)
+                    .putExtra("patient_id", patientId));
+            finish();
+        });
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
@@ -143,7 +148,7 @@ public class PostoperativeActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.yes)) ? 2 : 0;
-        answers.add(new Answer("Planned ICU/HDU admission", rb.getText().toString(), score));
+        answers.add(new Answer("Planned ICU/HDU admission", rb.getText().toString(), score, "postoperative"));
         return score;
     }
 
@@ -152,7 +157,7 @@ public class PostoperativeActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.yes)) ? 4 : 0;
-        answers.add(new Answer("Anticipated >24h ventilation", rb.getText().toString(), score));
+        answers.add(new Answer("Anticipated >24h ventilation", rb.getText().toString(), score,"postoperative"));
         return score;
     }
 
@@ -161,7 +166,7 @@ public class PostoperativeActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.opioid_heavy)) ? 2 : 0;
-        answers.add(new Answer("Post-op analgesia", rb.getText().toString(), score));
+        answers.add(new Answer("Post-op analgesia", rb.getText().toString(), score,"postoperative"));
         return score;
     }
 
@@ -170,7 +175,7 @@ public class PostoperativeActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int score = rb.getText().toString().equalsIgnoreCase(getString(R.string.no)) ? 2 : 0;
-        answers.add(new Answer("Early mobilization within 24h", rb.getText().toString(), score));
+        answers.add(new Answer("Early mobilization within 24h", rb.getText().toString(), score,"postoperative"));
         return score;
     }
 

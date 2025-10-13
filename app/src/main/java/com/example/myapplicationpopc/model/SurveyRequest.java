@@ -31,11 +31,16 @@ public class SurveyRequest {
         private String question;
         private String selected_option;
         private int score;
+        private String section_name; // ✅ add this
 
-        public Answer(String question, String selected_option, int score) {
+
+        public Answer(String question, String selected_option, int score,String section_name) {
             this.question = question;
             this.selected_option = selected_option;
             this.score = score;
+            this.section_name = section_name;
+
         }
     }
+
 }

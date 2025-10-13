@@ -32,11 +32,14 @@ public class SurveyDisplayResponse {
         private String selected_option;
         private String custom_text;
         private int score;
-
+        @SerializedName("section_name")
+        private String sectionName;  // <-- ADD THIS
 
         public String getQuestion() { return question; }
         public String getSelected_option() { return selected_option; }
         public String getCustom_text() { return custom_text; }
         public int getScore() { return score; }
+        public String getSectionName() { return sectionName; }  // <-- ADD GETTER
     }
+
 }

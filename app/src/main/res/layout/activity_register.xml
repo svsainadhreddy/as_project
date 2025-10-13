@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/bg_login">
+    android:background="@drawable/bg_gradient_purple_blue">
 
     <!-- 🔙 Custom Toolbar with Back -->
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/ivBack"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="36dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/circle_dark_bg"
         android:contentDescription="@string/back"
         android:padding="16dp"
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/rounded_card"
+            android:background="@drawable/bg_card_neumorph"
             android:padding="20dp"
             android:elevation="8dp"
             android:gravity="center_horizontal">

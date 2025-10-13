@@ -93,14 +93,14 @@
 
             <ImageView
                 android:id="@+id/imgGraph"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
+                app:tint="@null"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="Graph"
-                android:src="@drawable/ic_menu_graph"
-                app:tint="@android:color/white" />
+                android:src="@drawable/ic_menu_graph" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:id="@+id/labelTotalPatients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" Surveye Completed patients"
+                    android:text="Surveye Completed patients"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -222,9 +222,8 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Recent Surveys -->
+            <!-- Optional placeholder to maintain alignment -->
             <LinearLayout
-                android:id="@+id/cardRecent"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_weight="1"
@@ -232,29 +231,10 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
-                android:background="@drawable/card_bg_light">
-
-                <TextView
-                    android:id="@+id/cardrecent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Recent surveys completed"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/tvrecent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="0"
-                    android:textColor="#1E4BB8"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:background="@android:color/transparent" />
         </LinearLayout>
-        <!-- Add inside your layout -->
+
+        <!-- Pie Chart -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"

@@ -45,31 +45,26 @@ public class PatientDemographicsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_demographics);
 
         initViews();
+
         // Hide Toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         // Get patient_id from intent
         patientId = getIntent().getIntExtra("patient_id", -1);
         if (patientId <= 0) {
-            Toast.makeText(this,
-                    "Invalid patient ID. Please create a patient first.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid patient ID. Please create a patient first.", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
-        // Get token from intent if available, otherwise fallback to SharedPrefManager
+        // Get token from intent or SharedPrefManager
         String intentToken = getIntent().getStringExtra("auth_token");
         if (intentToken != null && !intentToken.isEmpty()) {
             token = intentToken;
         } else {
             String savedToken = SharedPrefManager.getInstance(this).getToken();
             if (savedToken == null || savedToken.trim().isEmpty()) {
-                Toast.makeText(this,
-                        "Authentication token missing. Please login again.",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Authentication token missing. Please login again.", Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
@@ -108,11 +103,11 @@ public class PatientDemographicsActivity extends AppCompatActivity {
         List<Answer> answers = new ArrayList<>();
         int totalScore = 0;
 
-        totalScore += addScoreFromRadio(rgAge, "Age", answers);
-        addSimpleAnswer(rgSex, "Sex", 0, answers);
-        totalScore += addScoreFromRadio(rgBmi, "BMI", answers);
-        totalScore += addScoreFromRadio(rgSmoking, "Smoking", answers);
-        totalScore += addScoreFromRadio(rgAlcohol, "Alcohol", answers);
+        totalScore += addScoreFromRadio(rgAge, "Age", "Patient Demographics", answers);
+        addSimpleAnswer(rgSex, "Sex", "Patient Demographics", 0, answers);
+        totalScore += addScoreFromRadio(rgBmi, "BMI", "Patient Demographics", answers);
+        totalScore += addScoreFromRadio(rgSmoking, "Smoking", "Patient Demographics", answers);
+        totalScore += addScoreFromRadio(rgAlcohol, "Alcohol", "Patient Demographics", answers);
 
         if (answers.isEmpty()) {
             Toast.makeText(this, "Please select at least one option.", Toast.LENGTH_SHORT).show();
@@ -133,28 +128,25 @@ public class PatientDemographicsActivity extends AppCompatActivity {
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(PatientDemographicsActivity.this, "Survey saved!", Toast.LENGTH_SHORT).show();
-                    // Only pass patient_id to next activity
-                    Intent intent = new Intent(PatientDemographicsActivity.this, MedicalHistoryActivity.class);
-                    intent.putExtra("patient_id", patientId);
-                    startActivity(intent);
+                    // Go to next
+                    startActivity(new Intent(PatientDemographicsActivity.this, MedicalHistoryActivity.class)
+                            .putExtra("patient_id", patientId));
                     finish();
                 } else {
                     Toast.makeText(PatientDemographicsActivity.this,
-                            "Save failed (" + response.code() + ")",
-                            Toast.LENGTH_LONG).show();
+                            "Save failed (" + response.code() + ")", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SurveyResponse> call, Throwable t) {
                 Toast.makeText(PatientDemographicsActivity.this,
-                        "Network error: " + t.getLocalizedMessage(),
-                        Toast.LENGTH_LONG).show();
+                        "Network error: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private int addScoreFromRadio(RadioGroup group, String label, List<Answer> answers) {
+    private int addScoreFromRadio(RadioGroup group, String label, String sectionName, List<Answer> answers) {
         int id = group.getCheckedRadioButtonId();
         if (id == -1) return 0;
         RadioButton btn = findViewById(id);
@@ -181,15 +173,15 @@ public class PatientDemographicsActivity extends AppCompatActivity {
                 break;
         }
 
-        answers.add(new Answer(label, btn.getText().toString(), score));
+        answers.add(new Answer(label, btn.getText().toString(), score, sectionName));
         return score;
     }
 
-    private void addSimpleAnswer(RadioGroup group, String label, int score, List<Answer> answers) {
+    private void addSimpleAnswer(RadioGroup group, String label, String sectionName, int score, List<Answer> answers) {
         int id = group.getCheckedRadioButtonId();
         if (id != -1) {
             RadioButton btn = findViewById(id);
-            answers.add(new Answer(label, btn.getText().toString(), score));
+            answers.add(new Answer(label, btn.getText().toString(), score, sectionName));
         }
     }
 

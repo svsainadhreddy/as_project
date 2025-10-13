@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -34,7 +36,7 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    EditText etName, etPhone, etEmail;
+    EditText etName, etPhone, etEmail, etAgeInput;
     Spinner etSpecialization;
     TextView etDoctorId;
     ImageView ivProfile, btn1;
@@ -43,8 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
     // Gender segmented control
     TextView btnFemale, btnMale, btnOther;
 
-    // Age segmented control
-    TextView btnAgeMinus, btnAgePlus, tvAge;
+    // Age controls
+    TextView btnAgeMinus, btnAgePlus;
 
     ApiService apiService;
     String token;
@@ -62,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        // Initialize Views
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
@@ -70,42 +73,56 @@ public class ProfileActivity extends AppCompatActivity {
         ivProfile = findViewById(R.id.ivProfile);
         btnUpdate = findViewById(R.id.btnUpdate);
         btn1 = findViewById(R.id.btnBack);
-
-        // Gender segmented buttons
         btnFemale = findViewById(R.id.btnFemale);
         btnMale = findViewById(R.id.btnMale);
         btnOther = findViewById(R.id.btnOther);
-
-        // Age segmented controls
         btnAgeMinus = findViewById(R.id.btnAgeMinus);
         btnAgePlus = findViewById(R.id.btnAgePlus);
-        tvAge = findViewById(R.id.tvAge);
+        etAgeInput = findViewById(R.id.etAgeInput);
 
-        // Setup specialization spinner
+        // Spinner setup
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.specialization_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etSpecialization.setAdapter(adapter);
 
-        // --- Gender selection logic ---
+        // Gender toggle
         btnFemale.setOnClickListener(v -> setGenderSelected("Female"));
         btnMale.setOnClickListener(v -> setGenderSelected("Male"));
         btnOther.setOnClickListener(v -> setGenderSelected("Other"));
 
-        // --- Age counter logic ---
-        tvAge.setText(String.valueOf(selectedAge));
+        // --- Age logic ---
+        etAgeInput.setText(String.valueOf(selectedAge));
 
         btnAgePlus.setOnClickListener(v -> {
-            if (selectedAge < 120) {
-                selectedAge++;
-                tvAge.setText(String.valueOf(selectedAge));
+            int age = getCurrentAge();
+            if (age < 120) {
+                age++;
+                etAgeInput.setText(String.valueOf(age));
             }
         });
 
         btnAgeMinus.setOnClickListener(v -> {
-            if (selectedAge > 18) {
-                selectedAge--;
-                tvAge.setText(String.valueOf(selectedAge));
+            int age = getCurrentAge();
+            if (age > 1) {
+                age--;
+                etAgeInput.setText(String.valueOf(age));
+            }
+        });
+
+        // Update selectedAge when user types manually
+        etAgeInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    selectedAge = Integer.parseInt(s.toString());
+                } catch (NumberFormatException e) {
+                    selectedAge = 0;
+                }
             }
         });
 
@@ -114,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadProfile();
 
+        // Image picker
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -130,6 +148,14 @@ public class ProfileActivity extends AppCompatActivity {
             i.putExtra("mode", "edit");
             startActivity(i);
         });
+    }
+
+    private int getCurrentAge() {
+        try {
+            return Integer.parseInt(etAgeInput.getText().toString());
+        } catch (NumberFormatException e) {
+            return selectedAge;
+        }
     }
 
     private void setGenderSelected(String gender) {
@@ -199,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity {
                     try {
                         selectedAge = Integer.parseInt(doctor.getAge());
                     } catch (Exception ignored) {}
-                    tvAge.setText(String.valueOf(selectedAge));
+                    etAgeInput.setText(String.valueOf(selectedAge));
 
                     if (doctor.getSpecialization() != null) {
                         int pos = ((ArrayAdapter) etSpecialization.getAdapter())
@@ -246,6 +272,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void updateProfile() {
+        selectedAge = getCurrentAge();
+
         RequestBody name = RequestBody.create(etName.getText().toString(), MediaType.parse("text/plain"));
         RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
         RequestBody age = RequestBody.create(String.valueOf(selectedAge), MediaType.parse("text/plain"));

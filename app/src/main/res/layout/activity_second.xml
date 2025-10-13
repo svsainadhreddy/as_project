@@ -16,18 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Back Button -->
+        <!-- Back Button
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/circle_dark_bg"
             android:contentDescription="@string/back"
             android:padding="16dp"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />   -->
 
         <!-- POPC Title -->
         <TextView
@@ -40,14 +40,13 @@
             android:textColor="@android:color/black"
             android:textSize="36sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/backButton"
-            app:layout_constraintStart_toEndOf="@id/backButton"
-            app:layout_constraintTop_toTopOf="@id/backButton"
             app:layout_constraintVertical_bias="0.373" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <!--  app:layout_constraintBottom_toBottomOf="@id/backButton"
+    app:layout_constraintStart_toEndOf="@id/backButton"
+    app:layout_constraintTop_toTopOf="@id/backButton"  -->
 
     <!-- Login Card -->
     <androidx.cardview.widget.CardView
@@ -65,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@drawable/bg_teal_glass"
             android:orientation="vertical"
             android:padding="24dp">
 

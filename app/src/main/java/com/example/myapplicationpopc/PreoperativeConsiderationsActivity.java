@@ -86,7 +86,12 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
         rgInfection.setOnCheckedChangeListener((g,i)-> checkedInf=i);
         rgSpO2.setOnCheckedChangeListener((g,i)-> checkedSpO2=i);
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, MedicalHistoryActivity.class)
+                    .putExtra("patient_id", patientId));
+            finish();
+        });
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
@@ -158,7 +163,7 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
             case "V": s=8; break;
             default: s=0;
         }
-        answers.add(new Answer("ASA Physical Status", v, s));
+        answers.add(new Answer("ASA Physical Status", v, s, "Preoperative Considerations"));
         return s;
     }
 
@@ -167,7 +172,7 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int s = (rb.getText().toString().contains("<4") || rb.getText().toString().contains("less")) ? 3 : 0;
-        answers.add(new Answer("Exercise tolerance", rb.getText().toString(), s));
+        answers.add(new Answer("Exercise tolerance", rb.getText().toString(), s, "Preoperative Considerations"));
         return s;
     }
 
@@ -176,7 +181,7 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
         if (id == -1) return 0;
         RadioButton rb = findViewById(id);
         int s = rb.getText().toString().equalsIgnoreCase("Yes") ? weight : 0;
-        answers.add(new Answer(key, rb.getText().toString(), s));
+        answers.add(new Answer(key, rb.getText().toString(), s, "Preoperative Considerations"));
         return s;
     }
 
@@ -190,7 +195,7 @@ public class PreoperativeConsiderationsActivity extends AppCompatActivity {
         else if (v.contains("91")) s=2;
         else if (v.contains("90")) s=4;
         else s=0;
-        answers.add(new Answer("SpO₂", v, s));
+        answers.add(new Answer("SpO₂", v, s, "Preoperative Considerations"));
         return s;
     }
 

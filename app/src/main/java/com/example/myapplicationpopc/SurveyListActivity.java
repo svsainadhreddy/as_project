@@ -42,6 +42,7 @@ public class SurveyListActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        ImageView btnProfile= findViewById(R.id.btnProfile);
         ImageView btnBack = findViewById(R.id.btnBack);
         recycler = findViewById(R.id.recyclerPatients);
         etSearch = findViewById(R.id.etSearch);
@@ -57,6 +58,10 @@ public class SurveyListActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
+        btnProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(SurveyListActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
         btnBack.setOnClickListener(view -> {
             Intent intent = new Intent(SurveyListActivity.this, DoctorHomeActivity.class);
             startActivity(intent);

@@ -41,7 +41,7 @@ public class PendingSurveysActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pending_surveys);
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
-
+        ImageView btnProfile= findViewById(R.id.btnProfile);
         ImageView btnBack = findViewById(R.id.btnBack);
         recyclerView = findViewById(R.id.recyclerPatients);
         etSearch = findViewById(R.id.etSearch);
@@ -58,7 +58,10 @@ public class PendingSurveysActivity extends AppCompatActivity {
             finish();
             return;
         }
-
+        btnProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(PendingSurveysActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
         btnBack.setOnClickListener(view -> {
             Intent intent = new Intent(PendingSurveysActivity.this, DetailsActivity.class);
             startActivity(intent);

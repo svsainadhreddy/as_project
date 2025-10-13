@@ -41,7 +41,6 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
-
         initViews();
 
         patientId = getIntent().getIntExtra("patient_id", -1);
@@ -61,19 +60,18 @@ public class MedicalHistoryActivity extends AppCompatActivity {
             return;
         }
 
-       /*btnBack.setOnClickListener(v -> {
-            Intent i = new Intent(this, PatientDemographicsActivity.class);
-            i.putExtra("patient_id", patientId);
-            startActivity(i);
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, PatientDemographicsActivity.class)
+                    .putExtra("patient_id", patientId));
             finish();
-        });*/
+        });
 
         btnNext.setOnClickListener(v -> sendSurvey());
     }
 
     private void initViews() {
         btnNext = findViewById(R.id.btnNext);
-        //btnBack = findViewById(R.id.btnBack);
 
         rgCOPD         = findViewById(R.id.rgCOPD);
         rgAsthma       = findViewById(R.id.rgAsthma);
@@ -87,11 +85,6 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     }
 
     private void sendSurvey() {
-        if (patientId <= 0 || token == null) {
-            Toast.makeText(this, "Cannot proceed without patient ID or token.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         int sectionScore = 0;
         List<Answer> answers = new ArrayList<>();
 
@@ -107,23 +100,22 @@ public class MedicalHistoryActivity extends AppCompatActivity {
 
         SurveyRequest req = new SurveyRequest();
         req.setPatient_id(patientId);
-        req.setTotal_score(sectionScore); // Only this section score
+        req.setTotal_score(sectionScore);
         req.setStatus("medical_history");
-        req.setRisk_level(getRiskLevel(sectionScore)); // optional
+        req.setRisk_level(getRiskLevel(sectionScore));
 
         List<SectionScore> sections = new ArrayList<>();
         sections.add(new SectionScore("Medical History", sectionScore));
         req.setSection_scores(sections);
         req.setAnswers(answers);
 
-        // Optional: log JSON for debugging
-        // Log.d("SurveyRequestJSON", new Gson().toJson(req));
-
         apiService.createSurvey(token, req).enqueue(new Callback<SurveyResponse>() {
             @Override
             public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    goToNext();
+                    startActivity(new Intent(MedicalHistoryActivity.this, PreoperativeConsiderationsActivity.class)
+                            .putExtra("patient_id", patientId));
+                    finish();
                 } else {
                     Toast.makeText(MedicalHistoryActivity.this,
                             "Save failed: " + response.code(), Toast.LENGTH_LONG).show();
@@ -138,13 +130,6 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         });
     }
 
-    private void goToNext() {
-        Intent i = new Intent(MedicalHistoryActivity.this, PreoperativeConsiderationsActivity.class);
-        i.putExtra("patient_id", patientId); // Only pass patient ID
-        startActivity(i);
-        finish();
-    }
-
     private int addDiseaseScore(RadioGroup group, String label, int weight, List<Answer> answers) {
         int id = group.getCheckedRadioButtonId();
         if (id == -1) return 0;
@@ -152,7 +137,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         RadioButton btn = findViewById(id);
         String ans = btn.getText().toString();
         int score = ans.equalsIgnoreCase("Yes") ? weight : 0;
-        answers.add(new Answer(label, ans, score));
+        answers.add(new Answer(label, ans, score, "Medical History")); // ✅ include section_name
         return score;
     }
 

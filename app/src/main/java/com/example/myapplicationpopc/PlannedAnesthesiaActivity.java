@@ -65,7 +65,12 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
         btnBack          = findViewById(R.id.btnBack);
         layoutReversal   = findViewById(R.id.layoutReversal);
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, SurgeryFactorsActivity.class)
+                    .putExtra("patient_id", patientId));
+            finish();
+        });
 
         // Show/hide reversal question based on Muscle Relaxants yes/no
         radioMuscle.setOnCheckedChangeListener((group, checkedId) -> {
@@ -95,7 +100,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             else if ("General anesthesia with ETT".equals(choice)) s = 4;
             else if ("Combined (GA + Regional)".equals(choice)) s = 3;
             sectionScore += s;
-            answers.add(new Answer("ARISCAT Choice", choice, s));
+            answers.add(new Answer("ARISCAT Choice", choice, s,"Planned Anesthesia"));
         }
 
         // Ventilation
@@ -105,7 +110,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             int s = (choice.contains("Low tidal") || choice.contains("PEEP used")) ? 0 : 3;
             sectionScore += s;
-            answers.add(new Answer("Ventilation Strategy", choice, s));
+            answers.add(new Answer("Ventilation Strategy", choice, s,"Planned Anesthesia"));
         }
 
         // Muscle relaxant + Reversal
@@ -121,14 +126,14 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
                     String rev = rbRev.getText().toString();
                     if (rev.contains("Neostigmine")) s = 2;
                     else if (rev.contains("Sugammadex")) s = 1;
-                    answers.add(new Answer("Reversal", rev, s));
+                    answers.add(new Answer("Reversal", rev, s,"Planned Anesthesia"));
                 } else {
                     Toast.makeText(this, "Please select reversal method", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
             sectionScore += s;
-            answers.add(new Answer("Muscle relaxant use", choice, (s == 0 ? 0 : s)));
+            answers.add(new Answer("Muscle relaxant use", choice, (s == 0 ? 0 : s),"Planned Anesthesia"));
         }
 
         // Planned Analgesia
@@ -138,7 +143,7 @@ public class PlannedAnesthesiaActivity extends AppCompatActivity {
             String choice = rb.getText().toString();
             int s = choice.contains("IV opioids") ? 3 : 0;
             sectionScore += s;
-            answers.add(new Answer("Planned Analgesia", choice, s));
+            answers.add(new Answer("Planned Analgesia", choice, s,"Planned Anesthesia"));
         }
 
         if (answers.isEmpty()) {
