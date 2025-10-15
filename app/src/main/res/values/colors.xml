@@ -40,4 +40,9 @@
     <color name="dividerGray">#33334D</color>
     <color name="tealLight">#00FFC2</color>
     <color name="tealDark">#00A88F</color>
+    <color name="colorGlassText">#f8fafd</color>
+    <color name="colorAccentGold">#c9b037</color>
+    <color name="colorIconAccent">#53b2fa</color>
+    <color name="colorInputText">#1a222d</color>
+    <color name="colorHintText">#6c7793</color>
 </resources>

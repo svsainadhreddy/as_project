@@ -35,6 +35,7 @@
         android:layout_width="395dp"
         android:layout_height="621dp"
         android:layout_below="@id/tvTitle"
+        android:background="@drawable/bg_teal_glass"
         android:layout_marginTop="127dp"
         android:orientation="vertical"
         android:padding="24dp">
@@ -47,6 +48,7 @@
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
+            android:background="@drawable/bg_badge_orange"
             android:text="@string/description_popc"
             android:textColor="#3F51B5"
             android:textStyle="bold"
