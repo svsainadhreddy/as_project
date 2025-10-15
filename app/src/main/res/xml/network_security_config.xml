@@ -5,8 +5,9 @@
         <domain includeSubdomains="true">192.168.137.1</domain>
         <domain includeSubdomains="true">100.84.129.218</domain>
         <domain includeSubdomains="true">172.23.80.1</domain>
-        <domain includeSubdomains="true">10.233.194.204</domain>
+        <domain includeSubdomains="true">10.233.194.90</domain>
         <domain includeSubdomains="true">192.168.190.179</domain>
+        <domain includeSubdomains="true">172.23.82.48</domain>
 
     </domain-config>
 

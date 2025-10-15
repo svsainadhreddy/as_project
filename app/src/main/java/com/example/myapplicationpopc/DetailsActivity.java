@@ -113,8 +113,8 @@ public class DetailsActivity extends AppCompatActivity {
     /** Set up pie chart visuals */
     private void setupPieChart(float stable, float pending, float highRisk) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(stable, "Stable"));
-        entries.add(new PieEntry(pending, ",moderate"));
+        entries.add(new PieEntry(stable, "Low Risk"));
+        entries.add(new PieEntry(pending, ",moderate Risk"));
         entries.add(new PieEntry(highRisk, "High Risk"));
 
         PieDataSet dataSet = new PieDataSet(entries, "");
