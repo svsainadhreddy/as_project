@@ -40,7 +40,12 @@
             android:textColor="@android:color/black"
             android:textSize="36sp"
             android:textStyle="bold"
-            app:layout_constraintVertical_bias="0.373" />
+            app:layout_constraintVertical_bias="0.373"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,7 +95,7 @@
 
                 <ImageView
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:contentDescription="username"
                     android:src="@drawable/ic_user" />
 
@@ -123,7 +128,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:contentDescription="@string/password"
-                    android:src="@drawable/ic_lock" />
+                    android:src="@drawable/ic_lock"/>
 
                 <LinearLayout
                     android:layout_width="280dp"
