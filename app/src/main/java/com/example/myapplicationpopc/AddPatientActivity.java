@@ -77,15 +77,39 @@ public class AddPatientActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        // ✅ Restrict name to alphabets, dot, and space
+       // ✅ Restrict name to alphabets, dot, and space
         InputFilter nameFilter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                StringBuilder filtered = new StringBuilder();
+                for (int i = start; i < end; i++) {
+                    char ch = source.charAt(i);
+                    // Allow only letters (A–Z, a–z), space, and '.'
+                    if (Character.isLetter(ch) || ch == ' ' || ch == '.') {
+                        filtered.append(ch);
+                    }
+                }
+                // If everything valid, return null (accept original)
+                if (filtered.length() == end - start) {
+                    return null;
+                }
+                // If invalid chars exist, return only valid portion
+                return filtered.toString();
+            }
+        };
+        etName.setFilters(new InputFilter[]{nameFilter, new InputFilter.LengthFilter(50)});
+
+
+        // ✅ Allow only digits in phone number
+        InputFilter numberFilter = new InputFilter() {
             public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
-                if (src.toString().matches("[a-zA-Z. ]*")) return null;
-                Toast.makeText(AddPatientActivity.this, "Enter valid Name", Toast.LENGTH_SHORT).show();
+                if (src.toString().matches("[0-9]*")) return null;
+                Toast.makeText(AddPatientActivity.this, "Enter only numbers", Toast.LENGTH_SHORT).show();
                 return "";
             }
         };
-        etName.setFilters(new InputFilter[]{nameFilter});
+        etPhone.setFilters(new InputFilter[]{numberFilter, new InputFilter.LengthFilter(10)}); // limit 10 digits
 
         // ✅ Image picker
         galleryLauncher = registerForActivityResult(
@@ -233,11 +257,19 @@ public class AddPatientActivity extends AppCompatActivity {
             showToast("Enter Age");
             return;
         }
-        if (etPhone.getText().toString().trim().isEmpty()) {
+
+        String phone = etPhone.getText().toString().trim();
+        if (phone.isEmpty()) {
             etPhone.requestFocus();
             showToast("Enter Phone Number");
             return;
         }
+        if (phone.length() < 10) {
+            showToast("Enter valid number, you entered " + phone.length() + " digits");
+            etPhone.requestFocus();
+            return;
+        }
+
         if (etWeight.getText().toString().trim().isEmpty()) {
             etWeight.requestFocus();
             showToast("Enter Weight");

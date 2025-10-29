@@ -2,7 +2,10 @@ package com.example.myapplicationpopc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -16,7 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
-import retrofit2.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText etDoctorId, etName, etPhone, etEmail, etAge, etUsername, etPassword, etConfirmPassword;
@@ -30,10 +35,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Hide toolbar
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // 🔹 Find all views
+        // 🔹 Initialize views
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
@@ -48,8 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.ivBack);
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        // 🔹 Back button
-        btnBack.setOnClickListener(view -> finish());
+        btnBack.setOnClickListener(v -> finish());
 
         // 🔹 Gender dropdown
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
@@ -63,14 +66,13 @@ public class RegisterActivity extends AppCompatActivity {
         specializationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSpecialization.setAdapter(specializationAdapter);
 
-        // 🔹 Password toggle
+        // 🔹 Password visibility toggle
         ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
         ImageView ivTogglePassword2 = findViewById(R.id.ivTogglePasswords);
-
         ivTogglePassword.setOnClickListener(v -> togglePassword(etPassword, ivTogglePassword));
         ivTogglePassword2.setOnClickListener(v -> togglePassword(etConfirmPassword, ivTogglePassword2));
 
-        // 🔹 Enter key navigation
+        // 🔹 Move focus with Enter key
         setEditTextNext(etDoctorId, etName);
         setEditTextNext(etName, etPhone);
         setEditTextNext(etPhone, etEmail);
@@ -80,9 +82,51 @@ public class RegisterActivity extends AppCompatActivity {
         setEditTextNext(etPassword, etConfirmPassword);
         etConfirmPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        // 🔹 Save button
+        // 🔹 Real-time restrictions
+        setupNameRestriction();
+        setupPhoneRestriction();
+
+        // 🔹 Save
         btnSave.setOnClickListener(v -> {
             if (validateFields()) registerDoctor();
+        });
+    }
+
+    // 🔸 Name field: only alphabets and space
+    private void setupNameRestriction() {
+        etName.addTextChangedListener(new TextWatcher() {
+            private String lastValid = "";
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString();
+                if (!input.matches("^[A-Za-z ]*$")) {
+                    etName.setText(lastValid);
+                    etName.setSelection(etName.getText().length());
+                    Toast.makeText(RegisterActivity.this, "Only alphabets allowed in name", Toast.LENGTH_SHORT).show();
+                } else {
+                    lastValid = input;
+                }
+            }
+        });
+    }
+
+    // 🔸 Phone field: only numbers, max 10 digits
+    private void setupPhoneRestriction() {
+        etPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etPhone.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)}); // max 10 digits
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Remove any non-digit characters
+                String filtered = s.toString().replaceAll("[^0-9]", "");
+                if (!s.toString().equals(filtered)) {
+                    etPhone.setText(filtered);
+                    etPhone.setSelection(filtered.length());
+                }
+            }
+            @Override public void afterTextChanged(Editable s) {}
         });
     }
 
@@ -108,6 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // 🔹 Field validation before submit
     private boolean validateFields() {
         String doctorId = etDoctorId.getText().toString().trim();
         String name = etName.getText().toString().trim();
@@ -124,19 +169,19 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!name.matches("[a-zA-Z ]+")) {
-            etName.setError("Enter valid Name");
+        if (!name.matches("^[A-Za-z ]+$")) {
+            etName.setError("Enter valid name (alphabets only)");
             etName.requestFocus();
             return false;
         }
 
-        if (!email.matches(Patterns.EMAIL_ADDRESS.pattern())) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Invalid email address");
             etEmail.requestFocus();
             return false;
         }
 
-        if (!phone.matches("[6-9][0-9]{9}")) {
+        if (!phone.matches("^[0-9]{10}$")) {
             etPhone.setError("Enter valid 10-digit phone number");
             etPhone.requestFocus();
             return false;
@@ -148,14 +193,14 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!username.matches("[a-zA-Z0-9]+")) {
-            etUsername.setError("Enter Valid username");
+        if (!username.matches("[A-Za-z0-9]+")) {
+            etUsername.setError("Username must be alphanumeric");
             etUsername.requestFocus();
             return false;
         }
 
         if (!isStrongPassword(password)) {
-            etPassword.setError("Password must be min 8 chars, alphanumeric with letters and digits");
+            etPassword.setError("Min 8 chars, include letters & digits");
             etPassword.requestFocus();
             return false;
         }

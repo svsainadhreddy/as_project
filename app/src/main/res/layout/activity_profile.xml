@@ -90,7 +90,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/chip_input_bg"
                 android:hint="Dr. Evelyn Hart"
+                android:inputType="textPersonName"
                 android:padding="10dp"
+                android:maxLength="50"
                 android:textColor="#000"
                 android:textColorHint="#555"
                 android:textSize="16sp" />
@@ -112,6 +114,7 @@
                 android:background="@drawable/chip_input_bg"
                 android:hint="+91 4555501235"
                 android:padding="10dp"
+                android:maxLength="10"
                 android:inputType="phone"
                 android:textColor="#000"
                 android:textColorHint="#555"

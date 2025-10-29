@@ -10,15 +10,12 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bumptech.glide.Glide;
 import com.example.myapplicationpopc.model.PatientResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
-
 import java.io.File;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -32,8 +29,7 @@ public class EditPatientActivity extends AppCompatActivity {
     private static final String TAG = "EDIT_PATIENT";
 
     private ImageView imgPatient, btnBack;
-    private EditText etPatientId, etName, etPhone, etWeight, etHeight;
-    private EditText etAgeInput;
+    private EditText etPatientId, etName, etPhone, etWeight, etHeight, etAgeInput;
     private TextView etBMI;
     private Button btnSave;
     private Uri selectedImageUri = null;
@@ -63,7 +59,6 @@ public class EditPatientActivity extends AppCompatActivity {
         etHeight = findViewById(R.id.etHeight);
         etBMI = findViewById(R.id.etBMI);
         btnSave = findViewById(R.id.btnSave);
-
         btnFemale = findViewById(R.id.btnFemale);
         btnMale = findViewById(R.id.btnMale);
         btnOther = findViewById(R.id.btnOther);
@@ -82,6 +77,31 @@ public class EditPatientActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        });
+
+        // ✅ Restrict name input: alphabets and spaces only
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                String name = s.toString();
+                if (!name.matches("^[a-zA-Z ]*$")) {
+                    etName.setError("Only alphabets allowed");
+                }
+            }
+        });
+
+        // ✅ Phone validation live feedback
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 10) {
+                    etPhone.setError("Maximum 10 digits allowed");
+                } else if (s.length() < 10 && s.length() > 0) {
+                    etPhone.setError("Digits entered: " + s.length() + "/10");
+                }
+            }
+            @Override public void afterTextChanged(Editable s) {}
         });
 
         // Gender selection
@@ -214,6 +234,31 @@ public class EditPatientActivity extends AppCompatActivity {
     private void savePatient() {
         if (patientId == -1) return;
 
+        // ✅ Validation before saving
+        String nameStr = etName.getText().toString().trim();
+        String phoneStr = etPhone.getText().toString().trim();
+
+        if (nameStr.isEmpty()) {
+            etName.setError("Name required");
+            Toast.makeText(this, "Name is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!nameStr.matches("^[a-zA-Z ]+$")) {
+            etName.setError("Only alphabets allowed");
+            Toast.makeText(this, "Name should contain only alphabets", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (phoneStr.isEmpty()) {
+            etPhone.setError("Phone number required");
+            Toast.makeText(this, "Phone number required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!phoneStr.matches("\\d{10}")) {
+            etPhone.setError("Digits entered: " + phoneStr.length() + "/10");
+            Toast.makeText(this, "Enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         MultipartBody.Part imagePart = null;
         if (selectedImageUri != null) {
             File file = new File(FileUtils.getPath(this, selectedImageUri));
@@ -227,25 +272,13 @@ public class EditPatientActivity extends AppCompatActivity {
             patientIdBody = createPartFromString(enteredPatientId);
         }
 
-        RequestBody nameBody = createPartFromString(etName.getText().toString());
+        RequestBody nameBody = createPartFromString(nameStr);
         RequestBody ageBody = createPartFromString(etAgeInput.getText().toString());
-        RequestBody phoneBody = createPartFromString(etPhone.getText().toString());
+        RequestBody phoneBody = createPartFromString(phoneStr);
         RequestBody weightBody = createPartFromString(etWeight.getText().toString());
         RequestBody genderBody = createPartFromString(selectedGender);
         RequestBody heightBody = createPartFromString(etHeight.getText().toString());
         RequestBody bmiBody = createPartFromString(etBMI.getText().toString());
-
-        // Log all outgoing data
-        Log.d(TAG, "🟢 Sending Update Request:");
-        Log.d(TAG, "patient_id: " + (patientIdBody != null ? enteredPatientId : "(not sent)"));
-        Log.d(TAG, "name: " + etName.getText().toString());
-        Log.d(TAG, "age: " + etAgeInput.getText().toString());
-        Log.d(TAG, "phone: " + etPhone.getText().toString());
-        Log.d(TAG, "weight: " + etWeight.getText().toString());
-        Log.d(TAG, "height: " + etHeight.getText().toString());
-        Log.d(TAG, "gender: " + selectedGender);
-        Log.d(TAG, "bmi: " + etBMI.getText().toString());
-        Log.d(TAG, "image: " + (selectedImageUri != null ? selectedImageUri.toString() : "(no change)"));
 
         apiService.updatePatient(token, patientId,
                         patientIdBody, nameBody, ageBody, phoneBody,
@@ -253,7 +286,6 @@ public class EditPatientActivity extends AppCompatActivity {
                 .enqueue(new Callback<PatientResponse>() {
                     @Override
                     public void onResponse(Call<PatientResponse> call, Response<PatientResponse> response) {
-                        Log.d(TAG, "🔵 Response Code: " + response.code());
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(EditPatientActivity.this, "✅ Patient updated successfully", Toast.LENGTH_SHORT).show();
                             finish();
@@ -261,14 +293,12 @@ public class EditPatientActivity extends AppCompatActivity {
                             Toast.makeText(EditPatientActivity.this, "⚠️ Patient ID already exists!", Toast.LENGTH_LONG).show();
                             etPatientId.setError("This ID is already used");
                         } else {
-                            Log.e(TAG, "❌ Error Response: " + response.message());
                             Toast.makeText(EditPatientActivity.this, "Update failed: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PatientResponse> call, Throwable t) {
-                        Log.e(TAG, "🚨 API Failure: " + t.getMessage());
                         Toast.makeText(EditPatientActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

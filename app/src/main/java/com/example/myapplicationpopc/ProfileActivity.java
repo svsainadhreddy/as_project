@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
@@ -51,7 +52,6 @@ public class ProfileActivity extends AppCompatActivity {
     ApiService apiService;
     String token;
     Uri selectedImageUri;
-    String selectedSpecialization = "Anesthesia";
     String selectedGender = "Female";
     int selectedAge = 24;
 
@@ -86,49 +86,50 @@ public class ProfileActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etSpecialization.setAdapter(adapter);
 
-        // Gender toggle
+        // --- Gender toggle ---
         btnFemale.setOnClickListener(v -> setGenderSelected("Female"));
         btnMale.setOnClickListener(v -> setGenderSelected("Male"));
         btnOther.setOnClickListener(v -> setGenderSelected("Other"));
 
         // --- Age logic ---
         etAgeInput.setText(String.valueOf(selectedAge));
-
         btnAgePlus.setOnClickListener(v -> {
             int age = getCurrentAge();
-            if (age < 120) {
-                age++;
-                etAgeInput.setText(String.valueOf(age));
-            }
+            if (age < 120) etAgeInput.setText(String.valueOf(age + 1));
         });
-
         btnAgeMinus.setOnClickListener(v -> {
             int age = getCurrentAge();
-            if (age > 1) {
-                age--;
-                etAgeInput.setText(String.valueOf(age));
+            if (age > 1) etAgeInput.setText(String.valueOf(age - 1));
+        });
+        etAgeInput.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                try { selectedAge = Integer.parseInt(s.toString()); }
+                catch (NumberFormatException e) { selectedAge = 0; }
             }
         });
 
-        // Update selectedAge when user types manually
-        etAgeInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        // --- Real-time Name Validation (only alphabets + space) ---
+        etName.addTextChangedListener(new TextWatcher() {
+            private String lastValid = "";
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    selectedAge = Integer.parseInt(s.toString());
-                } catch (NumberFormatException e) {
-                    selectedAge = 0;
+                String input = s.toString();
+                if (!input.matches("^[A-Za-z ]*$")) {
+                    etName.setText(lastValid);
+                    etName.setSelection(etName.getText().length());
+                    Toast.makeText(ProfileActivity.this, "Only alphabets allowed in name", Toast.LENGTH_SHORT).show();
+                } else {
+                    lastValid = input;
                 }
             }
         });
 
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
-
         loadProfile();
 
         // Image picker
@@ -221,7 +222,6 @@ public class ProfileActivity extends AppCompatActivity {
                     etName.setText(doctor.getName());
                     etPhone.setText(doctor.getPhone());
                     etEmail.setText(doctor.getEmail());
-
                     try {
                         selectedAge = Integer.parseInt(doctor.getAge());
                     } catch (Exception ignored) {}
@@ -234,7 +234,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     if (doctor.getGender() != null) setGenderSelected(doctor.getGender());
-
                     if (doctor.getProfileImageUrl() != null) {
                         Glide.with(ProfileActivity.this)
                                 .load(doctor.getProfileImageUrl())
@@ -274,11 +273,34 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
         selectedAge = getCurrentAge();
 
-        RequestBody name = RequestBody.create(etName.getText().toString(), MediaType.parse("text/plain"));
-        RequestBody phone = RequestBody.create(etPhone.getText().toString(), MediaType.parse("text/plain"));
+        String nameStr = etName.getText().toString().trim();
+        String phoneStr = etPhone.getText().toString().trim();
+        String emailStr = etEmail.getText().toString().trim();
+        String specializationStr = etSpecialization.getSelectedItem().toString();
+
+        if (nameStr.isEmpty() || phoneStr.isEmpty() || emailStr.isEmpty() ||
+                specializationStr.isEmpty() || selectedGender.isEmpty() || selectedAge <= 0) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!nameStr.matches("^[A-Za-z ]+$")) {
+            Toast.makeText(this, "Name must contain only alphabets", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!phoneStr.matches("^[0-9]{10}$")) {
+            Toast.makeText(this, "Enter a valid 10-digit phone number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
+            Toast.makeText(this, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestBody name = RequestBody.create(nameStr, MediaType.parse("text/plain"));
+        RequestBody phone = RequestBody.create(phoneStr, MediaType.parse("text/plain"));
         RequestBody age = RequestBody.create(String.valueOf(selectedAge), MediaType.parse("text/plain"));
-        RequestBody specialization = RequestBody.create(selectedSpecialization, MediaType.parse("text/plain"));
-        RequestBody email = RequestBody.create(etEmail.getText().toString(), MediaType.parse("text/plain"));
+        RequestBody specialization = RequestBody.create(specializationStr, MediaType.parse("text/plain"));
+        RequestBody email = RequestBody.create(emailStr, MediaType.parse("text/plain"));
         RequestBody gender = RequestBody.create(selectedGender, MediaType.parse("text/plain"));
 
         MultipartBody.Part imagePart = null;
@@ -290,10 +312,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
+        btnUpdate.setEnabled(false);
         apiService.updateDoctorProfile(token, name, email, phone, age, gender, specialization, imagePart)
                 .enqueue(new Callback<DoctorResponse>() {
                     @Override
                     public void onResponse(Call<DoctorResponse> call, Response<DoctorResponse> response) {
+                        btnUpdate.setEnabled(true);
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                             loadProfile();
@@ -304,6 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<DoctorResponse> call, Throwable t) {
+                        btnUpdate.setEnabled(true);
                         Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
