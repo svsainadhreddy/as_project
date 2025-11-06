@@ -1,24 +1,34 @@
 package com.example.myapplicationpopc;
 
+import android.Manifest;
+import android.content.ContentValues;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.myapplicationpopc.model.SurveyDisplayResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +41,7 @@ public class SurveyDisplayActivity extends AppCompatActivity {
     private Button btnDone;
     private ApiService apiService;
     private int patientId;
-
-    private Map<String, Boolean> expandedSections = new HashMap<>();
+    private SurveyDisplayResponse surveyData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +65,16 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         }
 
         btnDone.setOnClickListener(v -> finish());
+        checkStoragePermission();
         fetchSurvey();
+    }
+
+    private void checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
+        }
     }
 
     private void fetchSurvey() {
@@ -68,7 +86,8 @@ public class SurveyDisplayActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<SurveyDisplayResponse> call, Response<SurveyDisplayResponse> resp) {
                         if (resp.isSuccessful() && resp.body() != null) {
-                            renderSurvey(resp.body());
+                            surveyData = resp.body();
+                            renderSurvey(surveyData);
                         } else {
                             showSurveyNotCompleted();
                         }
@@ -84,38 +103,42 @@ public class SurveyDisplayActivity extends AppCompatActivity {
     private void renderSurvey(SurveyDisplayResponse survey) {
         llSections.removeAllViews();
 
-        // --- Top card with total risk level ---
+        // --- Risk level header ---
         String level = getRiskLevel(survey.getTotal_score());
         tvRiskLevel.setText("Risk Level: " + level);
 
-        if (level.equals("High")) {
-            tvRiskBadge.setText("High");
-            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_orange);
-            tvRiskLevelSub.setText("Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.");
-        } else if (level.equals("Very high")) {
-            tvRiskBadge.setText("Very high");
-            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
-            tvRiskLevelSub.setText("Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.");
-        } else if (level.equals("Moderate")) {
-            tvRiskBadge.setText("Moderate");
-            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
-            tvRiskLevelSub.setText("Lung-protective ventilation, multimodal analgesia, encourage early mobilization.");
-        } else {
-            tvRiskBadge.setText(level);
-            tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_yellow);
-            tvRiskLevelSub.setText("Standard anesthesia; routine monitoring.");
+        switch (level) {
+            case "High":
+                tvRiskBadge.setText("High");
+                tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_orange);
+                tvRiskLevelSub.setText("Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.");
+                break;
+            case "Very High":
+                tvRiskBadge.setText("Very High");
+                tvRiskBadge.setBackgroundResource(R.drawable.bg_btn_accent_emerald);
+                tvRiskLevelSub.setText("Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.");
+                break;
+            case "Moderate":
+                tvRiskBadge.setText("Moderate");
+                tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_green);
+                tvRiskLevelSub.setText("Lung-protective ventilation, multimodal analgesia, encourage early mobilization.");
+                break;
+            default:
+                tvRiskBadge.setText(level);
+                tvRiskBadge.setBackgroundResource(R.drawable.bg_badge_yellow);
+                tvRiskLevelSub.setText("Standard anesthesia; routine monitoring.");
         }
 
-        // --- Render each section individually ---
+        // --- Render each section ---
         for (SurveyDisplayResponse.SectionScore sec : survey.getSection_scores()) {
             String sectionName = sec.getSection();
             int sectionScore = sec.getScore();
 
-            // Section card container
             LinearLayout sectionCard = new LinearLayout(this);
             sectionCard.setOrientation(LinearLayout.VERTICAL);
             sectionCard.setBackgroundResource(R.drawable.bg_risk_card);
             sectionCard.setPadding(16, 16, 16, 30);
+
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -123,7 +146,7 @@ public class SurveyDisplayActivity extends AppCompatActivity {
             cardParams.setMargins(0, 0, 0, 40);
             sectionCard.setLayoutParams(cardParams);
 
-            // Header layout
+            // Header
             LinearLayout header = new LinearLayout(this);
             header.setOrientation(LinearLayout.HORIZONTAL);
             header.setGravity(Gravity.CENTER_VERTICAL);
@@ -132,83 +155,235 @@ public class SurveyDisplayActivity extends AppCompatActivity {
             tvHeader.setText(sectionName);
             tvHeader.setTextSize(17f);
             tvHeader.setTypeface(null, android.graphics.Typeface.BOLD);
-            tvHeader.setTextColor(0xFF232028);
+            tvHeader.setTextColor(0xFF000000);
             tvHeader.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
 
             TextView tvScore = new TextView(this);
             tvScore.setText(String.valueOf(sectionScore));
             tvScore.setTextSize(13f);
-            tvScore.setTextColor(0xFF232028);
+            tvScore.setTextColor(0xFF000000);
             tvScore.setPadding(16, 6, 16, 6);
             tvScore.setBackgroundResource(R.drawable.bg_badge_gray);
             tvScore.setGravity(Gravity.CENTER);
 
+            // Download icon
+            ImageButton btnDownload = new ImageButton(this);
+            btnDownload.setImageResource(android.R.drawable.stat_sys_download);
+            btnDownload.setColorFilter(Color.BLACK);
+            btnDownload.setBackgroundColor(Color.TRANSPARENT);
+            LinearLayout.LayoutParams dlParams = new LinearLayout.LayoutParams(80, 80);
+            dlParams.setMargins(25, 0, 25, 0);
+            btnDownload.setLayoutParams(dlParams);
+            btnDownload.setOnClickListener(v -> showDownloadOptions(sectionName, false));
+
+            // Dropdown arrow
             TextView tvArrow = new TextView(this);
-            tvArrow.setText("\u25BC"); // ▼
-            tvArrow.setTextSize(18f);
-            tvArrow.setPadding(10, 0, 0, 0);
-            tvArrow.setTextColor(0xFF232028);
+            tvArrow.setText("\u25BC");
+            tvArrow.setTextSize(20f);
+            tvArrow.setPadding(5, 0, 0, 0);
+            tvArrow.setTextColor(0xFF000000);
 
             header.addView(tvHeader);
             header.addView(tvScore);
+            header.addView(btnDownload);
             header.addView(tvArrow);
-
             sectionCard.addView(header);
 
-            // Table layout for Q/A
+            // Table
             TableLayout table = new TableLayout(this);
             table.setVisibility(View.GONE);
             table.setStretchAllColumns(true);
             table.setPadding(0, 16, 0, 8);
 
             for (SurveyDisplayResponse.Answer ans : survey.getAnswers()) {
-                if (ans != null && ans.getQuestion() != null &&
-                        ans.getSelected_option() != null &&
-                        sectionName.equalsIgnoreCase(ans.getQuestion())) {
-                    // do nothing, this is wrong — fix:
-                }
+                if (ans != null && ans.getSectionName() != null &&
+                        ans.getSectionName().equalsIgnoreCase(sectionName)) {
+                    String value = ans.getSelected_option();
+                    if (value == null || value.isEmpty()) value = ans.getCustom_text();
 
-                // Only include answers for this section
-                if (ans != null && ans.getQuestion() != null && ans.getSelected_option() != null &&
-                        ans.getScore() >= 0) {
-                    // Compare section
-                    String answerSection = ans.getSectionName();  // or ans.getSection_name() if present
-                    // fallback to null-safe check
-                    if (answerSection != null && answerSection.equalsIgnoreCase(sectionName)) {
-                        String value = ans.getSelected_option();
-                        if (value == null || value.isEmpty()) value = ans.getCustom_text();
+                    TableRow row = new TableRow(this);
 
-                        TableRow row = new TableRow(this);
+                    TextView tvQ = new TextView(this);
+                    tvQ.setText(ans.getQuestion());
+                    tvQ.setPadding(0, 8, 8, 8);
+                    tvQ.setTextSize(14f);
+                    tvQ.setTextColor(0xFF000000);
 
-                        TextView tvQ = new TextView(this);
-                        tvQ.setText(ans.getQuestion());
-                        tvQ.setPadding(0, 8, 8, 8);
-                        tvQ.setTextSize(14f);
+                    TextView tvA = new TextView(this);
+                    tvA.setText(value);
+                    tvA.setPadding(8, 8, 0, 8);
+                    tvA.setTextSize(14f);
+                    tvA.setTypeface(null, android.graphics.Typeface.BOLD);
+                    tvA.setTextColor(0xFF000000);
 
-                        TextView tvA = new TextView(this);
-                        tvA.setText(value);
-                        tvA.setPadding(8, 8, 0, 8);
-                        tvA.setTextSize(14f);
-                        tvA.setTypeface(null, android.graphics.Typeface.BOLD);
-
-                        row.addView(tvQ);
-                        row.addView(tvA);
-                        table.addView(row);
-                    }
+                    row.addView(tvQ);
+                    row.addView(tvA);
+                    table.addView(row);
                 }
             }
 
             sectionCard.addView(table);
-
-            // Expand/collapse toggle
             header.setOnClickListener(v -> {
                 boolean expanded = table.getVisibility() == View.VISIBLE;
                 table.setVisibility(expanded ? View.GONE : View.VISIBLE);
-                tvArrow.setText(expanded ? "\u25BC" : "\u25B2"); // ▼ or ▲
+                tvArrow.setText(expanded ? "\u25BC" : "\u25B2");
             });
 
             llSections.addView(sectionCard);
         }
+
+        // --- Download All Button with Text beside icon ---
+        LinearLayout downloadAllLayout = new LinearLayout(this);
+        downloadAllLayout.setOrientation(LinearLayout.HORIZONTAL);
+        downloadAllLayout.setGravity(Gravity.CENTER);
+        downloadAllLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_btn_accent_emerald));
+        downloadAllLayout.setPadding(40, 30, 40, 30);
+
+        LinearLayout.LayoutParams outerParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        outerParams.gravity = Gravity.CENTER_HORIZONTAL;
+        outerParams.setMargins(0, 60, 0, 60);
+        downloadAllLayout.setLayoutParams(outerParams);
+
+        ImageView icon = new ImageView(this);
+        icon.setImageResource(android.R.drawable.stat_sys_download_done);
+        icon.setColorFilter(Color.WHITE);
+
+        TextView txtDownload = new TextView(this);
+        txtDownload.setText("Download All");
+        txtDownload.setTextColor(Color.WHITE);
+        txtDownload.setTextSize(16f);
+        txtDownload.setPadding(20, 0, 0, 0);
+        txtDownload.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        downloadAllLayout.addView(icon);
+        downloadAllLayout.addView(txtDownload);
+
+        downloadAllLayout.setOnClickListener(v -> showDownloadOptions(null, true));
+
+        llSections.addView(downloadAllLayout);
+    }
+
+    // -------------------- DOWNLOAD OPTIONS --------------------
+    private void showDownloadOptions(String sectionName, boolean all) {
+        String[] formats = {"PDF", "TXT"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose format to download");
+        builder.setItems(formats, (dialog, which) -> {
+            if (surveyData == null) {
+                Toast.makeText(this, "No data available", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String fileName;
+            String content;
+            if (all) {
+                fileName = "Report." + formats[which].toLowerCase();
+                content = buildAllContent();
+            } else {
+                fileName = sectionName.replace(" ", "_") + "." + formats[which].toLowerCase();
+                content = buildSectionContent(sectionName);
+            }
+
+            if (formats[which].equals("PDF"))
+                savePdf(fileName, content);
+            else
+                saveToDownloads(fileName, content);
+        });
+        builder.show();
+    }
+
+    // -------------------- FILE SAVE --------------------
+    private void savePdf(String fileName, String text) {
+        try {
+            OutputStream outputStream;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
+                values.put(MediaStore.Downloads.MIME_TYPE, "application/pdf");
+                values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/SurveyReports");
+                Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+                outputStream = getContentResolver().openOutputStream(uri);
+            } else {
+                File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SurveyReports");
+                if (!dir.exists()) dir.mkdirs();
+                File file = new File(dir, fileName);
+                outputStream = new FileOutputStream(file);
+            }
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, outputStream);
+            document.open();
+            document.add(new Paragraph(text));
+            document.close();
+
+            Toast.makeText(this, "PDF saved to Downloads/SurveyReports", Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error saving PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveToDownloads(String fileName, String content) {
+        try {
+            OutputStream outputStream;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
+                values.put(MediaStore.Downloads.MIME_TYPE, "text/plain");
+                values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/SurveyReports");
+                Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+                outputStream = getContentResolver().openOutputStream(uri);
+            } else {
+                File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SurveyReports");
+                if (!dir.exists()) dir.mkdirs();
+                File file = new File(dir, fileName);
+                outputStream = new FileOutputStream(file);
+            }
+
+            outputStream.write(content.getBytes());
+            outputStream.close();
+            Toast.makeText(this, "File saved to Downloads/SurveyReports", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error saving file: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // -------------------- HELPERS --------------------
+    private String buildSectionContent(String sectionName) {
+        StringBuilder content = new StringBuilder();
+        content.append("Section: ").append(sectionName).append("\n\n");
+        for (SurveyDisplayResponse.Answer ans : surveyData.getAnswers()) {
+            if (ans != null && ans.getSectionName() != null &&
+                    ans.getSectionName().equalsIgnoreCase(sectionName)) {
+                String value = ans.getSelected_option();
+                if (value == null || value.isEmpty()) value = ans.getCustom_text();
+                content.append("Q: ").append(ans.getQuestion()).append("\nA: ").append(value).append("\n\n");
+            }
+        }
+        return content.toString();
+    }
+
+    private String buildAllContent() {
+        StringBuilder content = new StringBuilder();
+        content.append("Reports\n====================\n\n");
+        for (SurveyDisplayResponse.SectionScore sec : surveyData.getSection_scores()) {
+            content.append("Section: ").append(sec.getSection())
+                    .append(" (Score: ").append(sec.getScore()).append(")\n")
+                    .append("----------------------------------------------------\n");
+            for (SurveyDisplayResponse.Answer ans : surveyData.getAnswers()) {
+                if (ans != null && ans.getSectionName() != null &&
+                        ans.getSectionName().equalsIgnoreCase(sec.getSection())) {
+                    String value = ans.getSelected_option();
+                    if (value == null || value.isEmpty()) value = ans.getCustom_text();
+                    content.append("Q: ").append(ans.getQuestion()).append("\nA: ").append(value).append("\n\n");
+                }
+            }
+            content.append("\n\n");
+        }
+        return content.toString();
     }
 
     private void showSurveyNotCompleted() {

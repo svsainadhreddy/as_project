@@ -124,7 +124,7 @@ public class ViewPatientListActivity extends AppCompatActivity {
         List<PatientResponse> filtered = new ArrayList<>();
         for (PatientResponse p : allPatients) {
             if (p.getName().toLowerCase().contains(query.toLowerCase())
-                    || String.valueOf(p.getId()).contains(query)) {
+                    || String.valueOf(p.getPatientId()).contains(query)) {
                 filtered.add(p);
             }
         }

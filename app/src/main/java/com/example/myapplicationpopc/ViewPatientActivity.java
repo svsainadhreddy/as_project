@@ -53,7 +53,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         btn1.setOnClickListener(v -> {
             Intent i = new Intent(this, ViewPatientListActivity.class);
-            i.putExtra("mode", "edit");
+            i.putExtra("mode", "view");
             startActivity(i);
         });
     }

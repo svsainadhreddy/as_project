@@ -4,22 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/bg_gradient_purple_blue">
+    android:background="#CEA7AD">
 
-    <!-- 🔙 Custom Toolbar with Back -->
+    <!-- 🔙 Custom Toolbar with BackDE2F2F2A -->
     <!-- Back Button -->
-    <ImageButton
-        android:id="@+id/ivBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/circle_dark_bg"
-        android:contentDescription="@string/back"
-        android:padding="16dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 🔽 Scrollable Form (centered) -->
     <ScrollView
@@ -30,19 +18,64 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1000dp"
             android:orientation="vertical"
             android:background="@drawable/bg_card_neumorph"
-            android:padding="20dp"
-            android:elevation="8dp"
+            android:padding="0dp"
+            android:layout_marginTop="13dp"
+            android:elevation="0dp"
             android:gravity="center_horizontal">
 
+            <ImageButton
+                android:id="@+id/ivBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="70dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/circle_dark_bg"
+                android:contentDescription="@string/back"
+
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+
+                android:layout_gravity="start"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <!-- Doctor Id -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGISTER"
+                android:layout_marginTop="-116dp"
+                android:layout_marginBottom="60dp"
+                android:layout_marginStart="0dp"
+android:textColor="@color/navy_gray_dark"
+                android:contentDescription="@string/back"
+                android:padding="16dp"
+android:textSize="23sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <View
+                android:layout_width="1000dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="-40dp"
+                android:layout_marginBottom="50dp"
+                android:background="#CEA7AD" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -66,7 +99,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/doctor_id"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="10dp"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
@@ -81,7 +114,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
 
                     <ImageView
@@ -138,6 +174,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -162,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
 
                     <ImageView
@@ -195,6 +233,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -219,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
 
                     <ImageView
@@ -251,6 +291,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -277,7 +319,7 @@
                     android:hint="@string/doctor_age"
                     android:inputType="number"
                     android:maxLength="3"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="10dp"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
@@ -292,6 +334,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -316,7 +360,7 @@
                     android:layout_width="200dp"
                     android:layout_height="45dp"
                     android:textColor="@color/black"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="8dp"
                     android:spinnerMode="dropdown"
                     android:imeOptions="actionNext"/>
@@ -328,6 +372,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -351,7 +397,7 @@
                     android:id="@+id/etSpecialization"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="8dp"
                     android:spinnerMode="dropdown"
                     android:entries="@array/specialization_array"
@@ -365,6 +411,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="12dp">
 
@@ -390,7 +438,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
 
                     <ImageView
@@ -420,6 +468,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="12dp">
 
@@ -445,7 +495,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
 
                     <EditText
@@ -478,6 +528,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="40dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="20dp">
 
@@ -501,8 +554,9 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+
                     android:gravity="center_vertical"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/bg_badge_gray"
                     android:padding="6dp">
                 <EditText
                     android:id="@+id/etConfirmPassword"
@@ -533,10 +587,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
+                android:layout_marginBottom="10dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="@color/background"
                 android:layout_gravity="center"
-                android:backgroundTint="#888888"
+                android:backgroundTint="#0481E0"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="10dp" />
         </LinearLayout>

@@ -156,12 +156,12 @@ public class PatientDemographicsActivity extends AppCompatActivity {
         switch (label) {
             case "Age":
                 if (text.contains("<50")) score = 0;
-                else if (text.contains("50")) score = 2;
+                else if (text.contains("69")) score = 2;
                 else if (text.contains("70")) score = 3;
                 break;
             case "BMI":
                 if (text.contains("<30")) score = 0;
-                else if (text.contains(">30")) score = 2;
+                else if (text.contains(">=30")) score = 2;
                 break;
             case "Smoking":
                 if (text.contains("never")) score = 0;

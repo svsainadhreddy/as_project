@@ -78,6 +78,13 @@ public class PendingSurveysActivity extends AppCompatActivity {
         loadPendingPatients();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // ✅ Automatically reload data when returning to this page
+        loadPendingPatients();
+    }
+
     private void loadPendingPatients() {
         apiService.getPendingSurveys("Token " + token)
                 .enqueue(new Callback<List<PendingPatient>>() {

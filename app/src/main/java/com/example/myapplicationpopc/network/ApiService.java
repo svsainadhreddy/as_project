@@ -149,5 +149,6 @@ public interface ApiService {
 
     @PUT("accounts/change-password/")
     Call<Void> changePassword(@Header("Authorization") String token, @Body Map<String, String> body);
-
+    @GET("api/surveys/high-risk/")
+    Call<List<RecordsResponse>> listHighRiskPatients(@Header("Authorization") String token);
 }

@@ -81,10 +81,23 @@ public class ProfileActivity extends AppCompatActivity {
         etAgeInput = findViewById(R.id.etAgeInput);
 
         // Spinner setup
+        // Spinner setup
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.specialization_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etSpecialization.setAdapter(adapter);
+
+// Force black text color for selected item
+        etSpecialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.black));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
 
         // --- Gender toggle ---
         btnFemale.setOnClickListener(v -> setGenderSelected("Female"));

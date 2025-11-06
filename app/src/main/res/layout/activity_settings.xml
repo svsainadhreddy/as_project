@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingBottom="80dp">
+            android:layout_marginTop="6dp"
+            android:padding="10dp"
+            android:layout_marginBottom="80dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -43,7 +45,7 @@
             android:id="@+id/btnChangeUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card_white"
+            android:background="@drawable/bg_risk_card"
             android:padding="18dp"
             android:layout_marginBottom="12dp"
             android:orientation="horizontal"
@@ -109,7 +111,7 @@
             android:id="@+id/btnRateUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card_white"
+            android:background="@drawable/bg_input_rounded_shadow"
             android:padding="18dp"
             android:layout_marginBottom="12dp"
             android:orientation="horizontal"

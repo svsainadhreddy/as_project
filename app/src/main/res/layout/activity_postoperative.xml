@@ -3,8 +3,9 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#171D26">
+    android:padding="20dp"
+    android:background="#C0C0C0"
+    >
 
     <!-- Top Bar : Back + Title -->
     <LinearLayout
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="0dp"
+        android:padding="5dp"
         android:layout_marginBottom="28dp">
 
         <ImageButton
@@ -31,9 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/postoperative_considerations"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF" />
+            android:gravity="center"
+            android:textColor="#293042" />
     </LinearLayout>
 
     <!-- Scrollable survey content -->
@@ -49,8 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp">
 
             <!-- Planned ICU/HDU admission -->
             <LinearLayout
@@ -66,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/icu_hdu"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="19sp"
                     android:textColor="#293042" />
 
                 <RadioGroup
@@ -83,7 +85,7 @@
                         android:text="@string/yes"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                     <RadioButton
@@ -92,7 +94,7 @@
                         android:text="@string/no"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                 </RadioGroup>
@@ -112,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/postop_analgesia"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="19sp"
                     android:textColor="#293042" />
 
                 <RadioGroup
@@ -128,7 +130,7 @@
                         android:text="@string/opioid_heavy"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                     <RadioButton
@@ -137,7 +139,7 @@
                         android:text="@string/multimodal"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                     <RadioButton
@@ -146,7 +148,7 @@
                         android:text="@string/regional"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                 </RadioGroup>
@@ -166,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mechanical_ventilation"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="19sp"
                     android:textColor="#293042" />
 
                 <RadioGroup
@@ -183,7 +185,7 @@
                         android:text="@string/yes"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                     <RadioButton
@@ -192,7 +194,7 @@
                         android:text="@string/no"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                 </RadioGroup>
@@ -212,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/early_mobilization"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="19sp"
                     android:textColor="#293042" />
 
                 <RadioGroup
@@ -229,7 +231,7 @@
                         android:text="@string/yes"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                     <RadioButton
@@ -238,20 +240,20 @@
                         android:text="@string/no"
                         android:button="@null"
                         android:background="@drawable/selector_radio_bg"
-                        android:textColor="#9699A9"
+                        android:textColor="#47474D"
                         android:padding="12dp"
                         android:layout_margin="6dp" />
                 </RadioGroup>
             </LinearLayout>
 
             <!-- Next Button -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNext"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
                 android:text="@string/next"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/next_button_bg"
+                android:background="@drawable/rounded_button"
                 android:textStyle="bold"
                 android:textColor="#4E4E4E"
                 android:textSize="18sp"

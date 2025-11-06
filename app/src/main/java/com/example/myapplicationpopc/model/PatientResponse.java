@@ -5,8 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class PatientResponse {
 
     private int id; // DB PK
-    @SerializedName("patient_id")
+    @SerializedName(value = "patient_id", alternate = {"patientId"})
     private String patientId;
+
     private String name;
     private String age;
     private String phone;

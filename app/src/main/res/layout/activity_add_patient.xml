@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#181921"
+    android:background="#CEA7AD"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Header -->
+        <!-- 181921 Header -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -31,11 +31,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Patient Management"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="#FFF"
-                android:layout_marginStart="14dp" />
+                android:textColor="@color/black"
+                android:layout_marginStart="30dp" />
         </LinearLayout>
 
         <!-- Photo Upload -->

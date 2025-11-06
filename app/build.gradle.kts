@@ -3,9 +3,7 @@ import org.gradle.kotlin.dsl.implementation
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-
-
+    id("org.jetbrains.kotlin.android") // ✅ Fixed typo here
 }
 
 android {
@@ -19,7 +17,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // ✅ Add this line
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,7 +24,6 @@ android {
         viewBinding = true
     }
 }
-
 
 dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
@@ -47,10 +43,11 @@ dependencies {
     // MPAndroidChart
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
 
-    // ✅ ADD THESE TEST DEPENDENCIES
+    // PDF generation
+    implementation("com.itextpdf:itextg:5.5.10")
+
+    // Test dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
-
-

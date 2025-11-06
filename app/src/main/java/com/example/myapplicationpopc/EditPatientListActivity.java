@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplicationpopc.adapter.PatientAdapter;
 import com.example.myapplicationpopc.model.PatientResponse;
-import com.example.myapplicationpopc.model.RecordsResponse;
 import com.example.myapplicationpopc.network.ApiClient;
 import com.example.myapplicationpopc.network.ApiService;
 import com.example.myapplicationpopc.utils.SharedPrefManager;
@@ -28,6 +28,8 @@ import retrofit2.Response;
 
 public class EditPatientListActivity extends AppCompatActivity {
 
+    private static final String TAG = "EditPatientListActivity";
+
     RecyclerView recyclerPatients;
     EditText etSearch;
     ImageView btnBack, btnProfile;
@@ -38,13 +40,11 @@ public class EditPatientListActivity extends AppCompatActivity {
     ApiService apiService;
     String token;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient_list);
-        // Hide toolbar
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -66,8 +66,6 @@ public class EditPatientListActivity extends AppCompatActivity {
         recyclerPatients.setLayoutManager(new LinearLayoutManager(this));
         recyclerPatients.setAdapter(adapter);
 
-        btnBack.setOnClickListener(v -> finish());
-
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -83,15 +81,12 @@ public class EditPatientListActivity extends AppCompatActivity {
 
         loadPatients();
 
-
-        // ✅ open PatientManagementActivity
         btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, PatientManagementActivity.class);
             i.putExtra("mode", "edit");
             startActivity(i);
         });
 
-        // ✅ back to ProfileActivity
         btnProfile.setOnClickListener(v -> {
             Intent i = new Intent(this, ProfileActivity.class);
             i.putExtra("mode", "edit");
@@ -108,33 +103,48 @@ public class EditPatientListActivity extends AppCompatActivity {
                     filteredList.clear();
                     filteredList.addAll(patientList);
                     adapter.setList(filteredList);
+                    Log.d(TAG, "Patients loaded: " + patientList.size());
                 } else {
                     Toast.makeText(EditPatientListActivity.this, "Failed to load patients", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Response unsuccessful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<PatientResponse>> call, Throwable t) {
                 Toast.makeText(EditPatientListActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "API failure: ", t);
             }
         });
     }
 
     private void filterPatients(String query) {
-        if (query == null) query = "";
-        query = query.trim().toLowerCase();
         filteredList.clear();
+        if (query == null) query = "";
+        String normalizedQuery = normalize(query);
 
-        for (PatientResponse p : patientList) {
-            String name = (p.getName() != null) ? p.getName().toLowerCase() : "";
-            String id = (p.getPatientId() != null) ? p.getPatientId().toLowerCase() : "";
+        Log.d(TAG, "Searching for: " + normalizedQuery);
 
-            if (name.contains(query) || id.contains(query)) {
-                filteredList.add(p);
+        for (PatientResponse patient : patientList) {
+            String name = normalize(patient.getName());
+            String patientId = normalize(patient.getPatientId());
+            String idStr = String.valueOf(patient.getId());
+
+            Log.d(TAG, "Checking patient: name=" + name + ", patientId=" + patientId + ", id=" + idStr);
+
+            if (name.contains(normalizedQuery) ||
+                    patientId.contains(normalizedQuery) ||
+                    idStr.contains(normalizedQuery)) {
+                filteredList.add(patient);
             }
         }
 
+        Log.d(TAG, "Matched patients: " + filteredList.size());
         adapter.setList(filteredList);
     }
 
+    private String normalize(String input) {
+        if (input == null) return "";
+        return input.toLowerCase().replaceAll("[^a-z0-9]", "");
+    }
 }

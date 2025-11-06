@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
+
     EditText etDoctorId, etName, etPhone, etEmail, etAge, etUsername, etPassword, etConfirmPassword;
     Spinner spinnerGender, spinnerSpecialization;
     Button btnSave;
@@ -37,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // 🔹 Initialize views
+        // Initialize views
         etDoctorId = findViewById(R.id.etDoctorId);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
@@ -54,25 +56,76 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
-        // 🔹 Gender dropdown
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, new String[]{"Male", "Female", "Other"});
+        // 🔹 GENDER Spinner setup
+        String[] genderList = {"Male", "Female", "Other"};
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genderList
+        ) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                ((TextView) view).setTextColor(getResources().getColor(android.R.color.black)); // selected text black
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+
+                switch (genderList[position]) {
+                    case "Male":
+                        tv.setBackgroundColor(getResources().getColor(R.color.gray));
+                        break;
+                    case "Female":
+                        tv.setBackgroundColor(getResources().getColor(R.color.pink)); // custom pink from colors.xml
+                        break;
+                    default:
+                        tv.setBackgroundColor(getResources().getColor(R.color.colorHintText));
+                        break;
+                }
+                tv.setTextColor(getResources().getColor(android.R.color.black));
+                return view;
+            }
+        };
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGender.setAdapter(genderAdapter);
 
-        // 🔹 Specialization dropdown
-        ArrayAdapter<String> specializationAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, new String[]{"Anesthesia"});
+        // 🔹 SPECIALIZATION Spinner setup — only Anesthesiologist
+        String[] specializationList = {"Anesthesiologist"};
+        ArrayAdapter<String> specializationAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                specializationList
+        ) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                ((TextView) view).setTextColor(getResources().getColor(android.R.color.black)); // selected text black
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setBackgroundColor(getResources().getColor(R.color.gray));
+                tv.setTextColor(getResources().getColor(android.R.color.black));
+                return view;
+            }
+        };
         specializationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSpecialization.setAdapter(specializationAdapter);
 
-        // 🔹 Password visibility toggle
+        // Password visibility toggles
         ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
         ImageView ivTogglePassword2 = findViewById(R.id.ivTogglePasswords);
         ivTogglePassword.setOnClickListener(v -> togglePassword(etPassword, ivTogglePassword));
         ivTogglePassword2.setOnClickListener(v -> togglePassword(etConfirmPassword, ivTogglePassword2));
 
-        // 🔹 Move focus with Enter key
+        // Move focus with Enter
         setEditTextNext(etDoctorId, etName);
         setEditTextNext(etName, etPhone);
         setEditTextNext(etPhone, etEmail);
@@ -82,17 +135,16 @@ public class RegisterActivity extends AppCompatActivity {
         setEditTextNext(etPassword, etConfirmPassword);
         etConfirmPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        // 🔹 Real-time restrictions
         setupNameRestriction();
         setupPhoneRestriction();
 
-        // 🔹 Save
         btnSave.setOnClickListener(v -> {
             if (validateFields()) registerDoctor();
         });
     }
 
-    // 🔸 Name field: only alphabets and space
+    // --- Helper Methods ---
+
     private void setupNameRestriction() {
         etName.addTextChangedListener(new TextWatcher() {
             private String lastValid = "";
@@ -112,14 +164,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // 🔸 Phone field: only numbers, max 10 digits
     private void setupPhoneRestriction() {
         etPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
-        etPhone.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)}); // max 10 digits
+        etPhone.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         etPhone.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Remove any non-digit characters
                 String filtered = s.toString().replaceAll("[^0-9]", "");
                 if (!s.toString().equals(filtered)) {
                     etPhone.setText(filtered);
@@ -152,7 +202,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // 🔹 Field validation before submit
     private boolean validateFields() {
         String doctorId = etDoctorId.getText().toString().trim();
         String name = etName.getText().toString().trim();

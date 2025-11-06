@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#121622"
+    android:background="#2C3E50"
     android:padding="16dp">
 
-    <!-- Doctor Info Card -->
+    <!-- Doctor Info Card 121622 -->
     <LinearLayout
         android:id="@+id/doctorInfoCard"
         android:layout_width="match_parent"

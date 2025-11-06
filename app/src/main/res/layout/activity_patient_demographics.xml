@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#171D26"
+    android:background="#F4F4F4"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:paddingTop="12dp"
+        android:paddingTop="30dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="0dp"
-            android:layout_marginBottom="28dp">
+            android:padding="10dp"
+            android:layout_marginBottom="30dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/circle_dark_bg"
                 android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_back"
@@ -40,9 +40,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/patient_demographics"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textColor="#293042" />
         </LinearLayout>
 
         <!-- Age Section -->
@@ -50,14 +50,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_section_bg"
+            android:background="@drawable/bg_field_pill_glass"
             android:padding="14dp"
+            android:textStyle="bold"
             android:layout_marginBottom="14dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="age"
+                android:text="Age :"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -66,18 +68,18 @@
                 android:id="@+id/rgAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="vertical"
+                >
 
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_5"
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Age&lt;50"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_51_80"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="50&gt;Age&lt;69"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="age_80"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Age&gt;69"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                    android:textColor="#47474D" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
         <!-- Sex Section -->
@@ -85,31 +87,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_section_bg"
+            android:background="@drawable/bg_field_pill_glass"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sex"
+                android:text="Sex :"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
+
             <RadioGroup
                 android:id="@+id/rgSex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="male"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="female"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="others"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
+
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="Male"
+                    android:textColor="#47474D" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="Female"
+                    android:textColor="#47474D" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="0thers"
+                    android:textColor="#47474D" />
             </RadioGroup>
         </LinearLayout>
         <!-- BMI Section -->
@@ -117,28 +142,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_section_bg"
+            android:background="@drawable/bg_field_pill_glass"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bmi"
+                android:text="Body Mass Index (BMI) :"
                 android:textStyle="bold"
+                android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgBmi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bmi_low"
+                android:orientation="vertical"
+                >
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BMI&lt;30"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bmi_high"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BMI&gt;=30"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                    android:textColor="#47474D" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
         <!-- Smoking Section -->
@@ -146,13 +172,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_section_bg"
+            android:background="@drawable/bg_field_pill_glass"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="smoking"
+                android:text="Smoking Status :"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -160,17 +187,17 @@
                 android:id="@+id/rgSmoking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="never"
+                android:orientation="vertical"
+              >
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Never"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="current_smoker"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Current_smoker"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ex_smoker"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ex_smoker"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                    android:textColor="#47474D" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
         <!-- Alcohol Section -->
@@ -178,41 +205,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_section_bg"
+            android:background="@drawable/bg_field_pill_glass"
             android:padding="14dp"
             android:layout_marginBottom="24dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="alcohol"
+                android:text="Alcohol :"
                 android:textStyle="bold"
+                android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
             <RadioGroup
                 android:id="@+id/rgAlcohol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="yes"
+                android:orientation="vertical"
+                >
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yes"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="no"
+                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No"
                     android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#9699A9" android:layout_margin="6dp" />
+                    android:textColor="#47474D" android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
         <!-- Next Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:text="next"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/next_button_bg"
-            android:backgroundTint="@null"
             android:textStyle="bold"
             android:textColor="#4E4E4E"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@null"
+            />
     </LinearLayout>
 </ScrollView>

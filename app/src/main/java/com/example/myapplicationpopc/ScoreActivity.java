@@ -113,22 +113,13 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
         if (totalScore <= 20) {
-            return "How to Manage? \n  \n " +
-                    "low : \n" +
-                    "Standard anesthesia; routine monitoring.";
+            return "Standard anesthesia; routine monitoring.";
         } else if (totalScore <= 40) {
-            return "How to Manage? \n \n  " +
-                    "moderate :\n" +
-                    "Lung-protective ventilation, multimodal analgesia, encourage early mobilization.";
+            return  "Lung-protective ventilation, multimodal analgesia, encourage early mobilization.";
         } else if (totalScore <= 60) {
-            return "How to Manage? \n \n  " +
-                    "high : \n" +
-                    "Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.";
-
+            return "Prefer regional if feasible, strict lung-protective strategy, consider postoperative ICU/HDU.";
         } else {
-            return "How to Manage? \n \n " +
-                    " very high : \n " +
-                    "Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.";
+            return "Strongly consider avoiding GA/ETT if possible; optimize comorbidities pre-op, mandatory ICU planning.";
         }
     }
 

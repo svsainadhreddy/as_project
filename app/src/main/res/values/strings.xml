@@ -9,11 +9,12 @@
 
         <!-- Titles -->
         <string name="title_popc">POPC</string>
-        <string name="description_popc">Post Pulmonary Complications Survey</string>
+        <string name="description_popc">Post Operational Pulmonary Complications</string>
 
         <!-- Buttons -->
         <string name="login">Login</string>
 
+    <string name="Id">ID</string>
 
 
     <!-- register Doctor Section -->
@@ -87,7 +88,7 @@
     <!-- questions  -->
 
     <!-- Patient Demographics -->
-    <string name="patient_demographics">Patient Demographics</string>
+    <string name="patient_demographics">PATIENT DEMOGRAPHICS</string>
     <string name="select_age">Select Age</string>
     <string name="age_5">&lt;50 years</string>
     <string name="age_51_80">50–69 years</string>
@@ -109,13 +110,13 @@
     <string name="next">Next</string>
 
     <!-- medical_history -->
-        <string name="medical_history">Medical History</string>
+        <string name="medical_history">MEDICAL HISTORY</string>
         <string name="disease_copd">Chronic Obstructive Pulmonary Disease (COPD)</string>
         <string name="disease_asthma">Asthma</string>
         <string name="disease_osa">Obstructive Sleep Apnea</string>
         <string name="disease_ild">Interstitial Lung Disease</string>
         <string name="disease_heart_failure">Heart Failure</string>
-        <string name="disease_cad">Coronary artery disease / recent MI</string>
+        <string name="disease_cad">Coronary Artery Disease / Recent MI</string>
         <string name="disease_hypertension">Hypertension</string>
         <string name="disease_diabetes">Diabetes Mellitus</string>
         <string name="disease_ckd">Chronic Kidney Disease</string>
@@ -124,72 +125,72 @@
     <!-- Preoperative Functional Status -->
 
     <string name="back">Back</string>
-    <string name="preoperative_status">Preoperative Functional Status</string>
-    <string name="asa_status">ASA Physical Status:</string>
-    <string name="exercise_tolerance">Exercise tolerance (METs):</string>
+    <string name="preoperative_status">PREOPERATIONAL FUNCTIONAL STATUS</string>
+    <string name="asa_status">ASA Physical Status :</string>
+    <string name="exercise_tolerance">Exercise Tolerance (METs) :</string>
     <string name="less_than_4">&lt;4</string>
     <string name="more_than_4">≥4</string>
-    <string name="dyspnea_rest">Dyspnea at rest:</string>
-    <string name="recent_infection">Recent respiratory infection (&lt;1 month):</string>
-    <string name="spo2_room_air">SpO₂ on room air :</string>
+    <string name="dyspnea_rest">Dyspnea at Rest :</string>
+    <string name="recent_infection">Recent Respiratory Infection (&lt;1 month) :</string>
+    <string name="spo2_room_air">SpO₂ on Room Air :</string>
     <string name="spo2_90">≤90%</string>
     <string name="spo2_91_95">91–95%</string>
     <string name="spo2_96">≥96%</string>
 
     <!-- surgery_related_factors -->
-    <string name="surgery_related_factors">Surgery-Related Factors</string>
-    <string name="type_of_surgery">Type of surgery:</string>
+    <string name="surgery_related_factors">SURGERY-RELATED FACTORS</string>
+    <string name="type_of_surgery">Type 0f Surgery :</string>
     <string name="thoracic">Thoracic</string>
-    <string name="upper_abdominal">Upper abdominal</string>
-    <string name="lower_abdominal">Lower abdominal</string>
+    <string name="upper_abdominal">Upper Abdominal</string>
+    <string name="lower_abdominal">Lower Abdominal</string>
     <string name="neurosurgery">Neurosurgery</string>
     <string name="orthopedic">Orthopedic</string>
-    <string name="ent_head_neck">Ent / Head &amp; neck</string>
+    <string name="ent_head_neck">Ent / Head &amp; Neck</string>
     <string name="vascular_cardiac">Vascular / Cardiac</string>
-    <string name="urgency">Urgency:</string>
+    <string name="urgency">Urgency :</string>
     <string name="elective">Elective</string>
     <string name="emergency">Emergency</string>
-    <string name="surgical_duration">Surgical duration (expected):</string>
+    <string name="surgical_duration">Surgical duration (expected) :</string>
     <string name="lt_2h">&lt;2h</string>
     <string name="hr_2_4">2–4h</string>
     <string name="gt_4h">&gt;4h</string>
-    <string name="estimated_blood_loss">Estimated blood loss (expected):</string>
+    <string name="estimated_blood_loss">Estimated blood loss (expected) :</string>
     <string name="lt_500">&lt;500 ml</string>
     <string name="range_500_1000">500–1000 ml</string>
     <string name="gt_1000">&gt;1000 ml</string>
     <string name="please_specify">Please specify...</string>
 
     <!-- planned_anesthesia -->
-    <string name="planned_anesthesia">Planned anesthesia:</string>
-    <string name="ariscat_score">ARISCAT Score :</string>
+    <string name="planned_anesthesia">PLANNED ANESTHESIA</string>
+    <string name="ariscat_score">Ariscat score :</string>
     <string name="ga_ett">General anesthesia with ETT</string>
     <string name="ga_lma">General anesthesia with LMA</string>
     <string name="regional">Regional anesthesia (Spinal / Epidural / Nerve block)</string>
     <string name="combined">Combined (GA + Regional)</string>
-    <string name="ppc_score">PPC Score :</string>
+    <string name="ppc_score">PPC Score </string>
     <string name="intraoperative_strategy">Intraoperative ventilation strategy (if GA planned):</string>
     <string name="high_tidal">High tidal volume (&gt;8 ml/kg IBW)</string>
     <string name="low_tidal">Low tidal volume (&lt;8 ml/kg IBW)</string>
     <string name="peep_used">PEEP used</string>
     <string name="not_used">Not used</string>
-    <string name="muscle_relaxants">Use of muscle relaxants:</string>
+    <string name="muscle_relaxants">Use of muscle relaxants :</string>
     <string name="if_yes">If yes:</string>
     <string name="neostigmine">Reversal with Neostigmine</string>
     <string name="sugammadex">Reversal with Sugammadex</string>
-    <string name="no_reversal">No reversal</string>
-    <string name="planned_analgesia">Planned analgesia:</string>
+    <string name="no_reversal">No Reversal</string>
+    <string name="planned_analgesia">Planned Analgesia :</string>
     <string name="iv_opioids">IV opioids</string>
-    <string name="epidural">Epidural analgesia</string>
-    <string name="nerve_blocks">Nerve blocks</string>
-    <string name="multimodal">Multimodal non-opioid</string>
+    <string name="epidural">Epidural Analgesia</string>
+    <string name="nerve_blocks">Nerve Blocks</string>
+    <string name="multimodal">Multimodal Non-opioid</string>
 
     <!--Postoperative Considerations -->
-    <string name="postoperative_considerations">Postoperative Considerations</string>
-    <string name="icu_hdu">Planned postoperative ICU / HDU admission :</string>
-    <string name="postop_analgesia">Post-op analgesia plan :</string>
-    <string name="opioid_heavy">Opioid heavy</string>
-    <string name="mechanical_ventilation">Anticipated need for mechanical Ventilation &gt; 24h :</string>
-    <string name="early_mobilization">Planned early mobilization within 24h :</string>
+    <string name="postoperative_considerations">POSTOPERATIIVE CONSIDERATIONAS</string>
+    <string name="icu_hdu">Planned Postoperative ICU / HDU Admission :</string>
+    <string name="postop_analgesia">Post-op Analgesia Plan :</string>
+    <string name="opioid_heavy">Opioid Heavy</string>
+    <string name="mechanical_ventilation">Anticipated Need For Mechanical Ventilation &gt; 24h :</string>
+    <string name="early_mobilization">Planned Early Mobilization within 24h :</string>
 
 
 

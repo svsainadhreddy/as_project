@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#262645">
+    android:background="#CEA7AD">
 
     <!-- Back Button  1A1A2E -->
     <ImageButton
@@ -22,7 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/btnBack"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,6 +34,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_dark"
+            android:backgroundTint="@color/white"
             android:padding="20dp"
             android:elevation="6dp">
 
@@ -63,18 +66,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Patient ID"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1" />
+                android:fontFamily="sans-serif"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                />
 
             <EditText
                 android:id="@+id/etPatientId"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Patient ID"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:layout_marginTop="8dp" />
 
@@ -83,19 +87,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
-                android:layout_marginTop="16dp" />
+                android:fontFamily="sans-serif"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                />
 
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Full Name"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:layout_marginTop="8dp" />
 
@@ -105,8 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gender"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <LinearLayout
@@ -114,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:gravity="center"
                 android:padding="4dp"
                 android:layout_marginTop="8dp">
@@ -161,9 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Age"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <LinearLayout
@@ -172,7 +175,7 @@
                 android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="4dp"
                 android:layout_marginTop="8dp">
 
@@ -197,7 +200,7 @@
                     android:inputType="number"
                     android:text="24"
                     android:textSize="16sp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/btnAgePlus"
@@ -216,9 +219,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -228,9 +230,9 @@
                 android:hint="Mobile Number"
                 android:inputType="phone"
                 android:maxLength="10"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:layout_marginTop="8dp" />
 
@@ -239,9 +241,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weight (kg)"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -250,9 +251,9 @@
                 android:layout_height="48dp"
                 android:hint="Weight"
                 android:inputType="numberDecimal"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:layout_marginTop="8dp" />
 
@@ -261,9 +262,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Height (cm)"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <EditText
@@ -272,9 +272,9 @@
                 android:layout_height="48dp"
                 android:hint="Height"
                 android:inputType="numberDecimal"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:layout_marginTop="8dp" />
 
@@ -284,30 +284,29 @@
                 android:layout_height="wrap_content"
                 android:text="BMI"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/etBMI"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:background="@drawable/field_bg"
+                android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
 
             <!-- Save Button -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save"
                 android:textStyle="bold"
                 android:background="@drawable/rounded_button"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:layout_marginTop="24dp" />
         </LinearLayout>
     </ScrollView>

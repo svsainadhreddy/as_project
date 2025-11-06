@@ -2,7 +2,7 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#171D26"
+    android:background="#C0C0C0"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:paddingTop="12dp"
+        android:paddingTop="20dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="0dp"
+            android:padding="10dp"
             android:layout_marginBottom="28dp">
 
             <ImageButton
@@ -43,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/preoperative_status"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#293042"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -65,7 +65,7 @@
                 android:text="@string/asa_status"
                 android:textStyle="bold"
                 android:textColor="#293042"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -82,7 +82,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbAsaII"
@@ -92,7 +92,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbAsaIII"
@@ -102,7 +102,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbAsaIV"
@@ -112,7 +112,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbAsaV"
@@ -122,7 +122,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
@@ -143,7 +143,7 @@
                 android:text="@string/exercise_tolerance"
                 android:textStyle="bold"
                 android:textColor="#293042"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -160,7 +160,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbMetMore4"
@@ -170,7 +170,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
@@ -191,7 +191,7 @@
                 android:text="@string/dyspnea_rest"
                 android:textStyle="bold"
                 android:textColor="#293042"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -208,7 +208,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbDyspneaNo"
@@ -218,7 +218,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
@@ -239,7 +239,7 @@
                 android:text="@string/recent_infection"
                 android:textStyle="bold"
                 android:textColor="#293042"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -256,7 +256,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbInfectionNo"
@@ -266,7 +266,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
@@ -287,7 +287,7 @@
                 android:text="@string/spo2_room_air"
                 android:textStyle="bold"
                 android:textColor="#293042"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -304,7 +304,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbSpO2_91_95"
@@ -314,7 +314,7 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
                 <RadioButton
                     android:id="@+id/rbSpO2_96"
@@ -324,21 +324,22 @@
                     android:button="@null"
                     android:background="@drawable/selector_radio_bg"
                     android:padding="12dp"
-                    android:textColor="#9699A9"
+                    android:textColor="#47474D"
                     android:layout_margin="6dp" />
             </RadioGroup>
         </LinearLayout>
 
         <!-- Next Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:text="@string/next"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/next_button_bg"
+            android:background="@drawable/rounded_button"
             android:backgroundTint="@null"
             android:textStyle="bold"
+            android:layout_gravity="center"
             android:textColor="#4E4E4E"
             android:textSize="18sp" />
     </LinearLayout>

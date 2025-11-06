@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,8 @@ import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private TextView tvTotalPatientsValue, tvPendingValue, tvHighriskvalue,tvTotalValue;
+    private TextView tvTotalPatientsValue, tvPendingValue, tvHighriskvalue, tvTotalValue;
+    private LinearLayout tvcardHighRisk;
     private PieChart pieChart;
     private ApiService apiService;
     private String token;
@@ -39,26 +41,43 @@ public class DetailsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) getSupportActionBar().hide();
         setContentView(R.layout.activity_details);
 
+        // ---------- Initialize Views ----------
+        tvcardHighRisk = findViewById(R.id.cardHighRisk);
         ImageButton btnBack = findViewById(R.id.btnBack);
-       TextView btn1 = findViewById(R.id.labelPending);
+        TextView btnPending = findViewById(R.id.labelPending);
 
-        tvTotalValue= findViewById(R.id.tvTotalValue);
+        tvTotalValue = findViewById(R.id.tvTotalValue);
         tvTotalPatientsValue = findViewById(R.id.tvTotalPatientsValue);
         tvPendingValue = findViewById(R.id.tvPendingValue);
         tvHighriskvalue = findViewById(R.id.tvHighriskvalue);
         pieChart = findViewById(R.id.pieChart);
 
+        // ---------- Setup API ----------
         apiService = ApiClient.getClient().create(ApiService.class);
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
 
-        btnBack.setOnClickListener(view -> {
-            startActivity(new Intent(DetailsActivity.this, DoctorHomeActivity.class));
-        });
-        btn1.setOnClickListener(view -> {
-            startActivity(new Intent(DetailsActivity.this, PendingSurveysActivity.class));
-        });
+        // ---------- Click Listeners ----------
+        btnBack.setOnClickListener(v ->
+                startActivity(new Intent(DetailsActivity.this, DoctorHomeActivity.class))
+        );
 
+        btnPending.setOnClickListener(v ->
+                startActivity(new Intent(DetailsActivity.this, PendingSurveysActivity.class))
+        );
 
+        tvcardHighRisk.setOnClickListener(v ->
+                startActivity(new Intent(DetailsActivity.this, HighRiskListActivity.class))
+        );
+
+        // Initial load
+        loadDashboard();
+        loadDashboardGraph();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // ✅ Automatically reload data when returning to this page
         loadDashboard();
         loadDashboardGraph();
     }
@@ -70,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onResponse(Call<DashboardResponse> call, Response<DashboardResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     DashboardResponse data = response.body();
-                    tvTotalValue.setText(String.valueOf(data.getTotal_patients ()));
+                    tvTotalValue.setText(String.valueOf(data.getTotal_patients()));
                     tvTotalPatientsValue.setText(String.valueOf(data.getTotal_surveyed()));
                     tvPendingValue.setText(String.valueOf(data.getPending_surveys()));
                     tvHighriskvalue.setText(String.valueOf(data.getHigh_risk_patients()));
@@ -114,17 +133,19 @@ public class DetailsActivity extends AppCompatActivity {
     private void setupPieChart(float stable, float pending, float highRisk) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(stable, "Low Risk"));
-        entries.add(new PieEntry(pending, ",moderate Risk"));
+        entries.add(new PieEntry(pending, "Moderate Risk"));
         entries.add(new PieEntry(highRisk, "High Risk"));
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(
-                Color.parseColor("#00BCD4"), // Teal
-                Color.parseColor("#FFEB3B"), // Yellow
-                Color.parseColor("#F44336")  // Red
+                Color.parseColor("#00BCD4"), // Low Risk - Teal
+                Color.parseColor("#FFEB3B"), // Moderate Risk - Yellow
+                Color.parseColor("#F44336")  // High Risk - Red
         );
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setValueTextSize(12f);
+        dataSet.setValueTextSize(13f);
+
+
 
         PieData pieData = new PieData(dataSet);
 
@@ -133,14 +154,17 @@ public class DetailsActivity extends AppCompatActivity {
         pieChart.setUsePercentValues(true);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleRadius(60f);
-        pieChart.setTransparentCircleRadius(65f);
         pieChart.animateY(1000);
+        pieChart.setHoleColor(Color.parseColor("#CEA7AD")); // Light background tone
+        pieChart.setCenterTextColor(Color.BLACK);
+        pieChart.setCenterTextSize(16f);
 
         Legend legend = pieChart.getLegend();
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setDrawInside(false);
+        legend.setTextColor(Color.BLACK);
 
         pieChart.invalidate(); // Refresh chart
     }
