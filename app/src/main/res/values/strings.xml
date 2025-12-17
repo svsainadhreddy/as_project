@@ -73,9 +73,7 @@
 
 
     <!-- login activity -->
-
-        <!-- Add missing strings -->
-        <string name="username">Username</string>
+        <string name="username"> Username or E-mail</string>
         <string name="password">Password</string>
 
     <string-array name="question_type_array">

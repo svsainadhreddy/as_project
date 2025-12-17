@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_navy_gradient">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/appBackgroundColor"
+    >
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -17,7 +19,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_arrow_back"
-            android:background="@drawable/bg_icon_glow1"
+            android:background="@drawable/circle_dark_bg"
             android:contentDescription="Back" />
 
         <EditText
@@ -27,12 +29,13 @@
             android:layout_weight="1"
             android:hint="Search patients"
             android:background="@drawable/bg_search_rounded"
+            android:backgroundTint="#DCAAAAAA"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/white"
-            android:textColorHint="#DDE6EF"
+            android:textColor="@color/black"
+            android:textColorHint="#000000"
             android:gravity="center_vertical"/>
 
         <ImageView
@@ -40,6 +43,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_icon_glow1"
+            app:tint="@color/white"
+            android:backgroundTint="#A3393939"
             android:src="@drawable/ic_user"
             android:contentDescription="Profile"/>
     </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#CEA7AD"
+    android:background="?attr/appBackgroundColor"
     android:padding="16dp">
 
     <!-- 0E1726Back Button and Title -->
@@ -13,14 +13,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="32dp">
+        android:background="@drawable/bg_teal_glass"
+        android:backgroundTint="#D1D5DB"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="20dp">
 
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:background="@drawable/circle_image"
-            android:src="@drawable/ic_arrow_back"
+            android:backgroundTint="@color/gray"
+            android:background="@drawable/ic_arrow_back"
             android:contentDescription="Back"
             android:padding="8dp" />
 
@@ -30,7 +34,6 @@
             android:layout_height="wrap_content"
             android:text="PATIENT MANAGEMENT"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="22sp"
             android:layout_marginStart="40dp" />
     </LinearLayout>
@@ -60,7 +63,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_add_patient"
-                app:tint="@android:color/white"
+                app:tint="@android:color/black"
                 android:layout_marginEnd="12dp" />
 
             <LinearLayout
@@ -72,8 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ADD PATIENT"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
 
@@ -95,7 +97,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_view_list"
-                app:tint="@android:color/white"
+                app:tint="@android:color/black"
                 android:layout_marginEnd="12dp" />
 
             <LinearLayout
@@ -107,8 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="VIEW PATIENTS"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -129,7 +130,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_delete"
-                app:tint="@android:color/white"
+                app:tint="@android:color/black"
                 android:layout_marginEnd="12dp" />
 
             <LinearLayout
@@ -141,8 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DELETE PATIENTS"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -163,7 +163,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_edit"
-                app:tint="@android:color/white"
+                app:tint="@android:color/black"
                 android:layout_marginEnd="12dp" />
 
             <LinearLayout
@@ -175,8 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EDIT PATIENTS"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
 

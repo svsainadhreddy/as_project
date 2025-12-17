@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#CEA7AD"
+    android:background="?attr/appBackgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -82,14 +82,12 @@
                 android:textColor="#FFF"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/etPatientId"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="Patient Id"
-                android:inputType="text"
                 android:background="@drawable/field_bg"
-                android:textColor="#FFF"
+                android:textColor="#FFFFFF"
                 android:textColorHint="#888"
                 android:padding="8dp"
                 android:layout_marginBottom="10dp" />
@@ -300,7 +298,7 @@
                 android:textColor="#FFF"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/etBMI"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -309,7 +307,8 @@
                 android:background="@drawable/field_bg"
                 android:textColor="#FFF"
                 android:textColorHint="#888"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <!-- Buttons -->
@@ -326,7 +325,7 @@
                 android:layout_weight="1"
                 android:text="Save"
                 android:textColor="#FFF"
-                android:backgroundTint="#38D395"
+                android:backgroundTint="#9FD6CF"
                 android:layout_marginEnd="12dp" />
 
             <Button

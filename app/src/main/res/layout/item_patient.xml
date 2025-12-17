@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:background="@drawable/bg_search_rounded"
     android:padding="15dp"
@@ -50,10 +51,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Id"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                 android:text=" : "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_marginStart="4dp"/>
 
             <TextView
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -84,9 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/gold"
+                android:textColor="@color/black"
                 />
 
             <TextView
@@ -95,7 +94,7 @@
                 android:text=" : "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/gold"
+                android:textColor="@color/black"
                 android:layout_marginStart="4dp"/>
 
             <TextView
@@ -103,8 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John"
-                android:textStyle="bold"
-                android:textColor="@color/gold"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -115,6 +113,9 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:background="@drawable/bg_icon_glow1"
+        android:backgroundTint="#9CB2BEB5"
+        app:tint="@color/white"
         android:contentDescription="Next"
-        android:src="@drawable/img_right_arrow" />
+        android:src="@drawable/img_right_arrow"
+        />
 </LinearLayout>

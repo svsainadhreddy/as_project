@@ -1,11 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
     android:paddingBottom="16dp"
+    android:background="#ECE9E4"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,12 +22,15 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:layout_marginBottom="30dp">
+            android:background="@drawable/bg_badge_gray"
+            android:backgroundTint="#F6F4F1"
+            android:layout_marginBottom="30dp"
+            >
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:background="@drawable/circle_dark_bg"
                 android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_back"
@@ -41,7 +43,6 @@
                 android:gravity="center"
                 android:text="@string/patient_demographics"
                 android:textSize="23sp"
-                android:textStyle="bold"
                 android:textColor="#293042" />
         </LinearLayout>
 
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:textStyle="bold"
             android:layout_marginBottom="14dp">
@@ -60,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:text="Age :"
                 android:textSize="19sp"
-                android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
 
@@ -68,18 +68,37 @@
                 android:id="@+id/rgAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Age&lt;50"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#47474D" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="50&gt;Age&lt;69"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#47474D" android:layout_margin="6dp" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Age&gt;69"
-                    android:button="@null" android:background="@drawable/selector_radio_bg" android:padding="12dp"
-                    android:textColor="#47474D" android:layout_margin="6dp" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="Age&lt;50"
+                    android:textColor="#47474D" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="50&gt;Age&lt;69"
+                    android:textColor="#47474D" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/selector_radio_bg"
+                    android:button="@null"
+                    android:padding="12dp"
+                    android:text="Age&gt;69"
+                    android:textColor="#47474D" />
             </RadioGroup>
         </LinearLayout>
         <!-- Sex Section -->
@@ -87,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
@@ -95,7 +114,6 @@
                 android:layout_height="wrap_content"
                 android:text="Sex :"
                 android:textSize="19sp"
-                android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
 
@@ -142,14 +160,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Body Mass Index (BMI) :"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -172,7 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
@@ -180,7 +197,6 @@
                 android:layout_height="wrap_content"
                 android:text="Smoking Status :"
                 android:textSize="19sp"
-                android:textStyle="bold"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
             <RadioGroup
@@ -205,14 +221,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="24dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alcohol :"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -237,12 +252,10 @@
             android:layout_height="60dp"
             android:text="next"
             android:layout_marginBottom="16dp"
-            android:textStyle="bold"
-            android:textColor="#4E4E4E"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"            android:textSize="18sp"
             android:layout_marginTop="30dp"
             android:background="@drawable/rounded_button"
-            android:backgroundTint="@null"
+            android:backgroundTint="#9FD6CF"
             />
     </LinearLayout>
 </ScrollView>

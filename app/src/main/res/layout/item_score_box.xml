@@ -12,10 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Category"
-        android:textStyle="bold"
         android:textSize="19sp"
         android:textColor="#44443C"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="start"
         android:paddingBottom="4dp"/>
 
     <TextView
@@ -24,11 +23,10 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="#222"
+        android:textColor="#44443C"
         android:layout_marginTop="6dp"
-        android:layout_gravity="center"
-        android:textAlignment="center"
+        android:layout_gravity="start"
+        android:gravity="center"
         android:background="@drawable/rounded_card_s"
         android:padding="8dp"/>
 </LinearLayout>

@@ -1,13 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CEA7AD">
+    android:background="#ECE9E4"
+    >
 
-    <!-- Back Button -->
+    <!-- Back Button  -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
@@ -27,12 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_edit"
             android:padding="0dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#B2BEB5"
             android:elevation="0dp">
 
             <!-- Patient Image Upload -->
@@ -41,7 +42,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/ic_img"
+                android:src="@drawable/ic_user"
                 android:background="@drawable/circle_avatar_bg"
                 android:scaleType="centerInside"
                 android:layout_gravity="center_horizontal"
@@ -63,7 +64,7 @@
                 android:layout_height="14dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="50dp"
-                android:background="#CEA7AD" />
+                android:background="#ECE9E4" />
 
             <!-- Patient Info Rows -->
             <LinearLayout
@@ -78,19 +79,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Patient ID"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         />
 
@@ -108,21 +108,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Name"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         />
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"
+                        android:textSize="15sp"
                         />
                     <TextView
                         android:id="@+id/etName"
@@ -138,19 +137,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Age"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         />
                     <TextView
@@ -167,17 +165,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Phone"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text=" : "
                         android:textColor="@color/black"/>
@@ -195,17 +192,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Weight (kg)"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text=" : "
                         android:textColor="@color/black"/>
@@ -223,20 +219,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Gender"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
 
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"/>
                     <TextView
                         android:id="@+id/etGender"
@@ -252,19 +247,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="12dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="Height (cm)"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         />
                     <TextView
@@ -281,19 +275,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_card"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:layout_marginBottom="20dp">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="BMI"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text=" : "
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         />
                     <TextView

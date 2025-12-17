@@ -3,7 +3,7 @@
     android:id="@+id/rootScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0C0C0"
+    android:background="#ECE9E4"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -17,19 +17,21 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
-        <!-- Back + Title -->
+        <!-- Back + Title C0C0C0-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="10dp"
+            android:background="@drawable/bg_badge_gray"
+            android:backgroundTint="#F6F4F1"
             android:layout_marginBottom="28dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:background="@drawable/circle_dark_bg"
                 android:src="@drawable/ic_arrow_back"
                 android:contentDescription="@string/back"
@@ -43,7 +45,6 @@
                 android:text="@string/planned_anesthesia"
                 android:textSize="23sp"
                 android:gravity="center"
-                android:textStyle="bold"
                 android:textColor="#293042" />
         </LinearLayout>
 
@@ -60,7 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ariscat_score"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -118,22 +118,15 @@
             android:padding="14dp"
             android:layout_marginBottom="14dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ppc_score"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#293042"
-                android:layout_marginBottom="8dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/intraoperative_strategy"
-                android:textStyle="bold"
                 android:textColor="#293042"
-                android:layout_marginBottom="4dp" />
+                android:textSize="19sp"
+                android:layout_marginBottom="8dp" />
 
             <RadioGroup
                 android:id="@+id/radioVentilation"
@@ -193,7 +186,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/muscle_relaxants"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -243,7 +235,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/if_yes"
-                android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -296,7 +287,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/planned_analgesia"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -353,10 +343,9 @@
             android:text="@string/next"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_button"
-            android:textStyle="bold"
+            android:backgroundTint="#9FD6CF"
             android:layout_gravity="center"
-            android:backgroundTint="@null"
-            android:textColor="#4E4E4E"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

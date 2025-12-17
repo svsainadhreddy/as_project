@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#CEA7AD">
+    android:background="?attr/appBackgroundColor"
+    >
 
     <!-- 🔙 Custom Toolbar with BackDE2F2F2A -->
     <!-- Back Button -->
@@ -28,8 +29,8 @@
 
             <ImageButton
                 android:id="@+id/ivBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="26dp"
                 android:layout_marginBottom="70dp"
                 android:layout_marginStart="10dp"
@@ -52,10 +53,10 @@
                 android:layout_marginTop="-116dp"
                 android:layout_marginBottom="60dp"
                 android:layout_marginStart="0dp"
-android:textColor="@color/navy_gray_dark"
+                android:textColor="@color/navy_gray_dark"
                 android:contentDescription="@string/back"
                 android:padding="16dp"
-android:textSize="23sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_back"
@@ -67,7 +68,8 @@ android:textSize="23sp"
                 android:layout_height="14dp"
                 android:layout_marginTop="-40dp"
                 android:layout_marginBottom="50dp"
-                android:background="#CEA7AD" />
+                android:background="?attr/appBackgroundColor"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,7 +85,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_id"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -124,7 +125,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_name"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -183,7 +183,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_phone"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -242,7 +241,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_email"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -300,7 +298,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_age"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -343,7 +340,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_gender"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -381,7 +377,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_specialization"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -396,7 +391,7 @@ android:textSize="23sp"
                 <Spinner
                     android:id="@+id/etSpecialization"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:background="@drawable/bg_badge_gray"
                     android:padding="8dp"
                     android:spinnerMode="dropdown"
@@ -421,7 +416,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_username"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -478,7 +472,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_password"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 
@@ -539,7 +532,6 @@ android:textSize="23sp"
                     android:layout_height="wrap_content"
                     android:text="@string/Doctor_confirm_password"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:layout_weight="1" />
 

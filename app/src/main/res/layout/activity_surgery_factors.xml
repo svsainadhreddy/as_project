@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0C0C0"
+    android:background="#ECE9E4"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -22,12 +22,14 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="10dp"
+            android:background="@drawable/bg_badge_gray"
+            android:backgroundTint="#F6F4F1"
             android:layout_marginBottom="28dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:background="@drawable/circle_dark_bg"
                 android:src="@drawable/ic_arrow_back"
                 android:contentDescription="@string/back"
@@ -40,7 +42,6 @@
                 android:layout_weight="1"
                 android:text="@string/surgery_related_factors"
                 android:textSize="23sp"
-                android:textStyle="bold"
                 android:textColor="#293042"
                 android:gravity="center"
                 android:layout_marginStart="8dp" />
@@ -62,7 +63,7 @@
                 android:text="@string/type_of_surgery"
                 android:textColor="#293042"
                 android:textSize="19sp"
-                android:textStyle="bold" />
+                 />
 
             <RadioGroup
                 android:id="@+id/rgSurgeryType"
@@ -167,7 +168,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urgency"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -212,7 +212,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/surgical_duration"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -266,7 +265,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/estimated_blood_loss"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp" />
@@ -315,9 +313,8 @@
             android:text="@string/next"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_button"
-            android:textStyle="bold"
-            android:textColor="#4E4E4E"
-            android:backgroundTint="@null"
+            android:textColor="@color/white"
+            android:backgroundTint="#9FD6CF"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

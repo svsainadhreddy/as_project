@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#CEA7AD"
+    android:background="#ECE9E4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
@@ -33,7 +33,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Risk Level:"
-                    android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#232028" />
 
@@ -52,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:hint=""
                     android:textColor="#fff"
-                    android:textStyle="bold"
                     android:textSize="13sp"
                     android:background="@drawable/bg_badge_orange"
                     android:paddingLeft="18dp"
@@ -73,13 +71,12 @@
     </ScrollView>
 
     <!-- Done Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDone"
         android:layout_width="120dp"
         android:layout_height="44dp"
         android:layout_gravity="end"
         android:text="Done"
-        android:textStyle="bold"
         android:background="@drawable/bg_orange_btn"
         android:textColor="#fff"
         android:textAllCaps="false"

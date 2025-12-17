@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:background="@drawable/bg_search_rounded"
     android:padding="12dp"
@@ -55,17 +56,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/Id"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_marginStart="35dp"/>
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -88,17 +88,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_marginStart="7dp"/>
 
             <TextView
@@ -106,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -121,17 +119,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="status"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/gold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/gold"
+                android:textColor="@color/black"
                 android:layout_marginStart="4dp"/>
 
             <TextView
@@ -139,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint=""
-                android:textColor="@color/gold"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -152,6 +148,8 @@
         android:layout_height="50dp"
         android:background="@drawable/bg_icon_glow1"
         android:src="@drawable/img_right_arrow"
+        android:backgroundTint="#9CB2BEB5"
+        app:tint="@color/white"
         android:contentDescription="Next"
         android:layout_gravity="center_vertical" />
 

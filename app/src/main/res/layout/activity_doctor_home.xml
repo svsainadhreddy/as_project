@@ -2,30 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/appBackgroundColor"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#2C3E50"
     android:padding="16dp">
 
-    <!-- Doctor Info Card 121622 -->
+    <!-- 2C3E50 Doctor Info Card 121622 -->
     <LinearLayout
         android:id="@+id/doctorInfoCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:orientation="horizontal"
         android:padding="16dp"
         android:background="@drawable/dark_rounded_card"
         android:elevation="6dp"
+        android:backgroundTint="@color/White_Sand"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/imgDoctor"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/img_profile"
-            android:scaleType="centerCrop"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/circle_image"
-            android:layout_marginEnd="16dp" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person_outline" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,17 +40,16 @@
                 android:layout_height="wrap_content"
                 android:text="Dr. Eleanor Grant"
                 android:background="@null"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/tvDoctorSpeciality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Anesthesia"
-                android:textColor="#BBBBBB"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginTop="2dp" />
 
@@ -61,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ID: "
-                    android:textColor="#8FA8B3"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <EditText
@@ -72,7 +73,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:text="DR-982341"
-                    android:textColor="#8FA8B3"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -85,12 +86,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/doctorInfoCard"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="29dp"
         android:columnCount="2"
         android:rowCount="2"
         android:alignmentMode="alignMargins"
         android:rowOrderPreserved="false"
-        android:useDefaultMargins="true">
+        android:useDefaultMargins="true"
+        android:layout_marginHorizontal="20dp">
 
         <!-- Dashboard Button Template -->
         <FrameLayout
@@ -100,7 +102,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             android:background="@drawable/dark_rounded_card"
-            android:elevation="4dp">
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/btnDashboard"
@@ -114,15 +118,14 @@
                     android:layout_width="42dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_calendar"
-                    app:tint="#FFFFFF" />
+                    app:tint="@color/black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Details"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </FrameLayout>
@@ -135,7 +138,10 @@
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             android:background="@drawable/dark_rounded_card"
-            android:elevation="4dp">
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="40dp"
+            >
 
             <LinearLayout
                 android:id="@+id/btnPatientManagement"
@@ -149,26 +155,26 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_patients"
-                    app:tint="#FFFFFF"/>
+                    app:tint="@color/black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Patients"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </FrameLayout>
 
-        <!-- Button 3 -->
+        <!-- Button 3 1E2733-->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
+            android:backgroundTint="@color/white"
             android:background="@drawable/dark_rounded_card"
             android:elevation="4dp">
 
@@ -184,15 +190,14 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_settings"
-                    app:tint="#FFFFFF" />
+                    app:tint="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Settings"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </FrameLayout>
@@ -204,6 +209,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
+            android:backgroundTint="@color/white"
             android:background="@drawable/dark_rounded_card"
             android:elevation="4dp">
 
@@ -211,6 +217,7 @@
                 android:id="@+id/btnReports"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:backgroundTint="#B2BEB5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -219,15 +226,14 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_reports"
-                    app:tint="#FFFFFF" />
+                    app:tint="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reports"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </FrameLayout>

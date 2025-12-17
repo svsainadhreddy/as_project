@@ -3,8 +3,10 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="#C0C0C0"
+    android:paddingBottom="16dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp"
+    android:background="#ECE9E4"
     >
 
     <!-- Top Bar : Back + Title -->
@@ -15,12 +17,17 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_badge_gray"
+        android:backgroundTint="#F6F4F1"
         android:layout_marginBottom="28dp">
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:background="@drawable/circle_dark_bg"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="@string/back"
@@ -33,7 +40,6 @@
             android:layout_marginStart="16dp"
             android:text="@string/postoperative_considerations"
             android:textSize="23sp"
-            android:textStyle="bold"
             android:gravity="center"
             android:textColor="#293042" />
     </LinearLayout>
@@ -51,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp">
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp">
 
             <!-- Planned ICU/HDU admission -->
             <LinearLayout
@@ -61,13 +67,13 @@
                 android:orientation="vertical"
                 android:background="@drawable/card_section_bg"
                 android:padding="14dp"
+
                 android:layout_marginBottom="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/icu_hdu"
-                    android:textStyle="bold"
                     android:textSize="19sp"
                     android:textColor="#293042" />
 
@@ -113,7 +119,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/postop_analgesia"
-                    android:textStyle="bold"
                     android:textSize="19sp"
                     android:textColor="#293042" />
 
@@ -167,7 +172,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/mechanical_ventilation"
-                    android:textStyle="bold"
                     android:textSize="19sp"
                     android:textColor="#293042" />
 
@@ -213,7 +217,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/early_mobilization"
-                    android:textStyle="bold"
                     android:textSize="19sp"
                     android:textColor="#293042" />
 
@@ -254,9 +257,9 @@
                 android:text="@string/next"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_button"
-                android:textStyle="bold"
-                android:textColor="#4E4E4E"
+                android:textColor="@color/white"
                 android:textSize="18sp"
+                android:backgroundTint="#9FD6CF"
                 android:layout_gravity="center" />
         </LinearLayout>
     </ScrollView>

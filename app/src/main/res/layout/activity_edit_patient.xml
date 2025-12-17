@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CEA7AD">
+    android:background="?attr/appBackgroundColor"
+    >
 
     <!-- Back Button  1A1A2E -->
     <ImageButton
@@ -13,8 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="42dp"
-        android:background="@drawable/circle_dark_bg"
         android:contentDescription="Back"
+        android:background="@drawable/circle_dark_bg"
         android:src="@drawable/ic_arrow_back" />
 
     <ScrollView
@@ -30,13 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_dark"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#A2B2BEB5"
             android:padding="20dp"
-            android:elevation="6dp">
+           >
 
             <!-- Patient Photo -->
 
@@ -56,8 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add Patient Photo"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp" />
 
@@ -66,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Patient ID"
+                android:paddingStart="10dp"
                 android:fontFamily="sans-serif"
                 android:textSize="15sp"
                 android:textColor="@color/black"
@@ -89,6 +90,7 @@
                 android:text="Name"
                 android:fontFamily="sans-serif"
                 android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
                 />
@@ -109,7 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender"
-                android:textSize="12sp"
+                android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -166,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:text="Age"
                 android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -220,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:text="Phone"
                 android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -242,6 +247,7 @@
                 android:layout_height="wrap_content"
                 android:text="Weight (kg)"
                 android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -263,6 +269,7 @@
                 android:layout_height="wrap_content"
                 android:text="Height (cm)"
                 android:textSize="15sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -284,6 +291,7 @@
                 android:layout_height="wrap_content"
                 android:text="BMI"
                 android:textSize="12sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
 
@@ -295,7 +303,6 @@
                 android:background="@drawable/chip_input_bg"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_marginTop="8dp" />
 
             <!-- Save Button -->
@@ -304,10 +311,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:textStyle="bold"
                 android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/White_Sand"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

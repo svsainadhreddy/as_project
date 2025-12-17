@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_gradient_purple_blue">
+    android:background="?attr/appBackgroundColor"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_user"
-            app:tint="@color/deep_purple_accent"
+            app:tint="#B2BEB5"
             android:alpha="0.90"
             android:layout_marginBottom="10dp" />
 
@@ -50,7 +51,7 @@
             android:text="Change Username"
             android:textStyle="bold"
             android:textSize="22sp"
-            android:textColor="@color/deep_purple_accent"
+            android:textColor="#B2BEB5"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-medium"
             android:layout_marginBottom="20dp" />
@@ -71,7 +72,7 @@
             android:layout_marginBottom="10dp" />
 
         <!-- Save Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSaveUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -79,11 +80,11 @@
             android:fontFamily="sans-serif-medium"
             android:textAllCaps="false"
             android:textSize="17sp"
-            android:backgroundTint="@color/emerald_accent"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginTop="18dp"
             android:elevation="2dp"
-            android:background="@drawable/bg_btn_accent_emerald"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#E9B2BEB5"
             />
 
     </LinearLayout>

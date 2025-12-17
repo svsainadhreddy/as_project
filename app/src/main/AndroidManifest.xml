@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplicationpopc">
+    package="com.simats.popc">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- For older devices (API 29–32) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/img"
+        android:icon="@mipmap/img_1"
+        android:label="POPC"
         android:networkSecurityConfig="@xml/network_security_config"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplicationPOPC">
+
+        <!-- FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -34,10 +34,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
         <!-- Main Activity (Launcher) -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.simats.popc.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,152 +46,108 @@
 
         <!-- Second Activity (Login) -->
         <activity
-            android:name=".SecondActivity"
-            android:exported="false"
-           />
-
+            android:name="com.simats.popc.SecondActivity"
+            android:exported="false" />
 
         <!-- Register Activity -->
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.RegisterActivity"
+            android:exported="false" />
 
         <!-- Home Activity -->
         <activity
-            android:name=".DoctorHomeActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.DoctorHomeActivity"
+            android:exported="false" />
+
         <!-- Settings Activity -->
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.SettingsActivity"
+            android:exported="false" />
 
-        <!-- change password Activity -->
+        <!-- Change password Activity -->
         <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false"
-            />
-        <!-- change username Activity -->
-        <activity
-            android:name=".ChangeUsernameActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.ChangePasswordActivity"
+            android:exported="false" />
 
+        <!-- Change username Activity -->
+        <activity
+            android:name="com.simats.popc.ChangeUsernameActivity"
+            android:exported="false" />
 
         <!-- Profile Activity -->
         <activity
-            android:name=".ProfileActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.ProfileActivity"
+            android:exported="false" />
 
-        <!--Details Activity -->
-
+        <!-- Details Activity -->
         <activity
-            android:name=".DetailsActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.DetailsActivity"
+            android:exported="false" />
 
-        <!--Survey ListActivity -->
-
+        <!-- Survey/List Activities -->
         <activity
-            android:name=".SurveyListActivity"
-            android:exported="false"
-             />
-        <!--HighRiskList Activity -->
-
+            android:name="com.simats.popc.SurveyListActivity"
+            android:exported="false" />
         <activity
-            android:name=".HighRiskListActivity"
-            android:exported="false"
-            />
-
-        <!--Survey DisplayActivity-->
-
+            android:name="com.simats.popc.HighRiskListActivity"
+            android:exported="false" />
         <activity
-            android:name=".SurveyDisplayActivity"
-            android:exported="false"
-            />
-
+            android:name="com.simats.popc.SurveyDisplayActivity"
+            android:exported="false" />
         <activity
-            android:name=".PendingSurveysActivity"
-            android:exported="false"
-             />
+            android:name="com.simats.popc.PendingSurveysActivity"
+            android:exported="false" />
 
-
-
-        <!-- patient management Activity -->
+        <!-- Patient management Activities -->
         <activity
-            android:name=".PatientManagementActivity"
-            android:exported="false"
-            />
-        <!--  EditPatientListActivity  -->
+            android:name="com.simats.popc.PatientManagementActivity"
+            android:exported="false" />
         <activity
-            android:name=".EditPatientListActivity"
-            android:exported="false"
-           />
-        <!-- EditPatientActivity -->
+            android:name="com.simats.popc.EditPatientActivity"
+            android:exported="false" />
         <activity
-            android:name=".EditPatientActivity"
-            android:exported="false"
-             />
-        <!-- AddPatientActivity -->
+            android:name="com.simats.popc.AddPatientActivity"
+            android:exported="false" />
         <activity
-            android:name=".AddPatientActivity"
-            android:exported="false"
-             />
-            <!--  viewPatientListActivity  -->
-            <activity
-                android:name=".ViewPatientListActivity"
-                android:exported="false"
-                 />
-
-        <!-- ViewPatientActivity -->
+            android:name="com.simats.popc.ViewPatientListActivity"
+            android:exported="false" />
         <activity
-            android:name=".ViewPatientActivity"
-            android:exported="false"
-            />
-        <!-- DeletePatientActivity -->
+            android:name="com.simats.popc.ViewPatientActivity"
+            android:exported="false" />
         <activity
-            android:name=".DeletePatientActivity"
-            android:exported="false"
-             />
-        <!-- Question Activity -->
+            android:name="com.simats.popc.DeletePatientActivity"
+            android:exported="false" />
+
+        <!-- Question Activities -->
         <activity
-            android:name=".PatientDemographicsActivity"
-            android:exported="false"
-            />
+            android:name="com.simats.popc.PatientDemographicsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.MedicalHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.PreoperativeConsiderationsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.SurgeryFactorsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.PlannedAnesthesiaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.PostoperativeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.ScoreActivity"
+            android:exported="false" />
 
-          <activity
-                 android:name=".MedicalHistoryActivity"
-                 android:exported="false"
-                 />
+        <!-- OTP & Reset Activities (must be registered) -->
+        <activity
+            android:name="com.simats.popc.OtpVerifyActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.simats.popc.ResetPasswordActivity"
+            android:exported="false" />
 
-            <activity
-              android:name=".PreoperativeConsiderationsActivity"
-              android:exported="false"
-             />
-
-               <activity
-                   android:name=".SurgeryFactorsActivity"
-                   android:exported="false"
-                   />
-
-               <activity
-                   android:name=".PlannedAnesthesiaActivity"
-                   android:exported="false"
-                    />
-
-               <activity
-                   android:name=".PostoperativeActivity"
-                   android:exported="false"
-                   />
-
-           <activity
-              android:name=".ScoreActivity"
-              android:exported="false"
-               />
-
-
-         </application>
-     </manifest>
+    </application>
+</manifest>

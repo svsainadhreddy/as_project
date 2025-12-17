@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rounded OTP box (pill-like square) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <size android:width="44dp" android:height="44dp"/>
+
+    <corners android:radius="10dp" />
+
+    <!-- filled teal/green look -->
+    <solid android:color="#0F6A60" />
+
+    <!-- inner subtle highlight -->
+    <gradient
+        android:startColor="#116B63"
+        android:endColor="#0B5F57"
+        android:angle="270"/>
+
+    <!-- tiny stroke to separate boxes from background -->
+    <stroke android:width="1dp" android:color="#0A4B46" />
+</shape>

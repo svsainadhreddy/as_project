@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sai2"
+    android:background="?attr/appBackgroundColor"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
 
         <!-- Top Bar -->
@@ -18,27 +19,33 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="6dp"
-            android:padding="10dp"
+
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/bg_teal_glass"
+            android:backgroundTint="#D1D5DB"
             android:layout_marginBottom="80dp">
 
+            <!-- 8CE4D00A 8C9FE40A Back Button  1A1A2E -->
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_image"
-                android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_back"
-                android:scaleType="centerInside" />
+                android:layout_alignParentStart="true"
+                android:contentDescription="Back"
+                android:background="@drawable/ic_arrow_back"
+                android:backgroundTint="@color/gray"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textStyle="bold"
+                android:text="SETTINGS "
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="90dp" />
         </LinearLayout>
+
 
         <!-- Change Username -->
         <LinearLayout
@@ -146,6 +153,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_card_red"
             android:padding="18dp"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
@@ -170,5 +178,75 @@
                 android:src="@drawable/img_right_arrow"
                 app:tint="@color/red" />
         </LinearLayout>
+        <!-- terms and conditions
+        <LinearLayout
+            android:id="@+id/btntermsandconditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_risk_card"
+            android:backgroundTint="#2B6AA1A7"
+            android:padding="18dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/terms_conditions"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Terms and Conditions"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/gray" />
+
+        </LinearLayout>
+        -->
+        <!-- Delete Account -->
+        <LinearLayout
+            android:id="@+id/deleteacc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_risk_card"
+            android:backgroundTint="#2B6AA1A7"
+            android:padding="18dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/img_about"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete Account"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/img_right_arrow"
+                app:tint="@color/gray" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

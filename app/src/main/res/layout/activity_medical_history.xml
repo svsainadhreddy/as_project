@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0C0C0"
+    android:background="#ECE9E4"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -16,18 +16,21 @@
         android:paddingRight="12dp">
 
         <!-- Header -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="10dp"
+            android:background="@drawable/bg_badge_gray"
+            android:backgroundTint="#F6F4F1"
             android:layout_marginBottom="50dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:background="@drawable/circle_dark_bg"
                 android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_back"
@@ -40,7 +43,6 @@
                 android:gravity="center"
                 android:text="@string/medical_history"
                 android:textSize="23sp"
-                android:textStyle="bold"
                 android:textColor="#293042" />
         </LinearLayout>
 
@@ -49,14 +51,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
+
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_copd"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -93,14 +95,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_asthma"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -137,14 +138,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_osa"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -181,14 +181,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_ild"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -225,7 +224,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:orientation="vertical"
             android:padding="14dp">
 
@@ -236,7 +235,7 @@
                 android:text="@string/disease_heart_failure"
                 android:textColor="#293042"
                 android:textSize="19sp"
-                android:textStyle="bold" />
+              />
 
             <RadioGroup
                 android:id="@+id/rgHeartFailure"
@@ -273,14 +272,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_cad"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -317,14 +315,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_hypertension"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -361,14 +358,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_diabetes"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -405,14 +401,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_field_pill_glass"
+            android:background="@drawable/card_section_bg"
             android:padding="14dp"
             android:layout_marginBottom="24dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disease_ckd"
-                android:textStyle="bold"
                 android:textSize="19sp"
                 android:textColor="#293042"
                 android:layout_marginBottom="8dp"/>
@@ -453,10 +448,9 @@
             android:text="@string/next"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_button"
-            android:textStyle="bold"
-            android:textColor="#4E4E4E"
+            android:textColor="@color/white"
+            android:backgroundTint="#9FD6CF"
             android:textSize="18sp"
-            android:backgroundTint="@null"
             />
 
     </LinearLayout>

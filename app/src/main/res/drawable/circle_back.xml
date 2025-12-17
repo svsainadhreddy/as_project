@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Circular translucent back button with subtle rim -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- base translucent fill -->
+    <solid android:color="#11282E"/> <!-- semi-dark teal-ish -->
+
+    <!-- subtle inner gradient to look tactile -->
+    <gradient
+        android:startColor="#162E33"
+        android:centerColor="#0F2326"
+        android:endColor="#0B1C1F"
+        android:angle="270" />
+
+    <!-- rim stroke -->
+    <stroke
+        android:width="1dp"
+        android:color="#153A3F" />
+
+    <!-- padding to simulate inner space -->
+    <padding android:left="6dp" android:top="6dp" android:right="6dp" android:bottom="6dp"/>
+</shape>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CEA7AD">
+    android:background="#ECE9E4">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,8 +13,8 @@
         <!-- Back Button -->
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_margin="16dp"
             android:background="@drawable/circle_dark_bg"
             android:src="@drawable/ic_arrow_back"
@@ -37,10 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_profile"
+                app:src="@drawable/ic_person_outline"
+                android:src="@drawable/ic_person_outline"
                 android:contentDescription="Profile Image" />
         </FrameLayout>
-
         <!-- Profile Card -->
         <LinearLayout
             android:id="@+id/profileCard"
@@ -51,7 +51,7 @@
             android:layout_marginHorizontal="24dp"
             android:orientation="vertical"
             android:background="@drawable/score_box_bg"
-            android:elevation="6dp"
+            android:backgroundTint="#ABB2BEB5"
             android:padding="24dp"
             android:clipChildren="false">
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="DOC-482913"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:layout_marginTop="4dp" />
 
             <!-- Name -->
@@ -91,9 +91,10 @@
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:maxLength="50"
-                android:textColor="#000"
+                android:textColor="@color/black"
                 android:textColorHint="#555"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
 
             <!-- Phone -->
             <TextView
@@ -113,8 +114,9 @@
                 android:padding="10dp"
                 android:maxLength="10"
                 android:inputType="phone"
-                android:textColor="#000"
+                android:textColor="@color/black"
                 android:textColorHint="#555"
+                android:layout_marginTop="8dp"
                 android:textSize="16sp" />
 
             <!-- Email -->
@@ -134,8 +136,9 @@
                 android:hint="e.hart@clinic.example"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textColorHint="#555"
+                android:layout_marginTop="8dp"
                 android:textSize="16sp" />
 
             <!-- Specialization -->
@@ -153,8 +156,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/chip_input_bg"
                 android:spinnerMode="dropdown"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:padding="8dp"
+                android:layout_marginTop="8dp"
                 android:entries="@array/specialization_array" />
 
             <!-- Gender -->
@@ -183,9 +187,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Female"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:background="@drawable/bg_segment_selected"
-                    android:textStyle="bold"
                     android:textSize="14sp" />
 
                 <TextView
@@ -195,9 +198,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Male"
-                    android:textColor="#555555"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
-                    android:textStyle="bold"
                     android:textSize="14sp" />
 
                 <TextView
@@ -207,9 +209,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Other"
-                    android:textColor="#555555"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
-                    android:textStyle="bold"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -253,8 +254,8 @@
                     android:inputType="number"
                     android:text="24"
                     android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                     />
 
                 <TextView
                     android:id="@+id/btnAgePlus"
@@ -277,8 +278,8 @@
                 android:text="Update"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/btn_copper_bg"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
+                android:backgroundTint="@color/White_Sand"
+                android:textColor="@color/black"
                 android:padding="12dp"
                 android:layout_marginBottom="6dp"
                 android:textAllCaps="false" />

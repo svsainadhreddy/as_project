@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Disabled large pill button -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="28dp" />
+
+    <!-- muted grey fill -->
+    <solid android:color="#B8BEC3" />
+
+    <!-- subtle inner gradient to mimic flat disabled look -->
+    <gradient
+        android:startColor="#C0C4C8"
+        android:endColor="#AFB3B7"
+        android:angle="270"/>
+
+    <!-- faint outer stroke -->
+    <stroke android:width="1dp" android:color="#9EA3A7" />
+</shape>
