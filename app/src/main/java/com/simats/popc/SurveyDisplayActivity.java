@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.simats.popc.model.PatientRef;
 import com.simats.popc.model.SurveyDisplayResponse;
 import com.simats.popc.network.ApiClient;
 import com.simats.popc.network.ApiService;
@@ -30,6 +31,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,10 +41,14 @@ public class SurveyDisplayActivity extends AppCompatActivity {
 
     private LinearLayout llSections;
     private TextView tvRiskLevel, tvRiskLevelSub, tvRiskBadge;
+
     private Button btnDone;
     private ApiService apiService;
     private int patientId;
     private SurveyDisplayResponse surveyData;
+    private ArrayList<PatientRef> allPatients;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,8 @@ public class SurveyDisplayActivity extends AppCompatActivity {
 
         apiService = ApiClient.getClient().create(ApiService.class);
         patientId = getIntent().getIntExtra("patient_id", -1);
+        allPatients = (ArrayList<PatientRef>)
+                getIntent().getSerializableExtra("all_patients");
 
         if (patientId <= 0) {
             Toast.makeText(this, "Invalid patient id", Toast.LENGTH_SHORT).show();
@@ -71,10 +79,18 @@ public class SurveyDisplayActivity extends AppCompatActivity {
     }
 
     private void checkStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1001
+                );
+            }
         }
     }
 
@@ -217,6 +233,7 @@ public class SurveyDisplayActivity extends AppCompatActivity {
                     row.addView(tvA);
                     table.addView(row);
                 }
+
             }
 
             sectionCard.addView(table);
@@ -249,7 +266,7 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         icon.setColorFilter(Color.WHITE);
 
         TextView txtDownload = new TextView(this);
-        txtDownload.setText("Download All");
+        txtDownload.setText("Download All Sections");
         txtDownload.setTextColor(Color.WHITE);
         txtDownload.setTextSize(16f);
         txtDownload.setPadding(20, 0, 0, 0);
@@ -259,10 +276,116 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         downloadAllLayout.setOnClickListener(v -> showDownloadOptions(null, true));
 
         llSections.addView(downloadAllLayout);
+
+        Button btnDownloadAllPatients = new Button(this);
+        btnDownloadAllPatients.setText("Download All Patients (Excel)");
+        btnDownloadAllPatients.setBackgroundColor(Color.parseColor("#FF9800"));
+        btnDownloadAllPatients.setTextColor(Color.WHITE);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        lp.setMargins(0, 40, 0, 40);
+        btnDownloadAllPatients.setLayoutParams(lp);
+
+        btnDownloadAllPatients.setOnClickListener(v -> {
+            if (allPatients == null || allPatients.isEmpty()) {
+                Toast.makeText(this, "No patient list available", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            downloadAllPatientsCsv();
+        });
+
+        llSections.addView(btnDownloadAllPatients);
+
+    }
+    private void downloadAllPatientsCsv() {
+
+        new Thread(() -> {
+            try {
+                StringBuilder csv = new StringBuilder();
+                csv.append("Patient ID,Total Risk Level,Section,Question,Answer,Score\n");
+
+                for (PatientRef p : allPatients) {
+
+                    Response<SurveyDisplayResponse> resp =
+                            apiService.getSurveyByPatient(
+                                    "Token " + SharedPrefManager.getInstance(this).getToken(),
+                                    p.pk
+                            ).execute();
+
+                    if (!resp.isSuccessful() || resp.body() == null) continue;
+
+                    SurveyDisplayResponse s = resp.body();
+                    String risk = calculateRisk(s.getTotal_score());
+
+                    for (SurveyDisplayResponse.Answer ans : s.getAnswers()) {
+
+                        String answer = ans.getSelected_option();
+                        if (answer == null || answer.isEmpty()) {
+                            answer = ans.getCustom_text();
+                        }
+
+                        csv.append(p.pid).append(",")     // ✅ Patient ID
+                                .append(risk).append(",")
+                                .append("\"").append(ans.getSectionName()).append("\",")
+                                .append("\"").append(ans.getQuestion()).append("\",")
+                                .append("\"").append(answer).append("\",")
+                                .append(ans.getScore()).append("\n");
+                    }
+
+            }
+
+                saveAllPatientsCsv(csv.toString());
+
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Download failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                );
+            }
+        }).start();
+    }
+    private void saveAllPatientsCsv(String csvContent) throws Exception {
+
+        OutputStream os;
+        String fileName = "All_Patients_Survey_Report.csv";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
+            values.put(MediaStore.Downloads.MIME_TYPE, "text/csv");
+            values.put(MediaStore.Downloads.RELATIVE_PATH,
+                    Environment.DIRECTORY_DOWNLOADS + "/SurveyReports");
+
+            Uri uri = getContentResolver()
+                    .insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+
+            os = getContentResolver().openOutputStream(uri);
+        } else {
+            File dir = new File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "SurveyReports"
+            );
+            if (!dir.exists()) dir.mkdirs();
+            os = new FileOutputStream(new File(dir, fileName));
+        }
+
+        os.write(csvContent.getBytes());
+        os.close();
+
+        runOnUiThread(() ->
+                Toast.makeText(this,
+                        "All patients Excel saved (CSV)",
+                        Toast.LENGTH_LONG).show()
+        );
     }
 
+
     private void showDownloadOptions(String sectionName, boolean all) {
-        String[] formats = {"PDF", "TXT"};
+
+        // ✅ ADD CSV HERE
+        String[] formats = {"PDF", "TXT", "CSV"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose format to download");
@@ -273,23 +396,102 @@ public class SurveyDisplayActivity extends AppCompatActivity {
                 return;
             }
 
-            String fileName;
-            String content;
-            if (all) {
-                fileName = "Report." + formats[which].toLowerCase();
-                content = buildAllContent();
-            } else {
-                fileName = sectionName.replace(" ", "_") + "." + formats[which].toLowerCase();
-                content = buildSectionContent(sectionName);
-            }
+            String format = formats[which];
 
-            if (formats[which].equals("PDF"))
+            if (format.equals("PDF")) {
+
+                String fileName = all
+                        ? "Report.pdf"
+                        : sectionName.replace(" ", "_") + ".pdf";
+
+                String content = all
+                        ? buildAllContent()
+                        : buildSectionContent(sectionName);
+
                 savePdf(fileName, content);
-            else
+
+            } else if (format.equals("TXT")) {
+
+                String fileName = all
+                        ? "Report.txt"
+                        : sectionName.replace(" ", "_") + ".txt";
+
+                String content = all
+                        ? buildAllContent()
+                        : buildSectionContent(sectionName);
+
                 saveToDownloads(fileName, content);
+
+            } else if (format.equals("CSV")) {
+
+                // 🔥 THIS WAS NEVER REACHED BEFORE
+                saveCsv(sectionName, all);
+            }
         });
 
         builder.show();
+    }
+
+    private void saveCsv(String sectionName, boolean all) {
+        try {
+            OutputStream outputStream;
+
+            String fileName = all
+                    ? "Survey_Report.csv"
+                    : sectionName.replace(" ", "_") + ".csv";
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
+                values.put(MediaStore.Downloads.MIME_TYPE, "text/csv");
+                values.put(
+                        MediaStore.Downloads.RELATIVE_PATH,
+                        Environment.DIRECTORY_DOWNLOADS + "/SurveyReports"
+                );
+
+                Uri uri = getContentResolver()
+                        .insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+                outputStream = getContentResolver().openOutputStream(uri);
+            } else {
+                File dir = new File(
+                        Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_DOWNLOADS),
+                        "SurveyReports"
+                );
+                if (!dir.exists()) dir.mkdirs();
+                outputStream = new FileOutputStream(new File(dir, fileName));
+            }
+
+            StringBuilder csv = new StringBuilder();
+            csv.append("Section,Question,Answer,Score\n");
+
+            for (SurveyDisplayResponse.Answer ans : surveyData.getAnswers()) {
+                if (all || ans.getSectionName().equalsIgnoreCase(sectionName)) {
+
+                    String answer = ans.getSelected_option();
+                    if (answer == null || answer.isEmpty()) {
+                        answer = ans.getCustom_text();
+                    }
+
+                    csv.append("\"").append(ans.getSectionName()).append("\",")
+                            .append("\"").append(ans.getQuestion()).append("\",")
+                            .append("\"").append(answer).append("\",")
+                            .append(ans.getScore()).append("\n");
+                }
+            }
+
+            outputStream.write(csv.toString().getBytes());
+            outputStream.close();
+
+            Toast.makeText(this,
+                    "CSV saved to Downloads/SurveyReports",
+                    Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            Toast.makeText(this,
+                    "CSV error: " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void savePdf(String fileName, String text) {
@@ -405,6 +607,12 @@ public class SurveyDisplayActivity extends AppCompatActivity {
         tvMsg.setGravity(Gravity.CENTER);
 
         llSections.addView(tvMsg);
+    }
+    private String calculateRisk(int score) {
+        if (score <= 20) return "Low";
+        else if (score <= 40) return "Moderate";
+        else if (score <= 60) return "High";
+        else return "Very High";
     }
 
     private String getRiskLevel(int score) {

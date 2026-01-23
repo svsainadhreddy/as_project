@@ -20,6 +20,7 @@
             android:layout_height="42dp"
             android:src="@drawable/ic_arrow_back"
             android:background="@drawable/circle_dark_bg"
+            android:backgroundTint="#63000000"
             android:contentDescription="Back" />
 
         <EditText
@@ -44,7 +45,7 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_icon_glow1"
             android:src="@drawable/ic_user"
-            android:backgroundTint="#A3393939"
+            android:backgroundTint="#63000000"
             app:tint="@color/white"
             android:contentDescription="Profile"/>
     </LinearLayout>

@@ -3,13 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/img_1"
+    android:background="@drawable/img"
     android:padding="16dp">
 
     <!-- Top Icon -->
 
     <!-- White Card Background -->
-
+    <TextView
+        android:id="@+id/tvSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="400dp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/description_popc"
+        android:textColor="#737272"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:singleLine="false"
+        android:maxLines="2"
+        android:inputType="textMultiLine" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -44,22 +59,7 @@
         android:padding="4dp">
 
         <!-- Subtitle inside card -->
-        <TextView
-            android:id="@+id/tvSubTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="400dp"
-            android:gravity="center"
-            android:layout_marginTop="-0dp"
-            android:lineSpacingExtra="4dp"
-            android:text="@string/description_popc"
-            android:textColor="#737272"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:singleLine="false"
-            android:maxLines="2"
-            android:inputType="textMultiLine" />
+
 
 
         <!-- Login Button -->
@@ -72,7 +72,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/login"
             android:textSize="22sp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="500dp"
             android:textStyle="bold"
             android:backgroundTint="@null"
             />

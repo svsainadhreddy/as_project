@@ -30,7 +30,6 @@ public class SecondActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
     private Button loginButton, registerButton, forgotBtn;
-    private ImageView ivTogglePassword;
     private ApiService apiService;
 
     private TextInputLayout passwordInputLayout;
@@ -40,6 +39,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         etUsername = findViewById(R.id.username);
@@ -47,11 +47,9 @@ public class SecondActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
         forgotBtn = findViewById(R.id.forgotpassword);
-        ivTogglePassword = findViewById(R.id.ivTogglePassword);
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        setupPasswordToggle();
         setupInputWatchers();
 
         loginButton.setOnClickListener(v -> loginDoctor());
@@ -90,41 +88,6 @@ public class SecondActivity extends AppCompatActivity {
         boolean forgotEnabled = !u.isEmpty();
         forgotBtn.setEnabled(forgotEnabled);
         forgotBtn.setAlpha(forgotEnabled ? 1f : 0.5f);
-    }
-
-    // -------------------- PASSWORD TOGGLE --------------------
-
-    private void setupPasswordToggle() {
-        if (ivTogglePassword != null) {
-            ivTogglePassword.setOnClickListener(v -> togglePasswordField());
-            return;
-        }
-
-        ViewParent parent = etPassword.getParent();
-        if (parent instanceof TextInputLayout) {
-            passwordInputLayout = (TextInputLayout) parent;
-            passwordInputLayout.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
-        }
-    }
-
-    private void togglePasswordField() {
-        if (etPassword == null) return;
-
-        if (passwordInputLayout != null) return; // Material Layout handles it
-
-        int currentType = etPassword.getInputType();
-
-        final int visible = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
-        final int hidden = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
-
-        if (currentType == visible) {
-            etPassword.setInputType(hidden);
-            ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
-        } else {
-            etPassword.setInputType(visible);
-            ivTogglePassword.setImageResource(R.drawable.ic_eye_open);
-        }
-        etPassword.setSelection(etPassword.length());
     }
 
     // -------------------- LOGIN --------------------

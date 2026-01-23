@@ -3,7 +3,6 @@
     android:layout_height="match_parent"
     android:background="#ECE9E4"
     >
-
     <!-- Back Button  -->
     <ImageButton
         android:id="@+id/btnBack"
@@ -11,18 +10,34 @@
         android:layout_height="42dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="42dp"
         android:background="@drawable/circle_dark_bg"
         android:src="@drawable/ic_arrow_back"
+        android:backgroundTint="#63000000"
         android:contentDescription="Back" />
+    <TextView
+        android:layout_width="340dp"
+        android:layout_height="42dp"
+        android:background="@drawable/bg_risk_card"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="#F6FAF8"
+        android:gravity="center"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="42dp"
+        android:text="Patient Details"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="18dp"/>
 
     <!-- Scrollable Form -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/btnBack"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +48,7 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_edit"
             android:padding="0dp"
-            android:backgroundTint="#B2BEB5"
+            android:backgroundTint="#F6FAF8"
             android:elevation="0dp">
 
             <!-- Patient Image Upload -->
@@ -47,17 +62,9 @@
                 android:scaleType="centerInside"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:padding="20dp"/>
+                android:padding="0dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Patient Details"
-                android:textSize="20sp"
-                android:textColor="@color/black"
 
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="18dp"/>
 
             <View
                 android:layout_width="1000dp"

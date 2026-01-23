@@ -2,7 +2,9 @@ package com.simats.popc;
 
 import android.Manifest;
 import android.content.Intent;
+import androidx.core.content.ContextCompat;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -104,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView selected = (TextView) parent.getChildAt(0);
-                if (selected != null) selected.setTextColor(getResources().getColor(android.R.color.black));
+                if (selected != null) selected.setTextColor(Color.parseColor("#6B7C78"));
                 onUserChanged(); // selection considered a possible change
             }
 

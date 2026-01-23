@@ -3,7 +3,7 @@
     android:id="@+id/rootScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECE9E4"
+    android:background="#1E2A38"
     android:paddingBottom="16dp"
     android:paddingStart="0dp"
     android:paddingEnd="0dp">
@@ -25,7 +25,7 @@
             android:gravity="center_vertical"
             android:padding="10dp"
             android:background="@drawable/bg_badge_gray"
-            android:backgroundTint="#F6F4F1"
+            android:backgroundTint="#2A3A4D"
             android:layout_marginBottom="28dp">
 
             <ImageButton
@@ -34,6 +34,7 @@
                 android:layout_height="42dp"
                 android:background="@drawable/circle_dark_bg"
                 android:src="@drawable/ic_arrow_back"
+                android:backgroundTint="@color/white"
                 android:contentDescription="@string/back"
                 android:scaleType="centerInside" />
 
@@ -45,7 +46,7 @@
                 android:text="@string/planned_anesthesia"
                 android:textSize="23sp"
                 android:gravity="center"
-                android:textColor="#293042" />
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <!-- ARISCAT Score -->
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/card_section_bg"
+            android:backgroundTint="#2A3A4D"
             android:orientation="vertical"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
@@ -62,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ariscat_score"
                 android:textSize="19sp"
-                android:textColor="#293042"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -114,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/card_section_bg"
+            android:backgroundTint="#2A3A4D"
             android:orientation="vertical"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
@@ -124,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/intraoperative_strategy"
-                android:textColor="#293042"
+                android:textColor="#FFFF"
                 android:textSize="19sp"
                 android:layout_marginBottom="8dp" />
 
@@ -178,6 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/card_section_bg"
+            android:backgroundTint="#2A3A4D"
             android:orientation="vertical"
             android:padding="14dp"
             android:layout_marginBottom="14dp">
@@ -187,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/muscle_relaxants"
                 android:textSize="19sp"
-                android:textColor="#293042"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup
@@ -279,6 +283,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/card_section_bg"
+            android:backgroundTint="#2A3A4D"
             android:orientation="vertical"
             android:padding="14dp"
             android:layout_marginBottom="24dp">
@@ -288,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/planned_analgesia"
                 android:textSize="19sp"
-                android:textColor="#293042"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp" />
 
             <RadioGroup

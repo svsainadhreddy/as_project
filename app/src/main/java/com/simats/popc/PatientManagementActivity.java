@@ -9,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 public class PatientManagementActivity extends AppCompatActivity {
 
     LinearLayout btnAddPatient, btnViewPatient, btnEditPatient,btnDeletePatient;
     ImageButton btn1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,6 @@ public class PatientManagementActivity extends AppCompatActivity {
         btnEditPatient = findViewById(R.id.btnEditPatient);
         btnDeletePatient = findViewById(R.id. btnDeletePatient);
         btn1 = findViewById(R.id.btnBack);
-
 
 
 

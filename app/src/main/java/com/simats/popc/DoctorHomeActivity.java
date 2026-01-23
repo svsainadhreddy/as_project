@@ -24,6 +24,7 @@ import retrofit2.Response;
 public class DoctorHomeActivity extends AppCompatActivity {
 
     private TextView etDoctorId, etName;
+    LinearLayout btnChatbot;
     private ImageView imgDoctor;
     private ApiService apiService;
     private String token; // Saved from login
@@ -32,7 +33,6 @@ public class DoctorHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_home);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -41,7 +41,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
         etDoctorId = findViewById(R.id.tvDoctorId);
         etName = findViewById(R.id.tvDoctorName);
         imgDoctor = findViewById(R.id.imgDoctor);
-
+        btnChatbot=findViewById(R.id.btnChatbot);
         // Get saved token
         token = "Token " + SharedPrefManager.getInstance(this).getToken();
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -55,6 +55,9 @@ public class DoctorHomeActivity extends AppCompatActivity {
         // Navigation actions
         imgDoctor.setOnClickListener(view ->
                 startActivity(new Intent(DoctorHomeActivity.this, ProfileActivity.class)));
+
+        btnChatbot.setOnClickListener(view ->
+                startActivity(new Intent(DoctorHomeActivity.this, PPCChatActivity.class)));
 
         btnPatientManagement.setOnClickListener(view ->
                 startActivity(new Intent(DoctorHomeActivity.this, PatientManagementActivity.class)));

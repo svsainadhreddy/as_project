@@ -14,35 +14,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if user is already logged in
-        if (SharedPrefManager.getInstance(this).getToken() != null) {
-            // User is logged in, go directly to DoctorHomeActivity
-            Intent intent = new Intent(MainActivity.this, DoctorHomeActivity.class);
-            startActivity(intent);
-            finish(); // Close MainActivity so back button doesn't return here
-            return; // Stop further execution
+        SharedPrefManager sp = SharedPrefManager.getInstance(this);
+
+        // 🔐 Single source of truth
+        if (sp.isLoggedIn()) {
+            startActivity(new Intent(this, DoctorHomeActivity.class));
+            finish();
+            return;
         }
 
         setContentView(R.layout.activity_main);
 
-        // Hide Toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        // Local button variables
         AppCompatButton btnLogin = findViewById(R.id.btnLogin);
-        AppCompatButton btnregister = findViewById(R.id.btnSignin);
+        AppCompatButton btnRegister = findViewById(R.id.btnSignin);
 
-        // Use lambda for click listeners
-        btnLogin.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-            startActivity(intent);
-        });
+        btnLogin.setOnClickListener(v ->
+                startActivity(new Intent(this, SecondActivity.class)));
 
-        btnregister.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+        btnRegister.setOnClickListener(v ->
+                startActivity(new Intent(this, RegisterActivity.class)));
     }
 }

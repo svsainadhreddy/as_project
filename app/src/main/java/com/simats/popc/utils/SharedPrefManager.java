@@ -24,6 +24,11 @@ public class SharedPrefManager {
             return mInstance;
         }
 
+       public boolean isLoggedIn() {
+        SharedPreferences sp = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sp.getString(KEY_TOKEN, null) != null;
+    }
+
         // Save login details
         public void saveLoginData(String token, String doctorId, String username) {
             SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

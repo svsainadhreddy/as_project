@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.simats.popc.adapter.RecordAdapter;
+import com.simats.popc.model.PatientRef;
 import com.simats.popc.model.RecordsResponse;
 import com.simats.popc.network.ApiClient;
 import com.simats.popc.network.ApiService;
@@ -34,6 +35,7 @@ public class SurveyListActivity extends AppCompatActivity {
     private ApiService apiService;
     private String token;
     private EditText etSearch;
+    private ArrayList<PatientRef> allPatients = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,15 @@ public class SurveyListActivity extends AppCompatActivity {
         etSearch = findViewById(R.id.etSearch);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
+
         adapter = new RecordAdapter(this, filteredList, patient -> {
             Intent i = new Intent(SurveyListActivity.this, SurveyDisplayActivity.class);
-            i.putExtra("patient_id", patient.getPk());
+            i.putExtra("patient_id", patient.getPk());                 // existing
+            i.putExtra("all_patients", allPatients);
             startActivity(i);
         });
+
+
         recycler.setAdapter(adapter);
 
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -86,9 +92,18 @@ public class SurveyListActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     patientList.clear();
                     patientList.addAll(response.body());
+
+                    allPatients.clear();
+                    for (RecordsResponse p : patientList) {
+                        allPatients.add(new PatientRef(
+                                p.getPk(),
+                                p.getId()
+                        ));
+                    }
                     filteredList.clear();
                     filteredList.addAll(patientList);
                     adapter.setList(filteredList);
+
                 } else {
                     Toast.makeText(SurveyListActivity.this, "No completed surveys found", Toast.LENGTH_SHORT).show();
                 }

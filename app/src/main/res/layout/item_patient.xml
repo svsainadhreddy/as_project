@@ -10,8 +10,8 @@
     android:gravity="center">
 
     <FrameLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="8dp">
 
         <ImageView
@@ -113,6 +113,7 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:background="@drawable/bg_icon_glow1"
+        android:backgroundTintMode="src_over"
         android:backgroundTint="#9CB2BEB5"
         app:tint="@color/white"
         android:contentDescription="Next"

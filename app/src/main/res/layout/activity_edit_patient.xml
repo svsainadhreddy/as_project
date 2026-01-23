@@ -35,7 +35,7 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_dark"
-            android:backgroundTint="#A2B2BEB5"
+            android:backgroundTint="#B4B0BEA2"
             android:padding="20dp"
            >
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add Patient Photo"
                 android:textSize="18sp"
-                android:textColor="@color/black"
+                android:textColor="#6B7C78"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp" />
 
@@ -75,12 +75,12 @@
             <EditText
                 android:id="@+id/etPatientId"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:hint="Patient ID"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
+                android:textColorHint="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- Name -->
@@ -98,12 +98,12 @@
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:hint="Full Name"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
+                android:textColorHint="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- Gender -->
@@ -119,21 +119,21 @@
             <LinearLayout
                 android:id="@+id/genderGroup"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/chip_input_bg"
                 android:gravity="center"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/btnFemale"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Female"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#6B7C78"
                     android:background="@drawable/bg_segment_selected"
                     android:textStyle="bold"
                     android:textSize="14sp" />
@@ -141,11 +141,11 @@
                 <TextView
                     android:id="@+id/btnMale"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Male"
-                    android:textColor="#555555"
+                    android:textColor="#6B7C78"
                     android:background="@android:color/transparent"
                     android:textStyle="bold"
                     android:textSize="14sp" />
@@ -153,11 +153,11 @@
                 <TextView
                     android:id="@+id/btnOther"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Other"
-                    android:textColor="#555555"
+                    android:textColor="#6B7C78"
                     android:background="@android:color/transparent"
                     android:textStyle="bold"
                     android:textSize="14sp" />
@@ -167,20 +167,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age"
-                android:textSize="15sp"
+                android:layout_marginTop="16dp"
                 android:paddingStart="10dp"
+                android:text="Age"
                 android:textColor="@color/black"
-                android:layout_marginTop="16dp" />
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:id="@+id/ageContainer"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@drawable/chip_input_bg"
-                android:padding="4dp"
+                android:padding="17dp"
                 android:layout_marginTop="8dp">
 
                 <TextView
@@ -191,7 +191,7 @@
                     android:gravity="center"
                     android:text="−"
                     android:textSize="20sp"
-                    android:textColor="#555555"
+                    android:textColor="#6B7C78"
                     android:textStyle="bold" />
 
                 <EditText
@@ -204,7 +204,7 @@
                     android:inputType="number"
                     android:text="24"
                     android:textSize="16sp"
-                    android:textColor="@color/black" />
+                    android:textColor="#6B7C78" />
 
                 <TextView
                     android:id="@+id/btnAgePlus"
@@ -214,7 +214,7 @@
                     android:gravity="center"
                     android:text="+"
                     android:textSize="20sp"
-                    android:textColor="#555555"
+                    android:textColor="#6B7C78"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -231,14 +231,14 @@
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:hint="Mobile Number"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
+                android:textColorHint="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- Weight -->
@@ -254,13 +254,13 @@
             <EditText
                 android:id="@+id/etWeight"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:hint="Weight"
                 android:inputType="numberDecimal"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
+                android:textColorHint="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- Height -->
@@ -276,13 +276,13 @@
             <EditText
                 android:id="@+id/etHeight"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:hint="Height"
                 android:inputType="numberDecimal"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
+                android:textColorHint="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- BMI -->
@@ -290,7 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BMI"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp" />
@@ -301,8 +301,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="@drawable/chip_input_bg"
-                android:padding="10dp"
-                android:textColor="@color/black"
+                android:padding="17dp"
+                android:textColor="#6B7C78"
                 android:layout_marginTop="8dp" />
 
             <!-- Save Button -->

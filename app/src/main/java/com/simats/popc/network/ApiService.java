@@ -27,6 +27,12 @@ public interface ApiService {
 
     @POST("accounts/register/")
     Call<ResponseBody> registerDoctor(@Body Map<String, String> body);
+    @POST("api/ppc-qwen-chat/")
+    Call<Map<String, Object>> sendPPCChat(
+            @Header("Authorization") String token,
+            @Body Map<String, Object> body
+    );
+
 
     @POST("accounts/login/")
     Call<Map<String, String>> loginDoctor(@Body Map<String, String> body);

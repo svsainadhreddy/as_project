@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/appBackgroundColor"
+    android:background="#C8FFC0CB"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
@@ -88,13 +88,13 @@
         android:layout_below="@id/doctorInfoCard"
         android:layout_marginTop="29dp"
         android:columnCount="2"
-        android:rowCount="2"
+        android:rowCount="3"
         android:alignmentMode="alignMargins"
         android:rowOrderPreserved="false"
         android:useDefaultMargins="true"
         android:layout_marginHorizontal="20dp">
 
-        <!-- Dashboard Button Template -->
+        <!-- Button 1 : Details -->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -114,23 +114,22 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnDashboard1"
                     android:layout_width="42dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_calendar"
                     app:tint="@color/black"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Details"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </FrameLayout>
 
-        <!-- Button 2 -->
+        <!-- Button 2 : Patients -->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -140,8 +139,7 @@
             android:background="@drawable/dark_rounded_card"
             android:backgroundTint="@color/white"
             android:elevation="4dp"
-            android:layout_marginBottom="40dp"
-            >
+            android:layout_marginBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/btnPatientManagement"
@@ -151,32 +149,32 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnPatientManagement1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_patients"
                     app:tint="@color/black"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Patients"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </FrameLayout>
 
-        <!-- Button 3 1E2733-->
+        <!-- Button 3 : Settings -->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/white"
             android:background="@drawable/dark_rounded_card"
-            android:elevation="4dp">
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/btnSettings"
@@ -186,56 +184,90 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnSettings1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_settings"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Settings"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </FrameLayout>
 
-        <!-- Button 4 -->
+        <!-- Button 4 : Reports -->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/white"
             android:background="@drawable/dark_rounded_card"
-            android:elevation="4dp">
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="40dp">
 
             <LinearLayout
                 android:id="@+id/btnReports"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:backgroundTint="#B2BEB5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/btnReports1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_reports"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Reports"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </FrameLayout>
+
+        <!-- ✅ NEW Button 5 : Chatbot -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/dark_rounded_card"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp">
+
+            <LinearLayout
+                android:id="@+id/btnChatbot"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_chatbot"
+                    app:tint="@color/black"/>
+
+                <TextView
+                    android:text="Chatbot"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </FrameLayout>
+
     </GridLayout>
+
 </RelativeLayout>

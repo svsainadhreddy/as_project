@@ -72,7 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:layout_marginBottom="18dp">
+            android:layout_marginBottom="18dp"
+            >
 
             <!-- Patient ID -->
             <TextView
@@ -80,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:text="Patient ID"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/etPatientId"
@@ -88,6 +90,7 @@
                 android:layout_height="48dp"
                 android:background="@drawable/field_bg"
                 android:textColor="#FFFFFF"
+                android:gravity="center_vertical"
                 android:textColorHint="#888"
                 android:padding="8dp"
                 android:layout_marginBottom="10dp" />
@@ -98,7 +101,8 @@
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp" />
 
             <EditText
                 android:id="@+id/etName"
@@ -119,9 +123,8 @@
                 android:layout_height="wrap_content"
                 android:text="Gender"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
-                android:layout_marginTop="8dp" />
+                android:textColor="#FFF"
+                android:layout_marginBottom="10dp" />
 
             <LinearLayout
                 android:id="@+id/genderGroup"
@@ -131,7 +134,7 @@
                 android:background="@drawable/field_bg"
                 android:gravity="center"
                 android:padding="4dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/btnFemale"
@@ -176,9 +179,8 @@
                 android:layout_height="wrap_content"
                 android:text="Age"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#9AA5B1"
-                android:layout_marginTop="16dp" />
+                android:textColor="#FFF"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:id="@+id/ageContainer"
@@ -188,7 +190,7 @@
                 android:gravity="center"
                 android:background="@drawable/field_bg"
                 android:padding="4dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="14dp">
 
                 <TextView
                     android:id="@+id/btnAgeMinus"
@@ -233,7 +235,8 @@
                 android:text="Phone"
                 android:textColor="#FFF"
                 android:textSize="14sp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="14dp"/>
 
             <EditText
                 android:id="@+id/etPhone"
@@ -246,7 +249,7 @@
                 android:textColor="#FFF"
                 android:textColorHint="#888"
                 android:padding="8dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"  />
 
             <!-- Weight -->
             <TextView
@@ -254,7 +257,9 @@
                 android:layout_height="wrap_content"
                 android:text="Weight (kg)"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="14dp"/>
 
             <EditText
                 android:id="@+id/etWeight"
@@ -275,7 +280,9 @@
                 android:layout_height="wrap_content"
                 android:text="Height (cm)"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
 
             <EditText
                 android:id="@+id/etHeight"
@@ -296,7 +303,9 @@
                 android:layout_height="wrap_content"
                 android:text="BMI"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/etBMI"

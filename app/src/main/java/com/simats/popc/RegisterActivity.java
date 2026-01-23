@@ -249,7 +249,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!isStrongPassword(password)) {
-            etPassword.setError("Min 8 chars, include letters & digits");
+            etPassword.setError("Min 8 chars, include letters, numbers & special character");
             etPassword.requestFocus();
             return false;
         }
@@ -264,8 +264,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isStrongPassword(String password) {
-        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+        return password.matches(
+                "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W]{8,}$"
+        );
     }
+
 
     private void registerDoctor() {
         Map<String, String> body = new HashMap<>();

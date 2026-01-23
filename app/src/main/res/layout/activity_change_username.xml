@@ -82,9 +82,8 @@
             android:textSize="17sp"
             android:textColor="@color/black"
             android:layout_marginTop="18dp"
-            android:elevation="2dp"
-            android:background="@drawable/rounded_button"
-            android:backgroundTint="#E9B2BEB5"
+            android:background="@drawable/bg_risk_card"
+            android:backgroundTint="#F5B2BEB5"
             />
 
     </LinearLayout>

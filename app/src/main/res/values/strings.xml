@@ -130,7 +130,7 @@
     <string name="more_than_4">≥4</string>
     <string name="dyspnea_rest">Dyspnea at Rest :</string>
     <string name="recent_infection">Recent Respiratory Infection (&lt;1 month) :</string>
-    <string name="spo2_room_air">SpO₂ on Room Air :</string>
+    <string name="spo2_room_air">x</string>
     <string name="spo2_90">≤90%</string>
     <string name="spo2_91_95">91–95%</string>
     <string name="spo2_96">≥96%</string>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/appBackgroundColor"
+    android:background="#131824"
     android:padding="16dp">
 
     <!-- 0E1726Back Button and Title -->
@@ -23,8 +23,8 @@
             android:id="@+id/btnBack"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:backgroundTint="@color/gray"
             android:background="@drawable/ic_arrow_back"
+            android:backgroundTint="@color/gray"
             android:contentDescription="Back"
             android:padding="8dp" />
 
@@ -94,11 +94,11 @@
             android:background="@drawable/bg_card_view">
 
             <ImageView
-                android:layout_width="32dp"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
+                android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_view_list"
-                app:tint="@android:color/black"
-                android:layout_marginEnd="12dp" />
+                app:tint="@android:color/black" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -178,8 +178,9 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>

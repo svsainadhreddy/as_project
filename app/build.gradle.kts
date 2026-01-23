@@ -58,4 +58,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-safetynet:17.0.0")
 // older, but you only need sms retriever library:
     implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
+    implementation("com.itextpdf:itextg:5.5.10")
 }

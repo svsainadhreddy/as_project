@@ -148,6 +148,8 @@
         <activity
             android:name="com.simats.popc.ResetPasswordActivity"
             android:exported="false" />
-
+        <activity
+            android:name="com.simats.popc.PPCChatActivity"
+            android:exported="false" />
     </application>
 </manifest>

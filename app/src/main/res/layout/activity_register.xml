@@ -7,7 +7,7 @@
     android:background="?attr/appBackgroundColor"
     >
 
-    <!-- 🔙 Custom Toolbar with BackDE2F2F2A -->
+    <!-- 🔙 Custom Toolbar with Back DE2F2F2A -->
     <!-- Back Button -->
 
     <!-- 🔽 Scrollable Form (centered) -->
@@ -574,16 +574,16 @@
             </LinearLayout>
 
             <!-- Save Button -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/background"
                 android:layout_gravity="center"
-                android:backgroundTint="#0481E0"
+                android:background="@drawable/rounded_button"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="10dp" />
         </LinearLayout>
